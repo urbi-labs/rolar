@@ -1,0 +1,11 @@
+{
+  "port": "5000",
+  "host": "0.0.0.0",
+  "protocol": "http",
+  "requiresAuth": true,
+  "jwtPrivateKey": "seamosuno_secret",
+  "BC_BASE": "http://seamos-uno-rest.mybluemix.net",
+  "BC_EP_LOGIN": "/v1/login",
+  "BC_EP_TX": "/v1/transactions/register",
+  "BC_EP_BLOCK": "/v1/block"
+}

@@ -1,0 +1,17 @@
+#folders
+backup
+build
+dummy
+node_modules
+coverage
+
+#files
+package-lock.json
+Dockerfile
+DS_STORE
+.DS_Store
+.env
+
+#wildcards
+*.log
+*.code-workspace

@@ -1,0 +1,52 @@
+{
+  "name": "rolar",
+  "version": "1.0.0",
+  "description": "data entry app for Rolar",
+  "private": true,
+  "main": "server/server.js",
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "config": "^3.3.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "mongoose": "^5.9.25",
+    "morgan": "^1.10.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "winston": "^3.3.3"
+  },
+  "scripts": {
+    "dev": "concurrently --kill-others \"npm run server\" \"npm run start-react\"",
+    "server": "nodemon server/server.js",
+    "start": "node server/server.js",
+    "start-react": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "keywords": [
+    "rolar",
+    "foodtrust"
+  ],
+  "author": "",
+  "license": "ISC",
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:5000/"
+}
