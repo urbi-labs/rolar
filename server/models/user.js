@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const {
+  Schema
+} = mongoose;
 
 // const jwt = require("jsonwebtoken");
 // const config = require("config");
@@ -7,7 +9,12 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
 const userSchema = new Schema({
-  name: { type: String, uppercase: true, required: true, trim: true },
+  name: {
+    type: String,
+    uppercase: true,
+    required: true,
+    trim: true
+  },
   mail: {
     type: String,
     lowercase: true,
@@ -22,8 +29,15 @@ const userSchema = new Schema({
     required: true,
     trim: true,
   },
-  role: { type: String, enum: ["operator", "supervisor"], default: "operator" },
-  timestamp: { type: Date, default: Date.now },
+  role: {
+    type: String,
+    enum: ["operator", "supervisor"],
+    default: "operator"
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now
+  },
 });
 
 const User = mongoose.model("User", userSchema);
