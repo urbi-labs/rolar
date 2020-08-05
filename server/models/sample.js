@@ -36,7 +36,8 @@ const sampleSchema = new Schema({
   taurusPomace: { type: Number, default: 0 },
   RexPomace: { type: Number, default: 0 },
   validated: { type: Boolean, default: false },
-  validationDate: { type: Date, default: Date.now },
+  validationDate: { type: Date },
+  timestamp: { type: Date, default: Date.now },
 });
 
 const Sample = mongoose.model("Sample", sampleSchema);
