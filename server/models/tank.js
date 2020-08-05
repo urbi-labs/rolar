@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
-const { ObjectId } = Schema.Types;
 
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
