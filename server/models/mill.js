@@ -48,7 +48,7 @@ const millSchema = new Schema({
 
 const Mill = mongoose.model("Mill", millSchema);
 
-function validateBatchSchema(batch) {
+function validateMillSchema(mill) {
     const schema = {
         _batch: Joi.objectId(),
         _user: Joi.objectId(),
@@ -61,8 +61,8 @@ function validateBatchSchema(batch) {
         validationDate: Joi.date(),
     };
 
-    return Joi.validate(batch, schema);
+    return Joi.validate(mill, schema);
 }
 
-module.exports.validate = validateBatchSchema;
-module.exports.Batch = Batch;
+module.exports.validate = validateMillSchema;
+module.exports.Mill = Mill;

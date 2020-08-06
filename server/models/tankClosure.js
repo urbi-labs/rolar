@@ -39,7 +39,7 @@ const tankClosureSchema = new Schema({
 
 const TankClosure = mongoose.model("TankClosure", tankClosureSchema);
 
-function validateBatchSchema(TankClosure) {
+function validateTankClosureSchema(tankClosure) {
     const schema = {
         _tank: Joi.objectId(),
         _user: Joi.objectId(),
