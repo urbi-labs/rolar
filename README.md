@@ -1,6 +1,6 @@
-# ROLAR
+# ROLAR DE CUYO
 
-_Acá va un párrafo que describa lo que es el proyecto_
+Esta aplicación cuenta con un módulo para operarios que realiza la carga de datos relacionados proceso productivo de aceite de oliva; y otro módulo de supervisor en el que se validan los datos y se envían a la cuenta de IFT del cliente.
 
 ## Comenzando 🚀
 
@@ -73,6 +73,7 @@ Por favor lee el [CONTRIBUTING.md](https://gist.github.com/villanuevand/xxxxxx) 
 ## Wiki 📖
 
 Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
+Además encontrarás el mockup del proyecto en [Figma](https://www.figma.com/file/n4sjwEQdz8xtIwditB4v5c/Rolar?node-id=7%3A256) y documentación adicional en [BOX - Innovation Team Internal](https://ibm.ent.box.com/folder/87050058802)
 
 ## Versionado 📌
 
