@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
-const {
-  Schema
-} = mongoose;
+const { Schema } = mongoose;
 
 // const jwt = require("jsonwebtoken");
 // const config = require("config");
@@ -12,12 +10,6 @@ const userSchema = new Schema({
   name: {
     type: String,
     uppercase: true,
-    required: true,
-    trim: true
-  },
-  mail: {
-    type: String,
-    lowercase: true,
     required: true,
     trim: true,
     unique: true,
@@ -32,11 +24,11 @@ const userSchema = new Schema({
   role: {
     type: String,
     enum: ["operator", "supervisor"],
-    default: "operator"
+    default: "operator",
   },
   timestamp: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
 });
 
@@ -45,7 +37,6 @@ const User = mongoose.model("User", userSchema);
 function validateUserSchema(user) {
   const schema = {
     name: Joi.string().required(),
-    mail: Joi.string().mail().required(),
     password: Joi.string().min(5).max(16).required(),
   };
 
