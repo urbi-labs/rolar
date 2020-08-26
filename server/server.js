@@ -17,6 +17,7 @@ const log = (text) =>
 // server setup
 app.use(cors());
 app.use(express.json());
+
 require("./startup/logging")(winston, env);
 require("./startup/routes")(app, env);
 require("./startup/mongodb")(env);

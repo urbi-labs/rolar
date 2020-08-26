@@ -1,8 +1,8 @@
 // const auth = require("../middleware/auth");
 // const valID = require("../middleware/valID");
-// const val400 = require("../middleware/val400");
-const { User } = require("../models/user"); //, validate
-// const bcrypt = require("bcrypt");
+const val400 = require("../middleware/val400");
+const { User, validate } = require("../models/user");
+const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 
@@ -17,28 +17,30 @@ router.get("/", async (req, res) => {
 //   res.send(user);
 // });
 
-// router.post("/", [val400(validate)], async (req, res) => {
-//   console.log("USERS post...");
-//   const { body } = req;
+router.post("/", val400(validate), async (req, res) => {
+  console.log("USERS post...");
+  const { body } = req;
 
-//   // check mail
-//   const { mail } = body;
-//   let user = await User.findOne({ mail });
-//   if (user) return res.status(400).send("El mail ya se encuentra registrado.");
+  // check unique
+  const { name } = body;
 
-//   console.log(body);
-//   user = new User(body);
+  let user = await User.findOne({ name });
+  if (user)
+    return res.status(400).send("El usuario ya se encuentra registrado.");
 
-//   // store encrypted password
-//   const salt = await bcrypt.genSalt(10);
-//   let { password } = user;
-//   password = await bcrypt.hash(password, salt);
-//   user.password = password;
+  console.log(body);
+  user = new User(body);
 
-//   await user.save();
+  // store encrypted password
+  const salt = await bcrypt.genSalt(10);
+  let { password } = user;
+  password = await bcrypt.hash(password, salt);
+  user.password = password;
 
-//   return res.status(200).send(user);
-// });
+  await user.save();
+
+  return res.status(200).send(user);
+});
 
 // router.put("/:id", [auth, val400(validate), valID], async (req, res) => {
 //   const { body } = req;
