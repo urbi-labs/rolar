@@ -4,7 +4,7 @@ const config = require("config");
 module.exports = function (req, res, next) {
   if (!config.get("requiresAuth")) return next();
 
-  const token = req.header("seamos1-token");
+  const token = req.header("rolar-token");
 
   if (!token)
     return res.status(401).send("Acceso denegado. No se encontró el token.");

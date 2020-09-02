@@ -4,10 +4,14 @@ const express = require("express");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-  const user = await User.findOne({ mail: req.body.mail });
+  const { body } = req;
+  const { name, password } = body;
+
+  const user = await User.findOne({ name });
+
   if (!user) return res.status(404).send(`El usuario no existe.`);
 
-  const validPassword = await bcrypt.compare(req.body.password, user.password);
+  const validPassword = await bcrypt.compare(password, user.password);
 
   if (!validPassword)
     return res.status(404).send("La contraseña es incorrecta.");
@@ -15,7 +19,7 @@ router.post("/", async (req, res) => {
   const token = user.generateAuthToken();
 
   console.log("Logged in!!! here is the token", token);
-  return res.status(200).send({ auth: "ok", token });
+  return res.status(200).send(token);
 });
 
 module.exports = router;
