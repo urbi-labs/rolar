@@ -39,7 +39,7 @@ const millSchema = new Schema({
     validationDate: {
         type: Date
     },
-    //Le agregué el timestamp
+
     timestamp: {
         type: Date,
         default: Date.now
@@ -49,19 +49,16 @@ const millSchema = new Schema({
 const Mill = mongoose.model("Mill", millSchema);
 
 function validateMillSchema(mill) {
-    const schema = {
-        _batch: Joi.objectId(),
-        _user: Joi.objectId(),
-        _supervisor: Joi.objectId(),
-        productLine: Joi.string(),
-        sieve: Joi.string(),
-        microtalcum: Joi.number(),
-        enzymes: Joi.number(),
-        validate: Joi.boolean(),
-        validationDate: Joi.date(),
-    };
+    const schema = Joi.object({
+        _batch: Joi.objectId().required(),
+        _user: Joi.objectId().required(),
+        productLine: Joi.string().required(),
+        sieve: Joi.string().required(),
+        microtalcum: Joi.number().min(0).max(1).required(),
+        enzymes: Joi.number().required(),
+    });
 
-    return Joi.validate(mill, schema);
+    return schema.validate(mill);
 }
 
 module.exports.validate = validateMillSchema;

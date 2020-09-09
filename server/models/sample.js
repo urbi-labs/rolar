@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
-const { ObjectId } = Schema.Types;
+const {
+  Schema
+} = mongoose;
+const {
+  ObjectId
+} = Schema.Types;
 
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
@@ -19,34 +23,82 @@ const sampleSchema = new Schema({
   _supervisor: {
     type: ObjectId,
     ref: "User",
-    required: true,
   },
-  hidraulicOil: { type: Boolean, default: false },
-  frost: { type: Number, default: 0 },
-  mummified: { type: Number, default: 0 },
-  dehydrated: { type: Number, default: 0 },
-  beaten: { type: Number, default: 0 },
-  waterExcess: { type: Number, default: 0 },
-  branchExcess: { type: Number, default: 0 },
-  leafExcess: { type: Number, default: 0 },
-  maturityIndex: { type: Number, default: 0 },
-  moisturePase: { type: Number, default: 0 },
-  wetFat: { type: Number, default: 0 },
-  dryFat: { type: Number, default: 0 },
-  taurusPomace: { type: Number, default: 0 },
-  RexPomace: { type: Number, default: 0 },
-  validated: { type: Boolean, default: false },
-  validationDate: { type: Date },
-  timestamp: { type: Date, default: Date.now },
+  hidraulicOil: {
+    type: Boolean,
+    default: false
+  },
+  frost: {
+    type: Number,
+    default: 0
+  },
+  mummified: {
+    type: Number,
+    default: 0
+  },
+  dehydrated: {
+    type: Number,
+    default: 0
+  },
+  beaten: {
+    type: Number,
+    default: 0
+  },
+  waterExcess: {
+    type: Number,
+    default: 0
+  },
+  branchExcess: {
+    type: Number,
+    default: 0
+  },
+  leafExcess: {
+    type: Number,
+    default: 0
+  },
+  maturityIndex: {
+    type: Number,
+    default: 0
+  },
+  moisturePase: {
+    type: Number,
+    default: 0
+  },
+  wetFat: {
+    type: Number,
+    default: 0
+  },
+  dryFat: {
+    type: Number,
+    default: 0
+  },
+  taurusPomace: {
+    type: Number,
+    default: 0
+  },
+  RexPomace: {
+    type: Number,
+    default: 0
+  },
+  validated: {
+    type: Boolean,
+    default: false
+  },
+  validationDate: {
+    type: Date
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now
+  },
 });
 
 const Sample = mongoose.model("Sample", sampleSchema);
 
 function validateSampleSchema(sample) {
-  const schema = {
+  const schema = Joi.object({
     _batch: Joi.objectId().required(),
     _user: Joi.objectId().required(),
-    _supervisor: Joi.objectId().required(),
     hidraulicOil: Joi.boolean(),
     frost: Joi.number().min(0).max(100),
     mummified: Joi.number().min(0).max(100),
@@ -60,10 +112,9 @@ function validateSampleSchema(sample) {
     dryFat: Joi.number().min(0).max(100),
     taurusPomace: Joi.number().min(0).max(100),
     RexPomace: Joi.number().min(0).max(100),
-    validated: Joi.boolean(),
-  };
+  });
 
-  return Joi.validate(sample, schema);
+  return schema.validate(sample);
 }
 
 module.exports.validate = validateSampleSchema;
