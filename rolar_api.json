@@ -1,0 +1,2064 @@
+{
+	"info": {
+		"_postman_id": "ec6370a2-7fe3-4986-b8b5-be9ac175f2b7",
+		"name": "Language Translator",
+		"description": "IBM Watson&trade; Language Translator translates text from one language to another. The service offers multiple IBM provided translation models that you can customize based on your unique terminology and language. Use Language Translator to take news from across the globe and present it in your language, communicate with your customers in their own language, and more.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "v3",
+			"item": [
+				{
+					"name": "models",
+					"item": [
+						{
+							"name": "{model id}",
+							"item": [
+								{
+									"name": "Delete model",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": ""
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v3/models/:model_id?version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"models",
+												":model_id"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "2018-05-01",
+													"description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+												}
+											],
+											"variable": [
+												{
+													"key": "model_id",
+													"value": "<string>",
+													"description": "Model ID of the model to delete."
+												}
+											]
+										},
+										"description": "Deletes a custom translation model."
+									},
+									"response": [
+										{
+											"name": "Success: Model deleted",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/models/:model_id?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"models",
+														":model_id"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "model_id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"status\": \"OK\"\n}"
+										},
+										{
+											"name": "Invalid request. See the response body for details.",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/models/:model_id?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"models",
+														":model_id"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "model_id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+										},
+										{
+											"name": "The specified model was not found.",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/models/:model_id?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"models",
+														":model_id"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "model_id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Get model details",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": ""
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v3/models/:model_id?version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"models",
+												":model_id"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "2018-05-01",
+													"description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+												}
+											],
+											"variable": [
+												{
+													"key": "model_id",
+													"value": "<string>",
+													"description": "Model ID of the model to get"
+												}
+											]
+										},
+										"description": "Gets information about a translation model, including training status for custom models. Use this API call to poll the status of your customization request. A successfully completed training will have a status of `available`."
+									},
+									"response": [
+										{
+											"name": "Status : OK",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/models/:model_id?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"models",
+														":model_id"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "model_id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"model_id\": \"9f8d9c6f-2123-462f-9793-f17fdcb77cd6\",\n \"source\": \"en\",\n \"target\": \"es\",\n \"base_model_id\": \"en-es\",\n \"domain\": \"general\",\n \"customizable\": false,\n \"default_model\": false,\n \"owner\": \"212eabae-32bb-4e7d-8873-b28e2364fd11\",\n \"status\": \"available\",\n \"name\": \"custom-en-es\"\n}"
+										},
+										{
+											"name": "Invalid request. See the response body for details.",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/models/:model_id?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"models",
+														":model_id"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "model_id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+										},
+										{
+											"name": "The specified model was not found.",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/models/:model_id?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"models",
+														":model_id"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "model_id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+										}
+									]
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "List models",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v3/models?source=<string>&target=<string>&default=<boolean>&version=2018-05-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v3",
+										"models"
+									],
+									"query": [
+										{
+											"key": "source",
+											"value": "<string>",
+											"description": "Specify a language code to filter results by source language."
+										},
+										{
+											"key": "target",
+											"value": "<string>",
+											"description": "Specify a language code to filter results by target language."
+										},
+										{
+											"key": "default",
+											"value": "<boolean>",
+											"description": "If the default parameter isn't specified, the service will return all models (default and non-default) for each language pair. To return only default models, set this to `true`. To return only non-default models, set this to `false`. There is exactly one default model per language pair, the IBM provided base model."
+										},
+										{
+											"key": "version",
+											"value": "2018-05-01",
+											"description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+										}
+									]
+								},
+								"description": "Lists available translation models."
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/v3/models?source=<string>&target=<string>&default=<boolean>&version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"models"
+											],
+											"query": [
+												{
+													"key": "source",
+													"value": "<string>"
+												},
+												{
+													"key": "target",
+													"value": "<string>"
+												},
+												{
+													"key": "default",
+													"value": "<boolean>"
+												},
+												{
+													"key": "version",
+													"value": "2018-05-01"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"models\": [\n  {\n   \"model_id\": \"en-nl\",\n   \"source\": \"en\",\n   \"target\": \"nl\",\n   \"base_model_id\": \"\",\n   \"domain\": \"general\",\n   \"customizable\": true,\n   \"default_model\": true,\n   \"owner\": \"\",\n   \"status\": \"available\",\n   \"name\": \"en-nl\"\n  },\n  {\n   \"model_id\": \"en-tr\",\n   \"source\": \"en\",\n   \"target\": \"tr\",\n   \"base_model_id\": \"\",\n   \"domain\": \"general\",\n   \"customizable\": true,\n   \"default_model\": true,\n   \"owner\": \"\",\n   \"status\": \"available\",\n   \"name\": \"en-tr\"\n  }\n ]\n}"
+								},
+								{
+									"name": "Invalid request. See the response body for details.",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/v3/models?source=<string>&target=<string>&default=<boolean>&version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"models"
+											],
+											"query": [
+												{
+													"key": "source",
+													"value": "<string>"
+												},
+												{
+													"key": "target",
+													"value": "<string>"
+												},
+												{
+													"key": "default",
+													"value": "<boolean>"
+												},
+												{
+													"key": "version",
+													"value": "2018-05-01"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Create model",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									},
+									{
+										"key": "Content-Type",
+										"value": "multipart/form-data"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "forced_glossary",
+											"value": "<binary>"
+										},
+										{
+											"key": "parallel_corpus",
+											"value": "<binary>"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v3/models?base_model_id=<string>&name=<string>&version=2018-05-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v3",
+										"models"
+									],
+									"query": [
+										{
+											"key": "base_model_id",
+											"value": "<string>",
+											"description": "The model ID of the model to use as the base for customization. To see available models, use the `List models` method. Usually all IBM provided models are customizable. In addition, all your models that have been created via parallel corpus customization, can be further customized with a forced glossary."
+										},
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "An optional model name that you can use to identify the model. Valid characters are letters, numbers, dashes, underscores, spaces and apostrophes. The maximum length is 32 characters."
+										},
+										{
+											"key": "version",
+											"value": "2018-05-01",
+											"description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+										}
+									]
+								},
+								"description": "Uploads Translation Memory eXchange (TMX) files to customize a translation model.\n\nYou can either customize a model with a forced glossary or with a corpus that contains parallel sentences. To create a model that is customized with a parallel corpus <b>and</b> a forced glossary, proceed in two steps: customize with a parallel corpus first and then customize the resulting model with a glossary. Depending on the type of customization and the size of the uploaded corpora, training can range from minutes for a glossary to several hours for a large parallel corpus. You can upload a single forced glossary file and this file must be less than <b>10 MB</b>. You can upload multiple parallel corpora tmx files. The cumulative file size of all uploaded files is limited to <b>250 MB</b>. To successfully train with a parallel corpus you must have at least <b>5,000 parallel sentences</b> in your corpus.\n\nYou can have a <b>maximum of 10 custom models per language pair</b>."
+							},
+							"response": [
+								{
+									"name": "Not found: The base_model_id value is invalid",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "forced_glossary",
+													"value": "<binary>"
+												},
+												{
+													"key": "parallel_corpus",
+													"value": "<binary>"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v3/models?base_model_id=<string>&name=<string>&version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"models"
+											],
+											"query": [
+												{
+													"key": "base_model_id",
+													"value": "<string>"
+												},
+												{
+													"key": "name",
+													"value": "<string>"
+												},
+												{
+													"key": "version",
+													"value": "2018-05-01"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+								},
+								{
+									"name": "File size exceeded: Payload body exceeded the limit",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "forced_glossary",
+													"value": "<binary>"
+												},
+												{
+													"key": "parallel_corpus",
+													"value": "<binary>"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v3/models?base_model_id=<string>&name=<string>&version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"models"
+											],
+											"query": [
+												{
+													"key": "base_model_id",
+													"value": "<string>"
+												},
+												{
+													"key": "name",
+													"value": "<string>"
+												},
+												{
+													"key": "version",
+													"value": "2018-05-01"
+												}
+											]
+										}
+									},
+									"status": "Request Entity Too Large",
+									"code": 413,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+								},
+								{
+									"name": "Forbidden: You may have reached the limit of 10 custom models per language pair or the service instance's plan id does not allow for customization. Currently, only service instances on the advanced or premium plans are allowed to customize",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "forced_glossary",
+													"value": "<binary>"
+												},
+												{
+													"key": "parallel_corpus",
+													"value": "<binary>"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v3/models?base_model_id=<string>&name=<string>&version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"models"
+											],
+											"query": [
+												{
+													"key": "base_model_id",
+													"value": "<string>"
+												},
+												{
+													"key": "name",
+													"value": "<string>"
+												},
+												{
+													"key": "version",
+													"value": "2018-05-01"
+												}
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+								},
+								{
+									"name": "Bad request: The base_model_id is not specified OR you've hit the maximum limit of customizations for this user",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "forced_glossary",
+													"value": "<binary>"
+												},
+												{
+													"key": "parallel_corpus",
+													"value": "<binary>"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v3/models?base_model_id=<string>&name=<string>&version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"models"
+											],
+											"query": [
+												{
+													"key": "base_model_id",
+													"value": "<string>"
+												},
+												{
+													"key": "name",
+													"value": "<string>"
+												},
+												{
+													"key": "version",
+													"value": "2018-05-01"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+								},
+								{
+									"name": "Success: Training has successfully started",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "forced_glossary",
+													"value": "<binary>"
+												},
+												{
+													"key": "parallel_corpus",
+													"value": "<binary>"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v3/models?base_model_id=<string>&name=<string>&version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"models"
+											],
+											"query": [
+												{
+													"key": "base_model_id",
+													"value": "<string>"
+												},
+												{
+													"key": "name",
+													"value": "<string>"
+												},
+												{
+													"key": "version",
+													"value": "2018-05-01"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"model_id\": \"9f8d9c6f-2123-462f-9793-f17fdcb77cd6\",\n \"source\": \"en\",\n \"target\": \"es\",\n \"base_model_id\": \"en-es\",\n \"domain\": \"general\",\n \"customizable\": false,\n \"default_model\": false,\n \"owner\": \"212eabae-32bb-4e7d-8873-b28e2364fd11\",\n \"status\": \"dispatching\",\n \"name\": \"custom-en-es\"\n}"
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "documents",
+					"item": [
+						{
+							"name": "{document id}",
+							"item": [
+								{
+									"name": "Get document status",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": ""
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v3/documents/:document_id?version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"documents",
+												":document_id"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "2018-05-01",
+													"description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+												}
+											],
+											"variable": [
+												{
+													"key": "document_id",
+													"value": "<string>",
+													"description": "The document ID of the document"
+												}
+											]
+										},
+										"description": "Gets the translation status of a document"
+									},
+									"response": [
+										{
+											"name": "Success.",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/documents/:document_id?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"documents",
+														":document_id"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "document_id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"document_id\": \"1bdb9528-bf73-45eb-87fa-c4f519af23a0\",\n \"filename\": \"en.pdf\",\n \"model_id\": \"en-fr\",\n \"source\": \"en\",\n \"target\": \"fr\",\n \"status\": \"available\",\n \"created\": \"2018-08-24T08:20:30.5Z\",\n \"completed\": \"2018-08-24T08:20:35.5Z\",\n \"word_count\": 10000,\n \"character_count\": 50000\n}"
+										},
+										{
+											"name": "Invalid request. See the response body for details.",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/documents/:document_id?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"documents",
+														":document_id"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "document_id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+										}
+									]
+								},
+								{
+									"name": "Delete document",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": ""
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v3/documents/:document_id?version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"documents",
+												":document_id"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "2018-05-01",
+													"description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+												}
+											],
+											"variable": [
+												{
+													"key": "document_id",
+													"value": "<string>",
+													"description": "Document ID of the document to delete"
+												}
+											]
+										},
+										"description": "Deletes a document"
+									},
+									"response": [
+										{
+											"name": "Invalid request. See the response body for details.",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/documents/:document_id?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"documents",
+														":document_id"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "document_id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+										},
+										{
+											"name": "The specified document was not found.",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/documents/:document_id?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"documents",
+														":document_id"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "document_id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+										},
+										{
+											"name": "The document was deleted.",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/documents/:document_id?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"documents",
+														":document_id"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "document_id"
+														}
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": "text",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "text/plain"
+												}
+											],
+											"cookie": [],
+											"body": ""
+										}
+									]
+								},
+								{
+									"name": "Get translated document",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": ""
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/v3/documents/:document_id/translated_document?version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"documents",
+												":document_id",
+												"translated_document"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "2018-05-01",
+													"description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+												}
+											],
+											"variable": [
+												{
+													"key": "document_id",
+													"value": "<string>",
+													"description": "The document ID of the document that was submitted for translation"
+												}
+											]
+										},
+										"description": "Gets the translated document associated with the given document ID"
+									},
+									"response": [
+										{
+											"name": "Success",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/documents/:document_id/translated_document?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"documents",
+														":document_id",
+														"translated_document"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "document_id"
+														}
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "\"<binary>\""
+										},
+										{
+											"name": "The specified document was not found.",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/documents/:document_id/translated_document?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"documents",
+														":document_id",
+														"translated_document"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "document_id"
+														}
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+										},
+										{
+											"name": "Invalid request. See the response body for details.",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"url": {
+													"raw": "{{baseUrl}}/v3/documents/:document_id/translated_document?version=2018-05-01",
+													"host": [
+														"{{baseUrl}}"
+													],
+													"path": [
+														"v3",
+														"documents",
+														":document_id",
+														"translated_document"
+													],
+													"query": [
+														{
+															"key": "version",
+															"value": "2018-05-01"
+														}
+													],
+													"variable": [
+														{
+															"key": "document_id"
+														}
+													]
+												}
+											},
+											"status": "Bad Request",
+											"code": 400,
+											"_postman_previewlanguage": "json",
+											"header": [
+												{
+													"key": "Content-Type",
+													"value": "application/json"
+												}
+											],
+											"cookie": [],
+											"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+										}
+									]
+								}
+							],
+							"protocolProfileBehavior": {},
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "List documents",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/v3/documents?version=2018-05-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v3",
+										"documents"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "2018-05-01",
+											"description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+										}
+									]
+								},
+								"description": "Lists documents that have been submitted for translation"
+							},
+							"response": [
+								{
+									"name": "Invalid request. See the response body for details.",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/v3/documents?version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"documents"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "2018-05-01"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/v3/documents?version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"documents"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "2018-05-01"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"documents\": [\n  {\n   \"document_id\": \"1bdb9528-bf73-45eb-87fa-c4f519af23a0\",\n   \"filename\": \"en.docx\",\n   \"model_id\": \"en-de\",\n   \"source\": \"en\",\n   \"target\": \"de\",\n   \"status\": \"processing\",\n   \"created\": \"2018-08-24T08:20:30.5Z\"\n  },\n  {\n   \"document_id\": \"1bdb9528-bf73-45eb-87fa-c4f519af23a0\",\n   \"filename\": \"en.pdf\",\n   \"model_id\": \"9ef1eda2-e4dc-460f-b51a-efeec95f239f\",\n   \"base_model_id\": \"en-fr\",\n   \"source\": \"en\",\n   \"target\": \"fr\",\n   \"status\": \"available\",\n   \"created\": \"2018-08-24T08:20:30.5Z\",\n   \"completed\": \"2018-08-24T08:20:35.5Z\",\n   \"word_count\": 10000,\n   \"character_count\": 50000\n  }\n ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Translate document",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									},
+									{
+										"key": "Content-Type",
+										"value": "multipart/form-data"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"value": "<binary>"
+										},
+										{
+											"key": "model_id",
+											"value": "<string>"
+										},
+										{
+											"key": "source",
+											"value": "<string>"
+										},
+										{
+											"key": "target",
+											"value": "<string>"
+										},
+										{
+											"key": "document_id",
+											"value": "<string>"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v3/documents?version=2018-05-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v3",
+										"documents"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "2018-05-01",
+											"description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+										}
+									]
+								},
+								"description": "Submit a document for translation. You can submit the document contents in the `file` parameter, or you can reference a previously submitted document by document ID."
+							},
+							"response": [
+								{
+									"name": "The specified document was not found.",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"value": "<binary>"
+												},
+												{
+													"key": "model_id",
+													"value": "<string>"
+												},
+												{
+													"key": "source",
+													"value": "<string>"
+												},
+												{
+													"key": "target",
+													"value": "<string>"
+												},
+												{
+													"key": "document_id",
+													"value": "<string>"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v3/documents?version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"documents"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "2018-05-01"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+								},
+								{
+									"name": "Success. Use the returned `document_id` with the **Get document status** method to get the status of the translation.",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"value": "<binary>"
+												},
+												{
+													"key": "model_id",
+													"value": "<string>"
+												},
+												{
+													"key": "source",
+													"value": "<string>"
+												},
+												{
+													"key": "target",
+													"value": "<string>"
+												},
+												{
+													"key": "document_id",
+													"value": "<string>"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v3/documents?version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"documents"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "2018-05-01"
+												}
+											]
+										}
+									},
+									"status": "Accepted",
+									"code": 202,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"document_id\": \"1bdb9528-bf73-45eb-87fa-c4f519af23a0\",\n \"filename\": \"en.pdf\",\n \"model_id\": \"en-fr\",\n \"source\": \"en\",\n \"target\": \"fr\",\n \"status\": \"processing\",\n \"created\": \"2018-08-24T08:20:30.5Z\"\n}"
+								},
+								{
+									"name": "Invalid request. See the response body for details.",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"value": "<binary>"
+												},
+												{
+													"key": "model_id",
+													"value": "<string>"
+												},
+												{
+													"key": "source",
+													"value": "<string>"
+												},
+												{
+													"key": "target",
+													"value": "<string>"
+												},
+												{
+													"key": "document_id",
+													"value": "<string>"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{baseUrl}}/v3/documents?version=2018-05-01",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"v3",
+												"documents"
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "2018-05-01"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Translate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": [\r\n        \"What is your name\",\r\n        \"What day of the week is it\"\r\n    ],\r\n    \"source\": \"en\",\r\n    \"target\": \"es\"\r\n}\r\n"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v3/translate?version=2018-05-01",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"translate"
+							],
+							"query": [
+								{
+									"key": "version",
+									"value": "2018-05-01",
+									"description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+								}
+							]
+						},
+						"description": "Translates the input text from the source language to the target language."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"text\": [\n        \"Hello\"\n    ],\n    \"source\": \"en\",\n    \"target\": \"es\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v3/translate?version=2018-05-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v3",
+										"translate"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "2018-05-01"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"translations\": [\n  {\n   \"translation\": \"Hola\"\n  }\n ],\n \"word_count\": 1,\n \"character_count\": 5\n}"
+						},
+						{
+							"name": "Model Not Found: the specified model_id does not exist or specified source - target language pair is not supported",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"text\": [\n        \"Hello\"\n    ],\n    \"source\": \"en\",\n    \"target\": \"es\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v3/translate?version=2018-05-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v3",
+										"translate"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "2018-05-01"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+						},
+						{
+							"name": "Invalid request. See the response body for details.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"text\": [\n        \"Hello\"\n    ],\n    \"source\": \"en\",\n    \"target\": \"es\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v3/translate?version=2018-05-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v3",
+										"translate"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "2018-05-01"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "List identifiable languages",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": ""
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/v3/identifiable_languages?version=2018-05-01",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"identifiable_languages"
+							],
+							"query": [
+								{
+									"key": "version",
+									"value": "2018-05-01",
+									"description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+								}
+							]
+						},
+						"description": "Lists the languages that the service can identify. Returns the language code (for example, `en` for English or `es` for Spanish) and name of each language."
+					},
+					"response": [
+						{
+							"name": "Invalid request. See the response body for details.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v3/identifiable_languages?version=2018-05-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v3",
+										"identifiable_languages"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "2018-05-01"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/v3/identifiable_languages?version=2018-05-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v3",
+										"identifiable_languages"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "2018-05-01"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"languages\": [\n  {\n   \"language\": \"af\",\n   \"name\": \"Afrikaans\"\n  },\n  {\n   \"language\": \"ar\",\n   \"name\": \"Arabic\"\n  },\n  {\n   \"language\": \"az\",\n   \"name\": \"Azerbaijani\"\n  },\n  {\n   \"language\": \"ba\",\n   \"name\": \"Bashkir\"\n  }\n ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Identify language",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "text/plain"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"<string>\""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/v3/identify?version=2018-05-01",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"v3",
+								"identify"
+							],
+							"query": [
+								{
+									"key": "version",
+									"value": "2018-05-01",
+									"description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+								}
+							]
+						},
+						"description": "Identifies the language of the input text."
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"<string>\""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v3/identify?version=2018-05-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v3",
+										"identify"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "2018-05-01"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"languages\": [\n  {\n   \"language\": \"en\",\n   \"confidence\": 0.9804833843796723\n  },\n  {\n   \"language\": \"nn\",\n   \"confidence\": 0.005988721319786277\n  },\n  {\n   \"language\": \"sq\",\n   \"confidence\": 0.0036927759389060203\n  },\n  {\n   \"language\": \"nb\",\n   \"confidence\": 0.0035802051870239037\n  }\n ]\n}"
+						},
+						{
+							"name": "Invalid request. See the response body for details.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\"<string>\""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/v3/identify?version=2018-05-01",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"v3",
+										"identify"
+									],
+									"query": [
+										{
+											"key": "version",
+											"value": "2018-05-01"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"<integer>\",\n \"error\": \"<string>\"\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "HS4k3z8f2wvUkjJfo_1HPR-He5hiWIlXOlr9bf2hUEO-",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "apikey",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "d0038029-7f83-486c-ad2c-390c0945e609",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "13196cf4-d0e7-43d0-afe2-01697e6e0f7f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "9c1d84d0-3b66-4439-8e3b-7600037038a7",
+			"key": "baseUrl",
+			"value": "/language-translator/api"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

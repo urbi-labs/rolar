@@ -4,10 +4,16 @@ const batches = require("../routes/batches");
 const storages = require("../routes/batches");
 const tanks = require("../routes/tanks");
 const tanksClosure = require("../routes/tanksClosure");
+const samples = require("../routes/samples");
+const verticalCentrifuges = require("../routes/verticalCentrifuges");
+const mills = require("../routes/mills");
 const error = require("../middleware/error");
 
 module.exports = function (app) {
+  app.use("/api/samples", samples);
+  app.use("/api/verticalCentrifuges", verticalCentrifuges);
   app.use("/api/batches", batches);
+  app.use("/api/mills", mills);
   app.use("/api/users", users);
   app.use("/api/auth", auth);
   app.use("/api/tanks", tanks);

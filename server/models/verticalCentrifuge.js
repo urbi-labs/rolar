@@ -19,37 +19,58 @@ const verticalCentrifugeSchema = new Schema({
   _supervisor: {
     type: ObjectId,
     ref: "User",
+  },
+  productionLine: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  initialTemp: {
+    type: Number,
     required: true,
   },
-  production_line: { type: String, required: true, trim: true },
-  initialTemp: { type: Number, required: true },
-  mummified: { type: Number, required: true },
-  finalTemp: { type: Number, required: true },
-  kneadingTime: { type: Number, required: true },
-  pumpSpeed: { type: Number, required: true },
-  validated: { type: Boolean, default: false },
-  validationDate: { type: Date },
-  timestamp: { type: Date, default: Date.now },
+  finalTemp: {
+    type: Number,
+    required: true,
+  },
+  kneadingTime: {
+    type: Number,
+    required: true,
+  },
+  pumpSpeed: {
+    type: Number,
+    required: true,
+  },
+  validated: {
+    type: Boolean,
+    default: false,
+  },
+  validationDate: {
+    type: Date,
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-const VerticalCentrifuge = mongoose.model("VerticalCentrifuge", verticalCentrifugeSchema);
+const VerticalCentrifuge = mongoose.model(
+  "VerticalCentrifuge",
+  verticalCentrifugeSchema
+);
 
 function validateVerticalCentrifugeSchema(verticalCentrifuge) {
-  const schema = {
+  const schema = Joi.object({
     _batch: Joi.objectId().required(),
     _user: Joi.objectId().required(),
-    _supervisor: Joi.objectId().required(),
-    validated: Joi.boolean(),
-    production_line: Joi.string().required(),
+    productionLine: Joi.string().required(), // Es la misma que la otra? habría que unificar nombres?
     initialTemp: Joi.number().required(),
-    mummified: Joi.number().required(),
     finalTemp: Joi.number().required(),
     kneadingTime: Joi.number().required(),
     pumpSpeed: Joi.number().required(),
-    validationDate: Joi.date(),
-  };
+  });
 
-  return Joi.validate(verticalCentrifuge, schema);
+  return schema.validate(verticalCentrifuge);
 }
 
 module.exports.validate = validateVerticalCentrifugeSchema;
