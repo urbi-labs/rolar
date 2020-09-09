@@ -41,7 +41,7 @@ const storageSchema = new Schema({
 const Storage = mongoose.model("Storage", storageSchema);
 
 function validateStorageSchema(storage) {
-  const schema = {
+  const schema = Joi.object({
     _batch: Joi.objectId().required(),
     _user: Joi.objectId().required(),
     _supervisor: Joi.objectId().required(),
@@ -57,7 +57,7 @@ function validateStorageSchema(storage) {
     performance: Joi.number().required(),
   };
 
-  return Joi.validate(storage, schema);
+  return schema.validate(storage);
 }
 
 module.exports.validate = validateStorageSchema;

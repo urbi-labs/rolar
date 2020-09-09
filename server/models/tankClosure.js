@@ -40,16 +40,16 @@ const tankClosureSchema = new Schema({
 const TankClosure = mongoose.model("TankClosure", tankClosureSchema);
 
 function validateTankClosureSchema(tankClosure) {
-    const schema = {
+    const schema = Joi.object({
         _tank: Joi.objectId(),
         _user: Joi.objectId(),
         _supervisor: Joi.objectId(),
         batchArray: Joi.array(),
-        validationDate: Joi.boolean(),
+        validated: Joi.boolean(),
         validationDate: Joi.date()
-    };
+    });
 
-    return Joi.validate(tankClosure, schema);
+    return schema.validate(tankClosure);
 }
 
 module.exports.validate = validateTankClosureSchema;
