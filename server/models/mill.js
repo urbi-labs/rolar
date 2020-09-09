@@ -27,6 +27,7 @@ const millSchema = new Schema({
   },
   microtalcum: {
     type: Number,
+    default: 0,
   },
   enzymes: {
     type: Number,
@@ -52,7 +53,7 @@ function validateMillSchema(mill) {
     _user: Joi.objectId().required(),
     productionLine: Joi.string().required(),
     sieve: Joi.string().required(),
-    microtalcum: Joi.number().min(0).max(1).required(),
+    microtalcum: Joi.number().min(0).max(1),
     enzymes: Joi.number().required(),
   });
 

@@ -5,7 +5,7 @@ const { ObjectId } = Schema.Types;
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
-const verticalCentrifugeSchema = new Schema({
+const centrifugeSchema = new Schema({
   _batch: {
     type: ObjectId,
     ref: "Batch",
@@ -54,12 +54,9 @@ const verticalCentrifugeSchema = new Schema({
   },
 });
 
-const VerticalCentrifuge = mongoose.model(
-  "VerticalCentrifuge",
-  verticalCentrifugeSchema
-);
+const Centrifuge = mongoose.model("Centrifuge", centrifugeSchema);
 
-function validateVerticalCentrifugeSchema(verticalCentrifuge) {
+function validateCentrifugeSchema(centrifuge) {
   const schema = Joi.object({
     _batch: Joi.objectId().required(),
     _user: Joi.objectId().required(),
@@ -70,8 +67,8 @@ function validateVerticalCentrifugeSchema(verticalCentrifuge) {
     pumpSpeed: Joi.number().required(),
   });
 
-  return schema.validate(verticalCentrifuge);
+  return schema.validate(centrifuge);
 }
 
-module.exports.validate = validateVerticalCentrifugeSchema;
-module.exports.VerticalCentrifuge = VerticalCentrifuge;
+module.exports.validate = validateCentrifugeSchema;
+module.exports.Centrifuge = Centrifuge;

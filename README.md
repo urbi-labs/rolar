@@ -2,6 +2,11 @@
 
 Esta aplicación cuenta con un módulo para operarios que realiza la carga de datos relacionados proceso productivo de aceite de oliva; y otro módulo de supervisor en el que se validan los datos y se envían a la cuenta de IFT del cliente.
 
+## Helper data
+
+- id batch: 5f5695c6573a414b3a847952
+- id user: 5f4fe8cd71164f1d5d65ae04
+
 ## Comenzando 🚀
 
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._

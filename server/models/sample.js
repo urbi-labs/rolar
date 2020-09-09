@@ -72,7 +72,7 @@ const sampleSchema = new Schema({
     type: Number,
     default: 0,
   },
-  RexPomace: {
+  rexPomace: {
     type: Number,
     default: 0,
   },
@@ -107,7 +107,7 @@ function validateSampleSchema(sample) {
     wetFat: Joi.number().min(0).max(100),
     dryFat: Joi.number().min(0).max(100),
     taurusPomace: Joi.number().min(0).max(100),
-    RexPomace: Joi.number().min(0).max(100),
+    rexPomace: Joi.number().min(0).max(100),
   });
 
   return schema.validate(sample);

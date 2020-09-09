@@ -2,13 +2,13 @@ const auth = require("../routes/auth");
 const users = require("../routes/users");
 const batches = require("../routes/batches");
 const samples = require("../routes/samples");
-const verticalCentrifuges = require("../routes/verticalCentrifuges");
+const centrifuges = require("../routes/centrifuges");
 const mills = require("../routes/mills");
 const error = require("../middleware/error");
 
 module.exports = function (app) {
   app.use("/api/samples", samples);
-  app.use("/api/verticalCentrifuges", verticalCentrifuges);
+  app.use("/api/centrifuges", centrifuges);
   app.use("/api/batches", batches);
   app.use("/api/mills", mills);
   app.use("/api/users", users);
@@ -18,7 +18,3 @@ module.exports = function (app) {
   });
   app.use(error);
 };
-
-//ref
-// id batch: 5f5695c6573a414b3a847952
-// id user: 5f4fe8cd71164f1d5d65ae04
