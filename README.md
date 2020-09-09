@@ -6,6 +6,7 @@ Esta aplicación cuenta con un módulo para operarios que realiza la carga de da
 
 - id batch: 5f5695c6573a414b3a847952
 - id user: 5f4fe8cd71164f1d5d65ae04
+- id tank 1: 5f593194b09f745debc28e1d
 
 ## Comenzando 🚀
 
