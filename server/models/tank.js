@@ -14,13 +14,13 @@ const tankSchema = new Schema({
 const Tank = mongoose.model("Tank", tankSchema);
 
 function validateTankSchema(tank) {
-  const schema = {
+  const schema = Joi.object({
     description: Joi.string().required(),
     active: Joi.boolean(),
     capacity: Joi.number().required(),
-  };
+  });
 
-  return Joi.validate(tank, schema);
+  return schema.validate(tank);
 }
 
 module.exports.validate = validateTankSchema;
