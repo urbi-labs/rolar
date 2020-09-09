@@ -1,64 +1,62 @@
 const mongoose = require("mongoose");
-const {
-    Schema
-} = mongoose;
+const { Schema } = mongoose;
 
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
 const millSchema = new Schema({
-    _batch: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Batch",
-        required: true,
-    },
-    _user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    },
-    _supervisor: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    },
-    productLine: {
-        type: String
-    },
-    sieve: {
-        type: String
-    },
-    microtalcum: {
-        type: Number
-    },
-    enzymes: {
-        type: Number
-    },
-    validated: {
-        type: Boolean
-    },
-    validationDate: {
-        type: Date
-    },
+  _batch: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Batch",
+    required: true,
+  },
+  _user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  _supervisor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  productionLine: {
+    type: String,
+  },
+  sieve: {
+    type: String,
+  },
+  microtalcum: {
+    type: Number,
+  },
+  enzymes: {
+    type: Number,
+  },
+  validated: {
+    type: Boolean,
+  },
+  validationDate: {
+    type: Date,
+  },
 
-    timestamp: {
-        type: Date,
-        default: Date.now
-    }
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const Mill = mongoose.model("Mill", millSchema);
 
 function validateMillSchema(mill) {
-    const schema = Joi.object({
-        _batch: Joi.objectId().required(),
-        _user: Joi.objectId().required(),
-        productLine: Joi.string().required(),
-        sieve: Joi.string().required(),
-        microtalcum: Joi.number().min(0).max(1).required(),
-        enzymes: Joi.number().required(),
-    });
+  const schema = Joi.object({
+    _batch: Joi.objectId().required(),
+    _user: Joi.objectId().required(),
+    productionLine: Joi.string().required(),
+    sieve: Joi.string().required(),
+    microtalcum: Joi.number().min(0).max(1).required(),
+    enzymes: Joi.number().required(),
+  });
 
-    return schema.validate(mill);
+  return schema.validate(mill);
 }
 
 module.exports.validate = validateMillSchema;

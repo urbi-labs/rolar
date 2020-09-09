@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
-const {
-  Schema
-} = mongoose;
-const {
-  ObjectId
-} = Schema.Types;
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
@@ -24,47 +20,50 @@ const verticalCentrifugeSchema = new Schema({
     type: ObjectId,
     ref: "User",
   },
-  production_line: {
+  productionLine: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
   },
   initialTemp: {
     type: Number,
-    required: true
+    required: true,
   },
   finalTemp: {
     type: Number,
-    required: true
+    required: true,
   },
   kneadingTime: {
     type: Number,
-    required: true
+    required: true,
   },
   pumpSpeed: {
     type: Number,
-    required: true
+    required: true,
   },
   validated: {
     type: Boolean,
-    default: false
+    default: false,
   },
   validationDate: {
-    type: Date
+    type: Date,
   },
   timestamp: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
 });
 
-const VerticalCentrifuge = mongoose.model("VerticalCentrifuge", verticalCentrifugeSchema);
+const VerticalCentrifuge = mongoose.model(
+  "VerticalCentrifuge",
+  verticalCentrifugeSchema
+);
 
 function validateVerticalCentrifugeSchema(verticalCentrifuge) {
   const schema = Joi.object({
     _batch: Joi.objectId().required(),
     _user: Joi.objectId().required(),
-    production_line: Joi.string().required(), // Es la misma que la otra? habría que unificar nombres?
+    productionLine: Joi.string().required(), // Es la misma que la otra? habría que unificar nombres?
     initialTemp: Joi.number().required(),
     finalTemp: Joi.number().required(),
     kneadingTime: Joi.number().required(),

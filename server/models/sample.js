@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
-const {
-  Schema
-} = mongoose;
-const {
-  ObjectId
-} = Schema.Types;
+const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
@@ -26,70 +22,70 @@ const sampleSchema = new Schema({
   },
   hidraulicOil: {
     type: Boolean,
-    default: false
+    default: false,
   },
   frost: {
     type: Number,
-    default: 0
+    default: 0,
   },
   mummified: {
     type: Number,
-    default: 0
+    default: 0,
   },
   dehydrated: {
     type: Number,
-    default: 0
+    default: 0,
   },
   beaten: {
     type: Number,
-    default: 0
+    default: 0,
   },
   waterExcess: {
     type: Number,
-    default: 0
+    default: 0,
   },
   branchExcess: {
     type: Number,
-    default: 0
+    default: 0,
   },
   leafExcess: {
     type: Number,
-    default: 0
+    default: 0,
   },
   maturityIndex: {
     type: Number,
-    default: 0
+    default: 0,
   },
   moisturePase: {
     type: Number,
-    default: 0
+    default: 0,
   },
   wetFat: {
     type: Number,
-    default: 0
+    default: 0,
   },
   dryFat: {
     type: Number,
-    default: 0
+    default: 0,
   },
   taurusPomace: {
     type: Number,
-    default: 0
+    default: 0,
   },
   RexPomace: {
     type: Number,
-    default: 0
+    default: 0,
   },
   validated: {
     type: Boolean,
-    default: false
+    default: false,
   },
   validationDate: {
-    type: Date
+    type: Date,
   },
   timestamp: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
 });
 
