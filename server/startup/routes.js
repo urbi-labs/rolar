@@ -18,7 +18,7 @@ module.exports = function (app) {
   app.use("/api/auth", auth);
   app.use("/api/tanks", tanks);
   app.use("/api/storages", storages);
-  app.use("/api/tanksClosure", tanksClosure);
+  app.use("/api/closures", tanksClosure);
   app.use("/", (req, res) => {
     return res.status(200).send("hola");
   });

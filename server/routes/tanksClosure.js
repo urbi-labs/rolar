@@ -10,6 +10,7 @@ router.post("/", auth, async (req, res) => {
   if (error) return res.status(400).send(error.details[0].message);
 
   const tankClosure = new TankClosure({ ...body });
+  tankClosure.batchArray = [];
   await tankClosure.save();
 
   return res.status(200).send(tankClosure);

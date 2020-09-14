@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+
+const { Tank } = require("../models/tank");
+const { Batch } = require("../models/batch");
+
 const { Schema } = mongoose;
 const { ObjectId } = Schema.Types;
 
@@ -25,7 +29,7 @@ const storageSchema = new Schema({
     type: ObjectId,
     ref: "User",
   },
-  cone: { type: Boolean, default: true },
+  cone: { type: Boolean, default: false },
   initialMeasure: { type: Number, default: 0, required: true },
   finalMeasure: { type: Number, default: 0, required: true },
   totalCm: { type: Number, default: 0, required: true },
@@ -37,6 +41,32 @@ const storageSchema = new Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
+storageSchema.statics.calcTotals = async (storage) => {
+  let { _batch, _tank, initialMeasure, finalMeasure } = storage;
+
+  //lookup tank cone property
+  const tank = await Tank.findById(_tank);
+
+  const { cone, radius } = tank;
+
+  finalMeasure = finalMeasure || 0;
+  initialMeasure = initialMeasure || 0;
+
+  storage.totalCm = finalMeasure - initialMeasure;
+  const { totalCm } = storage;
+
+  storage.totalLitres =
+    cone + Math.PI * ((Math.pow(radius / 1000, 2) * totalCm) / 1000) * 1000;
+
+  const { totalLitres } = storage;
+  storage.oilWeight = totalLitres * 0.92;
+
+  const batch = await Batch.findById(_batch);
+  const { netWeight } = batch;
+  const { oilWeight } = storage;
+  storage.performance = oilWeight / netWeight;
+};
+
 const Storage = mongoose.model("Storage", storageSchema);
 
 function validateStorageSchema(storage) {
@@ -44,8 +74,8 @@ function validateStorageSchema(storage) {
     _batch: Joi.objectId().required(),
     _user: Joi.objectId().required(),
     _tank: Joi.objectId().required(),
-    initialMeasure: Joi.number().required(),
-    finalMeasure: Joi.number().required(),
+    initialMeasure: Joi.number(),
+    finalMeasure: Joi.number(),
     totalCm: Joi.number(),
     totalLitres: Joi.number(),
     oilWeight: Joi.number(),
