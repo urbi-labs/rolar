@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const { Schema } = mongoose;
+const {
+  Schema
+} = mongoose;
 
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
@@ -25,8 +27,14 @@ const batchSchema = new Schema({
     trim: true,
   },
 
-  chuteName: { type: String, require: true },
-  chuteWeight: { type: Number, default: 0 },
+  chuteName: {
+    type: String,
+    require: true
+  },
+  chuteWeight: {
+    type: Number,
+    default: 0
+  },
   grossWeight: {
     type: Number,
     required: true,
@@ -68,6 +76,17 @@ const batchSchema = new Schema({
   },
 });
 
+batchSchema.statics.calcNetWeight = async (batch) => {
+  let {
+    chuteWeight,
+    grossWeight
+  } = batch;
+
+  batch.netWeight = grossWeight - chuteWeight;
+};
+
+
+
 const Batch = mongoose.model("Batch", batchSchema);
 
 function validateBatchSchema(batch) {
@@ -79,13 +98,16 @@ function validateBatchSchema(batch) {
     chuteName: Joi.string().required(),
     chuteWeight: Joi.number().required(),
     grossWeight: Joi.number().required(),
-    netWeight: Joi.number().required(),
+    netWeight: Joi.number(),
     deliveryNumber: Joi.string().required(),
     receiptNumber: Joi.string().required(),
   });
 
   return schema.validate(batch);
 }
+
+
+
 
 module.exports.validate = validateBatchSchema;
 module.exports.Batch = Batch;
