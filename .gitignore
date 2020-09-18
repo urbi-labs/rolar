@@ -11,6 +11,7 @@ Dockerfile
 DS_STORE
 .DS_Store
 .env
+apikey.json
 
 #wildcards
 *.log
