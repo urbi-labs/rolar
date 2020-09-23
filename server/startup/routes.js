@@ -7,6 +7,7 @@ const tanksClosure = require("../routes/tanksClosure");
 const samples = require("../routes/samples");
 const centrifuges = require("../routes/centrifuges");
 const mills = require("../routes/mills");
+const foodtrust = require("../routes/foodtrust");
 const error = require("../middleware/error");
 
 module.exports = function (app) {
@@ -19,6 +20,7 @@ module.exports = function (app) {
   app.use("/api/tanks", tanks);
   app.use("/api/storages", storages);
   app.use("/api/closures", tanksClosure);
+  app.use("/api/foodtrust", foodtrust);
   app.use("/", (req, res) => {
     return res.status(200).send("hola");
   });

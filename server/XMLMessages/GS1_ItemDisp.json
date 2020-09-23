@@ -1,0 +1,90 @@
+[
+  {
+    "value": "active",
+    "definition": "A commissioned object has just been introduced into the supply chain."
+  },
+  {
+    "value": "container_closed",
+    "definition": "Object has been loaded onto a container, the doors have been closed and the shipment sealed."
+  },
+  {
+    "value": "damaged",
+    "definition": "Object is impaired in its usefulness and/or reduced in value due to a defect."
+  },
+  {
+    "value": "destroyed",
+    "definition": "Object has been fully rendered non-usable."
+  },
+  {
+    "value": "dispensed",
+    "definition": "A full quantity of product is distributed to a consumer."
+  },
+  {
+    "value": "disposed",
+    "definition": "Object has been returned for disposal."
+  },
+  {
+    "value": "encoded",
+    "definition": "An instance-level identifier has been written to a barcode or RFID tag, but not yet commissioned."
+  },
+  {
+    "value": "expired",
+    "definition": "Object is past expiration date."
+  },
+  {
+    "value": "in_progress",
+    "definition": "Default disposition for object proceeding through points in the supply chain."
+  },
+  {
+    "value": "in_transit",
+    "definition": "Object being shipped between two trading partners."
+  },
+  {
+    "value": "inactive",
+    "definition": "Decommissioned object that may be reintroduced to the supply chain."
+  },
+  {
+    "value": "no_pedigree_match",
+    "definition": "In validating the pedigree for the object, no match was found, causing the product to be quarantined for further investigation and disposition."
+  },
+  {
+    "value": "non_sellable_other",
+    "definition": "Object cannot be sold to a customer ."
+  },
+  {
+    "value": "partially_dispensed",
+    "definition": "A portion of a product is distributed to a customer, while additional product is retained for subsequent distribution."
+  },
+  {
+    "value": "recalled",
+    "definition": "Object is non-sellable because of public safety reasons."
+  },
+  {
+    "value": "reserved",
+    "definition": "Instance-level identifier has been allocated for a third party."
+  },
+  {
+    "value": "retail_sold",
+    "definition": "Product has been purchased by a customer."
+  },
+  {
+    "value": "returned",
+    "definition": "Object has been sent back for various reasons. It may or may not be sellable."
+  },
+  {
+    "value": "sellable_accessible",
+    "definition": "Product can be sold as is and customer can access product for purchase."
+  },
+  {
+    "value": "sellable_not_accessible",
+    "definition": "Product can be sold as is, but customer cannot access product for purchase."
+  },
+  {
+    "value": "stolen",
+    "definition": "An object has been taken without permission or right."
+  },
+  {
+    "value": "unknown",
+    "definition": "An object’s condition is not known."
+  }
+]

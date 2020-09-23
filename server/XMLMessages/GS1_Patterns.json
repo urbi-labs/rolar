@@ -1,0 +1,13 @@
+{
+  "SFTPI": "urn:ibm:ift:product:serial:obj",
+  "FTPI": "urn:ibm:ift:product:class",
+  "LFTPI": "urn:ibm:ift:product:lot:class",
+  "FTLI": "urn:ibm:ift:location:loc",
+  "SFTLI": "urn:ibm:ift:location:extension:loc",
+  "LGTIN": "urn:epc:class:lgtin",
+  "FTLPN": "urn:ibm:ift:lpn:obj",
+  "SGLN": "urn:epc:id:sgln",
+  "BIZSTEP": "urn:epcglobal:cbv:bizstep",
+  "DISP": "urn:epcglobal:cbv:disp",
+  "UUID": "urn:uuid"
+}

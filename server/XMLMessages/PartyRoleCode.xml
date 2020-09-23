@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<codeList xsi:noNamespaceSchemaLocation="http://apps.gs1.org/GDD/Documents/GDDCodeListSchema.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <urn>urn:gs1:gdd:cl:PartyRoleCode</urn>
+  <name></name>
+  <version>3</version>
+  <domain>gdsn</domain>
+  <code><value>ACCEPTING_PARTY</value><name>Accepting Party</name><description>Party accepting goods, products, services etc.</description></code>
+  <code><value>BILL_OF_LADING_RECIPIENT</value><name>Bill of Lading Receipient</name><description>Party to receive Bill of Lading.</description></code>
+  <code><value>BILL_TO</value><name>Bill To</name><description>Party which receives goods and invoice.</description></code>
+  <code><value>BRAND_OWNER</value><name>Brand Owner</name><description>The organisation that owns the specifications of the Party regardless of where and by whom it is manufactured is normally responsible for the allocation of the Global Trade Item Number (GTIN).</description></code>
+  <code><value>BREEDER</value><name>Breeder</name><description>The party which breeds the animal.</description></code>
+  <code><value>BROKER_AGENT</value><name>Broker Agent</name><description>A person who buys or sells for another entity without having title to the property.</description></code>
+  <code><value>BUYER</value><name>Buyer</name><description>Party to which merchandise are sold.</description></code>
+  <code><value>BUYERS_AGENT_REPRESENTATIVE</value><name>Buyers Agent Representative</name><description>Third party who arranged the purchase of merchandise on behalf of the actual buyer.</description></code>
+  <code><value>CARRIER</value><name>Carrier</name><description>A company, which physically transports goods from one place to another.</description></code>
+  <code><value>CENTRAL_PAYMENT_SERVICE</value><name>Central Payment Service</name><description>Master of the conveyance.  A party providing central (or consolidated payment) services.</description></code>
+  <code><value>CHECKING_PARTY</value><name>Checking Party</name><description>Party or contact designated on behalf of carrier or his agent to establish the actual figures for quantities, weight, volume and/or (cube) measurements of goods or containers which are to appear in the transport contract and on which charges will be based</description></code>
+  <code><value>CHEQUE_ORDER</value><name>Cheque Order</name><description>Party to which the cheque will be ordered, when different from the beneficiary.</description></code>
+  <code><value>CONSIGNEE</value><name>Consignee</name><description>Party to which goods are consigned.</description></code>
+  <code><value>CONSOLIDATOR</value><name>Consolidator</name><description>Party consolidating various consignments, payments etc.</description></code>
+  <code><value>CONSUMER</value><name>Consumer</name><description>The end user of a trade item or a service.</description></code>
+  <code><value>COOPERATIVE</value><name>Cooperative</name><description>An autonomous association of persons united voluntarily to meet their common economic, social and cultural needs and aspirations through a jointly owned and democratically controlled enterprise.</description></code>
+  <code><value>CORPORATE_IDENTITY</value><name>Corporate Identity</name><description>Identity of the party to whom all other parties of the same commercial organization are linked.</description></code>
+  <code><value>CUSTOMS</value><name>Customs</name><description>Identification of customs authority relevant to the transaction or shipment.</description></code>
+  <code><value>CUSTOMS_BROKER</value><name>Customs Broker</name><description>Party responsible for the preparation of documents and/or electronic submissions, the calculation on behalf of the client of taxes, duties and excises, and facilitating communication between the importer/exporter and governmental authorities.</description></code>
+  <code><value>CUTTER</value><name>Cutter</name><description>One engaged in carving meat (In EANCOM as Meat Cutter).</description></code>
+  <code><value>DECLARANTS_AGENT_REPRESENTATIVE</value><name>Declarants Agent Representative</name><description>Any natural or legal person who makes a declaration to an official body on behalf of another natural or legal person, where legally permitted (CCC).</description></code>
+  <code><value>DELIVERY_PARTY</value><name>Delivery Party</name><description>Party to which goods are delivered.</description></code>
+  <code><value>DESIGNER</value><name>Designer</name><description>A Party who designs.</description></code>
+  <code><value>DESPATCH_PARTY</value><name>Despatch Party</name><description>Party where goods are collected or taken over by the carrier.</description></code>
+  <code><value>DISTRIBUTOR</value><name>Distributor</name><description>Party distributing goods, financial payments or documents.</description></code>
+  <code><value>DOCK_DOOR</value><name>Dock Door</name><description>A door or collection of doors where trucks or rail cars are loaded (shipping) or unloaded (receiving). Used to load or unload trade items for logistics.</description></code>
+  <code><value>EMPTY_EQUIPMENT_DESPATCH_PARTY</value><name>Empty Equipment Despatch Party</name><description>Party from whose premises empty equipment will be or has been despatched.</description></code>
+  <code><value>EMPTY_EQUIPMENT_RETURN_PARTY</value><name>Empty Equipment Return Party</name><description>Party to whose premises empty equipment will be or has been returned.</description></code>
+  <code><value>EQUIPMENT_OWNER</value><name>Equipment Owner</name><description>Owner of equipment (container, etc.).</description></code>
+  <code><value>EXPORTER</value><name>Exporter</name><description>Party who makes - or on whose behalf a Customs clearing agent or other authorized person makes - an export declaration. This may include a manufacturer, seller or other person. Within a Customs union, consignor may have the same meaning as exporter</description></code>
+  <code><value>FACTOR</value><name>Factror</name><description>A party that purchases financial receiving instruments e.g. invoices</description></code>
+  <code><value>FARM</value><name>Cooperative</name><description>An autonomous association of persons united voluntarily to meet their common economic, social and cultural needs and aspirations through a jointly owned and democratically controlled enterprise.</description></code>
+  <code><value>FARMER</value><name>Farmer</name><description>Land used wholly or partly for agricultural production purposes, without having regard to title, legal form or size. It includes land rented, land owned and land being effectively used by the management under whatever type of other arrangement.</description></code>
+  <code><value>FATTENER</value><name>Fattener</name><description>The Party which fattens the animal.</description></code>
+  <code><value>FREIGHT_FORWARDER</value><name>Freight Forwarder</name><description>A person or firm that arranges for a pick up or deliver goods by a carrier on instructions of a shipper or consignee from or to a point by various necessary conveyances and common carriers.</description></code>
+  <code><value>GOODS_OWNER</value><name>Goods Owner</name><description>The party which owns the goods.</description></code>
+  <code><value>GROWER</value><name>Grower</name><description>A party which is responsible for the growth or production of the unit specifically refers to vegetation. This organization may or may not be a producer or packer.</description></code>
+  <code><value>HEAD_OFFICE</value><name>Head Office</name><description>The executive or main office of an enterprise.</description></code>
+  <code><value>IMPORTER</value><name>Importer</name><description>Party who makes - or on whose behalf a Customs clearing agent or other authorized person makes - an import declaration. This may include a person who has possession of the goods or to whom the goods are consigned.</description></code>
+  <code><value>INFORMATION_PROVIDER</value><name>Information Provider</name><description>The Party providing the information contained in the document.</description></code>
+  <code><value>INSURER</value><name>Insurer</name><description>A person or company offering insurance policies for premiums.</description></code>
+  <code><value>INTERMEDIARY_BANK_1</value><name>Intermediary Bank 1</name><description>A financial institution between the ordered bank and the beneficiary's bank.</description></code>
+  <code><value>INTERMEDIARY_BANK_2</value><name>Intermediary Bank 2</name><description>A financial institution between the ordered bank and the beneficiary's bank.</description></code>
+  <code><value>INVENTORY_CONTROLLER</value><name>Inventory Controler</name><description>To specifically identify the party in charge of inventory control.</description></code>
+  <code><value>INVENTORY_REPORTING_PARTY</value><name>Inventory Reporting Party</name><description>Party reporting inventory information.</description></code>
+  <code><value>INVOICEE</value><name>Invoicee</name><description>Party which receives an invoice.</description></code>
+  <code><value>ISSUER_OF_INVOICE</value><name>Issuer of Invoice</name><description>Party which issues an invoice.</description></code>
+  <code><value>LOGISTICS_SERVICE_PROVIDER</value><name>Logistics Service Provider</name><description>An umbrella term for an entity, which provides a combination of many different logistics services for another entity.</description></code>
+  <code><value>MANUFACTURER_OF_GOODS</value><name>Manufacturer of Goods</name><description>Party who manufactures the goods.</description></code>
+  <code><value>MANUFACTURING_PLANT</value><name>Manufacturing Plant</name><description>A physical location consisting of one or more buildings with facilities for manufacturing.</description></code>
+  <code><value>MARK_FOR</value><name>Mark For</name><description>The ultimate destination of a unit load or transport package of goods where the Ship-To is a different location.</description></code>
+  <code><value>MESSAGE_FROM</value><name>Message From</name><description>Party where the message comes from.</description></code>
+  <code><value>MESSAGE_RECIPIENT</value><name>Message Receipient</name><description>Party receiving the message.</description></code>
+  <code><value>MINCER</value><name>Mincer</name><description>One engaged in the cutting or chopping of meat into very small pieces.</description></code>
+  <code><value>OPERATING_DIVISION</value><name>Operating Division</name><description>An entity that is part of another entity. For example, a Regional Marketing Office. Operating Divisions may have multiple days and times of operation.</description></code>
+  <code><value>OPERATOR</value><name>Operator</name><description>A person or persons who own or operate a business establishment, which services consumers directly. For example a restaurant owner as part of a chain or an independent operation.</description></code>
+  <code><value>ORDERING_PARTY</value><name>Ordering Party</name><description>To be used only if ordering party and buyer are not identical.</description></code>
+  <code><value>OWNER_OF_EQUIPMENT</value><name>Owner of Equipment</name><description>Party who owns equipment.</description></code>
+  <code><value>OWNER_OF_MEANS_OF_TRANSPORT</value><name>Owner of Means of Transport</name><description>Party owning the means of transport. Not a synonym of carrier</description></code>
+  <code><value>PARTY_DECLARING_THE_VALUE_ADDED_TAX</value><name>Party Declaring the Value Added Tax</name><description>A code to identify the party who is responsible for declaring the Value Added Tax (VAT) on the sale of goods or services.</description></code>
+  <code><value>PARTY_FOR_WHOM_ITEM_IS_ULTIMATELY_INTENDED</value><name>Party For Whom Item is Ultimately Intended</name><description>Party for whom item is ultimately intended.</description></code>
+  <code><value>PARTY_RECEIVING_PRIVATE_DATA</value><name>Party Receiving Private Data</name><description>The party who is allowed access to master data information by the data owner when the data is viewed as private.</description></code>
+  <code><value>PARTY_RECOVERING_THE_VALUE_ADDED_TAX</value><name>Party Recovering the Value Added Tax</name><description>A code to identify the party who is eligible to recover the Value Added Tax (VAT) on the sale of goods or services.</description></code>
+  <code><value>PARTY_TO_RECEIVE_ALL_DOCUMENTS</value><name>Party to Receive All Documents</name><description>A party which is named to be the recipient of all documents.</description></code>
+  <code><value>PARTY_TO_RECEIVE_COMMERCIAL_INVOICE</value><name>Party To Receive Commercial invoice</name><description>Party to whom payment for a commercial invoice or bill should be remitted.</description></code>
+  <code><value>PARTY_TO_RECEIVE_ELECTRONIC_MEMO_OF_INVOICE</value><name>Party to Receive Electronic Memo of the Invoice</name><description>Party being informed about invoice issue (via EDI).</description></code>
+  <code><value>PARTY_TO_RECEIVE_FREIGHT_BILL</value><name>Party To Receive Freight Bill</name><description>Party to whom the freight bill should be sent.</description></code>
+  <code><value>PARTY_TO_RECEIVE_REFUND</value><name>Party To Receive Refund</name><description>Party to whom a refund is given.</description></code>
+  <code><value>PAYEE</value><name>Payee</name><description>Party, which receives payment.</description></code>
+  <code><value>PAYER</value><name>Payer</name><description>Party which initiates payment.</description></code>
+  <code><value>POINT_OF_SALE</value><name>Point of Sale</name><description>Refers to the retail type checkout where bar code symbols are normally scanned.</description></code>
+  <code><value>PRICE_LOCATION_PARTY</value><name>Price Location Party</name><description>A party to which a price for a trade item is applicable. Within the context of GDSN Price Synchronization, it is also known as the ‘Price Location’ which is a GLN.</description></code>
+  <code><value>PROXY</value><name>Proxy</name><description>A company that is selected by the Brand Owner to maintain their baseline attributes and Administrative Records in the GDSN.</description></code>
+  <code><value>PUBLIC_WAREHOUSE</value><name>Public Warehouse</name><description>A building, or a part of one, where storage space is offered to other companies for compensation (fee), for the storage of their goods, merchandise, etc.</description></code>
+  <code><value>PURCHASE_ORDER_RECEIVER</value><name>Purchase Order Receiver</name><description>The party that receives the purchase order for the goods or services.</description></code>
+  <code><value>REGISTERED_AGENT</value><name>Registered Agent</name><description>The party having legal responsibility for the product in the target market for example a company to which market authorization has been issued. </description></code>
+  <code><value>REMIT_TO</value><name>Remit To</name><description>Party to whom funds are directed for payment of a commercial invoice.</description></code>
+  <code><value>RETURNABLE_ASSETT_SERVICE_CENTRE</value><name>Returnale Asset Service Centre</name><description>The location where a returnable asset is serviced.</description></code>
+  <code><value>SELLER</value><name>Seller</name><description>Party which sells products or services to a buyer.</description></code>
+  <code><value>SERVICE_PROVIDER</value><name>Service privider</name><description>A party providing services for another party (e.g re- packing supplier’s products).</description></code>
+  <code><value>SHIP_FROM</value><name>Ship From</name><description>Party from where goods will be or have been shipped.</description></code>
+  <code><value>SHIP_TO</value><name>Ship To</name><description>Party which receives goods and invoices.</description></code>
+  <code><value>SLAUGHTERER</value><name>Slaughterer</name><description>The Party who has undertaken or will undertake a slaughter.</description></code>
+  <code><value>STORE</value><name>Store</name><description>A physical entity that sells trade items to a consumer.</description></code>
+  <code><value>SUBSTITUTE_SUPPLIER</value><name>Substitute Supplier</name><description>Party which may be in a position to supply products or services should the main usual supplier be unable to do so.</description></code>
+  <code><value>SUPPLIER</value><name>Supplier</name><description>A party that provides goods or services.</description></code>
+  <code><value>TRANSPORTATION_CARRIER</value><name>Transportation Carrier</name><description>Party undertaking or arranging transport of goods between named points.</description></code>
+  <code><value>VISITING_ADDRESS</value><name>Visiting Address</name><description>An enterprise’s physical location where guests are received during set working hours</description></code>
+  <code><value>WAREHOUSE_AND_OR_DEPOT</value><name>Warehouse And Or Depot</name><description>Industrial department of a company equipped with appropriate equipment and fit-tings in which goods are stored in appropriate conditions.</description></code>
+  <code><value>WAREHOUSE_KEEPER</value><name>Warehouse Keeper</name><description>Party taking responsibility for goods entered into a warehouse.</description></code>
+  <code><value>WHOLESALER</value><name>Wholesaler</name><description>Seller of articles, often in large quantities, to be retailed by others.</description></code>
+</codeList>
