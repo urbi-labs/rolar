@@ -121,6 +121,7 @@ const epcisCommission = async (values) => {
   xml[r][b][0][el][0][oe][0].eventTime[0] = new Date().toISOString();
   xml[r][b][0][el][0][oe][0].baseExtension[0].eventID = `${UUID}:${uuidv1()}`;
   // xml[r][b][0][el][0][oe][0].epcList[0].epc = item_epc_serie;
+
   xml[r][b][0][el][0][oe][0].bizLocation[0].id = biz_loc;
   xml[r][b][0][el][0][oe][0][e][0][ql][0][qe][0].epcClass = item_epc;
   xml[r][b][0][el][0][oe][0][e][0][ql][0][qe][0].quantity = item_qty;

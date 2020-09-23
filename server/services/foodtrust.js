@@ -13,7 +13,7 @@ const ft_orgId = config.get("FT_ORGID");
 const facilityFilter = config.get("FILTER_FACILITY");
 const itemFilter = config.get("FILTER_ITEM");
 
-auth = async () => {
+const auth = async () => {
   let iamToken = JSON.parse(await getToken("IAMAccessToken"));
   let foodtrustToken = JSON.parse(await getToken("FoodtrustAccessToken"));
 
@@ -55,7 +55,7 @@ auth = async () => {
   return foodtrustToken;
 };
 
-srvAssets = async (xml) => {
+const srvAssets = async (xml) => {
   const { onboarding_token } = await auth();
 
   const headers = {
@@ -77,7 +77,7 @@ srvAssets = async (xml) => {
   return data;
 };
 
-srvTraces = async (epc) => {
+const srvTraces = async (epc) => {
   const { onboarding_token } = await auth();
 
   const headers = {
@@ -99,7 +99,7 @@ srvTraces = async (epc) => {
   return data;
 };
 
-consumer_events = async () => {
+const consumer_events = async () => {
   const { onboarding_token } = await auth();
   const headers = {
     Accept: "application/json",
@@ -119,7 +119,7 @@ consumer_events = async () => {
   return data;
 };
 
-srvLots = async (limit, start) => {
+const srvLots = async (limit, start) => {
   const { onboarding_token } = await auth();
 
   console.log("srvLots checkpoint");
@@ -151,7 +151,7 @@ srvLots = async (limit, start) => {
   return data;
 };
 
-srvItems = async () => {
+const srvItems = async () => {
   const { onboarding_token } = await auth();
   const headers = {
     Accept: "application/json",
@@ -176,7 +176,7 @@ srvItems = async () => {
   return filter;
 };
 
-srvLocations = async () => {
+const srvLocations = async () => {
   const { onboarding_token } = await auth();
   const headers = {
     Accept: "application/json",
