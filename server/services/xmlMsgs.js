@@ -2,12 +2,12 @@ const chalk = require("chalk");
 const log = (text) => console.log(chalk.cyan.bgBlack("[xmlMsgs]", text));
 
 const config = require("config");
-const uuidv1 = require("uuid/v1");
 const fs = require("fs").promises;
 const util = require("util");
 const path = require("path");
 const cwd = process.cwd();
 
+const uuidv1 = require("uuid/v1");
 const xml2js = require("xml2js");
 const parseString = util.promisify(xml2js.parseString);
 
