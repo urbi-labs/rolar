@@ -1,7 +1,7 @@
 const chalk = require("chalk");
 const log = (text) => console.log(chalk.magenta("[r/foodtrust]", text));
 
-const { srvItems, srvLocations } = require("../services/foodtrust");
+const { srvItems, srvLocations, auth } = require("../services/foodtrust");
 const { srvAssets, srvLots, srvTraces } = require("../services/foodtrust");
 const { mdItem, mdFacility } = require("../services/xmlMsgs");
 const { epcisCommission, epcisTransformation } = require("../services/xmlMsgs");
@@ -16,6 +16,11 @@ const foodtrust = {
   observation: (values) => epcisObservation(values),
   aggregation: (values) => epcisAggregation(values),
 };
+
+router.get("/auth", async (req, res) => {
+  const data = await auth();
+  res.send(data);
+});
 
 router.post("/trace", async (req, res) => {
   log("body", req.body);

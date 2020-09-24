@@ -4,8 +4,17 @@
   "protocol": "http",
   "requiresAuth": true,
   "jwtPrivateKey": "seamosuno_secret",
-  "BC_BASE": "http://seamos-uno-rest.mybluemix.net",
+  "BC_BASE": "http://rolar.mybluemix.net",
   "BC_EP_LOGIN": "/v1/login",
   "BC_EP_TX": "/v1/transactions/register",
-  "BC_EP_BLOCK": "/v1/block"
+  "BC_EP_BLOCK": "/v1/block",
+  "IAM_GRANT_TYPE": "urn:ibm:params:oauth:grant-type:apikey",
+  "FT_ORGID": "ea4a75e5-75b6-4db4-894f-3de2aaac01e4",
+  "FT_COMPANY_PREFIX": "4828262811938",
+  "FT_TRACE_URL_EP": "/trace/consumer",
+  "FT_AUTH_URL": "https://food.ibm.com/ift/api/identity-proxy/exchange_token/v1/organization/",
+  "FT_ASSETS_URL": "https://sandbox.food.ibm.com/ift/api/connector/fs/connector/v1/assets",
+  "FT_TRACE_URL_BASE": "https://sandbox.food.ibm.com/ift/api/outbound/v2",
+  "APPID_URL": "https://us-south.appid.cloud.ibm.com/oauth/v4/c71939b1-f1a7-409b-9e45-9b15541e70cf",
+  "IAM_URL": "https://iam.ng.bluemix.net/oidc/token"
 }
