@@ -13,7 +13,7 @@
   "FT_COMPANY_PREFIX": "4828262811938",
   "FT_TRACE_URL_EP": "/trace/consumer",
   "FT_AUTH_URL": "https://food.ibm.com/ift/api/identity-proxy/exchange_token/v1/organization/",
-  "FT_ASSETS_URL": "https://sandbox.food.ibm.com/ift/api/connector/fs/connector/v1/assets",
+  "FT_ASSETS_URL": "https://food.ibm.com/ift/api/connector/fs/connector/v1/assets",
   "FT_TRACE_URL_BASE": "https://sandbox.food.ibm.com/ift/api/outbound/v2",
   "APPID_URL": "https://us-south.appid.cloud.ibm.com/oauth/v4/c71939b1-f1a7-409b-9e45-9b15541e70cf",
   "IAM_URL": "https://iam.ng.bluemix.net/oidc/token"

@@ -12,16 +12,10 @@ const apikey = config.get("IAM_APIKEY");
 
 // IFT auth data
 const ft_url = `${config.get("FT_AUTH_URL")}${config.get("FT_ORGID")}`;
-const ft_orgId = config.get("FT_ORGID");
-// const facilityFilter = config.get("FILTER_FACILITY");
-// const itemFilter = config.get("FILTER_ITEM");
 
 const auth = async () => {
   let iamToken = await Token.findOne({ type: "IAM" }).exec();
   let foodtrustToken = await Token.findOne({ type: "Foodtrust" }).exec();
-
-  console.log({ iamToken });
-  console.log({ foodtrustToken });
 
   if (!iamToken) {
     log("Creating new IAM token...");
@@ -60,7 +54,7 @@ const auth = async () => {
 };
 
 const srvAssets = async (xml) => {
-  const { onboarding_token } = await auth();
+  const onboarding_token = await auth();
 
   const headers = {
     "IFT-Entitlement-Mode": "default",
@@ -71,14 +65,24 @@ const srvAssets = async (xml) => {
   const url = config.get("FT_ASSETS_URL");
 
   log("Sending new asset info", xml);
-  const data = await axios({
-    method: "post",
-    url,
-    headers,
-    data: xml,
-  });
+  try {
+    const data = await axios({
+      method: "post",
+      url,
+      headers,
+      data: xml,
+    });
 
-  return data;
+    return data;
+  } catch (error) {
+    if (error.response) {
+      const response = error.response;
+      const { data } = response;
+      const { message } = data;
+      console.log(message);
+      return response;
+    }
+  }
 };
 
 const srvTraces = async (epc) => {
@@ -169,7 +173,7 @@ const srvItems = async () => {
   log("srvItems... ", url);
   const { data } = await axios({
     method: "get",
-    url: `${url}?description=${itemFilter}`,
+    url: `${url}`,
     headers,
   });
 
@@ -194,17 +198,14 @@ const srvLocations = async () => {
   log("srvLocations...", url);
   const { data } = await axios({
     method: "get",
-    url: `${url}?org_id=${ft_orgId}`, //Este filtro hay que sacarlo en la implementación final
+    url: `${url}`,
     headers,
   });
 
   log("This filter will not be required on LATAM account");
   const { locations } = data;
-  const filter = locations.filter((location) =>
-    location["party_name"].includes(facilityFilter)
-  );
 
-  return filter;
+  return locations;
 };
 
 exports.auth = auth;

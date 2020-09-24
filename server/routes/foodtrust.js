@@ -22,6 +22,14 @@ router.get("/auth", async (req, res) => {
   res.send(data);
 });
 
+router.post("/ilmd", async (req, res) => {
+  log("get /ilms triggered");
+  const { action } = req.query;
+  const xml = await foodtrust[action](req.body);
+  const { data } = await srvAssets(xml);
+  res.send({ data, xml });
+});
+
 router.post("/trace", async (req, res) => {
   log("body", req.body);
   const { item_id } = req.body;
@@ -91,14 +99,6 @@ router.get("/lots", async (req, res) => {
   });
 
   res.send({ model, next });
-});
-
-router.post("/ilmd", async (req, res) => {
-  log("get /ilms triggered");
-  const { action } = req.query;
-  const xml = await foodtrust[action](req.body);
-  const { data } = await srvAssets(xml);
-  res.send({ data, xml });
 });
 
 module.exports = router;
