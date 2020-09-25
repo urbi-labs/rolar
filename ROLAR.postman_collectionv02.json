@@ -1,0 +1,893 @@
+{
+	"info": {
+		"_postman_id": "8e6ccfe8-ba02-4130-8696-0edcd1b4eb21",
+		"name": "ROLAR",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "USERS",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "rolar-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjQ2YjA4MDdhZGVjN2MzNWM3OTg4YTQiLCJuYW1lIjoiTUFUSUFTIiwicm9sZSI6Im9wZXJhdG9yIiwiaWF0IjoxNTk5MDcyMjU4fQ.KhftgWbnA0rFo32OmbdSDmPN9Dhie3dYcox_nyoZjwM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Pepe\",\n    \"password\": \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"msalimbe@ar.ibm.com\",\n    \"password\": \"12345\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST BATCH",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "rolar-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjQ2YjA4MDdhZGVjN2MzNWM3OTg4YTQiLCJuYW1lIjoiTUFUSUFTIiwicm9sZSI6Im9wZXJhdG9yIiwiaWF0IjoxNTk5NTA4MzQ5fQ.2B9tT7KBIH6jkGSipocETCC1dmLZwd2xNc_nVjCkGHM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_user\":\"5f4fe8cd71164f1d5d65ae04\",\n    \"client\": \"Rolar de Cuyo SA\",\n    \"parcel\": \"2\",\n    \"oliveType\": \"Coratina\",\n    \"chuteName\": \"100\",\n    \"chuteWeight\": 2700,\n    \"grossWeight\": 4700,\n    \"netWeight\": 2000,\n    \"deliveryNumber\": \"0001-123000A\",\n    \"receiptNumber\": \"ABX123\"\n}\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/batches",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"batches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST CHUTE",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "rolar-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjQ2YjA4MDdhZGVjN2MzNWM3OTg4YTQiLCJuYW1lIjoiTUFUSUFTIiwicm9sZSI6Im9wZXJhdG9yIiwiaWF0IjoxNTk5NTA4MzQ5fQ.2B9tT7KBIH6jkGSipocETCC1dmLZwd2xNc_nVjCkGHM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"camion\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/chutes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"chutes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/GET samples",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "rolar-token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_batch\": \"5f5695c6573a414b3a847952\",\n    \"_user\": \"5f4fe8cd71164f1d5d65ae04\",\n    \"hidraulicOil\": false,\n    \"frost\": 90,\n    \"mummified\": 80,\n    \"dehydrated\": 30,\n    \"waterExcess\": 90,\n    \"branchExcess\": 10,\n    \"leafExcess\": 90,\n    \"maturityIndex\": 6,\n    \"moisturePase\": 90,\n    \"wetFat\": 90,\n    \"dryFat\": 90,\n    \"taurusPomace\": 90,\n    \"RexPomace\": 90\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/samples",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"samples"
+					],
+					"query": [
+						{
+							"key": "rolar-token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjQ2YjA4MDdhZGVjN2MzNWM3OTg4YTQiLCJuYW1lIjoiTUFUSUFTIiwicm9sZSI6Im9wZXJhdG9yIiwiaWF0IjoxNTk5NTA4MzQ5fQ.2B9tT7KBIH6jkGSipocETCC1dmLZwd2xNc_nVjCkGHM",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/GET mills",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "rolar-token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_batch\": \"5f5695c6573a414b3a847952\",\n    \"_user\": \"5f4fe8cd71164f1d5d65ae04\",\n    \"productionLine\": \"Linea 1\",\n    \"sieve\": \"2\",\n    \"microtalcum\": 0.7,\n    \"enzymes\": 90\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/mills",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"mills"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/GET centrifuges",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "rolar-token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_batch\": \"5f5695c6573a414b3a847952\",\n    \"_user\": \"5f4fe8cd71164f1d5d65ae04\",\n    \"productionLine\": \"Linea 2\",\n    \"initialTemp\": 20,\n    \"finalTemp\": 40,\n    \"kneadingTime\": 120,\n    \"pumpSpeed\": 2000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/centrifuges",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"centrifuges"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/GET tanks",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "rolar-token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"1\",\n    \"cone\": 837,\n    \"capacity\": 10,\n    \"radius\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/tanks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tanks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/GET storages",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "rolar-token",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_batch\": \"5f5695c6573a414b3a847952\",\n    \"_user\": \"5f4fe8cd71164f1d5d65ae04\",\n    \"_tank\": \"5f593194b09f745debc28e1d\",\n    \"initialMeasure\": 1000,\n    \"finalMeasure\": 8000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/storages",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"storages"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST/GET tanksClosures",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "rolar-token",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_user\": \"5f4fe8cd71164f1d5d65ae04\",\n    \"_tank\": \"5f593194b09f745debc28e1d\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/closures",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"closures"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "{{token}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get IAM token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://iam.cloud.ibm.com/identity/token?grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=xqcsE7xg_Q5H1FrT23ARbTLg_-OwpWXoTaVfKdtzUC2M",
+					"protocol": "https",
+					"host": [
+						"iam",
+						"cloud",
+						"ibm",
+						"com"
+					],
+					"path": [
+						"identity",
+						"token"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "urn:ibm:params:oauth:grant-type:apikey"
+						},
+						{
+							"key": "apikey",
+							"value": "xqcsE7xg_Q5H1FrT23ARbTLg_-OwpWXoTaVfKdtzUC2M"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get FoodTrust Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"access_token\": \"eyJraWQiOiIyMDIwMDgyMzE4MzIiLCJhbGciOiJSUzI1NiJ9.eyJpYW1faWQiOiJpYW0tU2VydmljZUlkLWYyMjYyMzgzLWEyNWMtNGFmNS04MjVhLTk5M2RjNWU1ZWY3ZiIsImlkIjoiaWFtLVNlcnZpY2VJZC1mMjI2MjM4My1hMjVjLTRhZjUtODI1YS05OTNkYzVlNWVmN2YiLCJyZWFsbWlkIjoiaWFtIiwianRpIjoiOTA5MmVmYTQtNmNmYy00ZjNlLWJjNjItNTJjZDIyMjdjNDIzIiwiaWRlbnRpZmllciI6IlNlcnZpY2VJZC1mMjI2MjM4My1hMjVjLTRhZjUtODI1YS05OTNkYzVlNWVmN2YiLCJuYW1lIjoicm9sYXItaWJtLWNsaWVudCIsInN1YiI6IlNlcnZpY2VJZC1mMjI2MjM4My1hMjVjLTRhZjUtODI1YS05OTNkYzVlNWVmN2YiLCJzdWJfdHlwZSI6IlNlcnZpY2VJZCIsImFjY291bnQiOnsidmFsaWQiOnRydWUsImJzcyI6Ijk3YzA4MjYxNTcwMTQxZTE4MmJkMzk0MmM3MmIyNDM3IiwiZnJvemVuIjp0cnVlfSwiaWF0IjoxNjAwNzE3NTU2LCJleHAiOjE2MDA3MjExNTYsImlzcyI6Imh0dHBzOi8vaWFtLmNsb3VkLmlibS5jb20vaWRlbnRpdHkiLCJncmFudF90eXBlIjoidXJuOmlibTpwYXJhbXM6b2F1dGg6Z3JhbnQtdHlwZTphcGlrZXkiLCJzY29wZSI6ImlibSBvcGVuaWQiLCJjbGllbnRfaWQiOiJkZWZhdWx0IiwiYWNyIjoxLCJhbXIiOlsicHdkIl19.VHrwmd-mgCNiSs35nPNhoym9aJ7VBLjzCKLUOvrgrZmydNeA5JRTZqPxgbEjRCA6how6q03LO_7tL4aRTFrERDaznJUv--5fcnrJ8pm_JNPRLrGz5EO7tnSr66lhe4dLhVebhGzxbeev0xBGQ0-M6eCDK4q7b94RAWsBHDJKJu9M5QKi6QidjqnC7AesNxdEZzQ0Sfmxr6lJkvOfRIYRqyEAtNffoI_AHer3f5ukRpg3yVFlQMOLvqb4khG_7VYUNOUifLmGMr9APCLTeZ9itzaqXa715NUuZLEConDb3zp-PbOf7IduDqm8W4acFylhId9e5isRREvBlYaYYWSbrQ\",\n    \"refresh_token\": \"OKDzbjLuot--aQK056fAKPAiGkAmENjaH5BWGBjifIFRlfNw6RdcR1EVRVgQBDQ_XxXzTuM-TTC5YEnhqJzA7laepIaxGjkuC_m3h15VbOGAKFAxXXDfUdOrwmTdzclmN6nuyw-c3V4T0DN4hmd5hInPgD6sEvNvZcEaKB9FUGuAyJmTi7wjXILT2S3BylV2VfDCeOgWvj2UV13uKsnXCFJ3Ijl6cssomwmC2ohQxBbzWnPm0L7DV2gVUwHWcJjKxhmk9z21CiAlXdzKiEbZakii8USuhvo4mLEPzu9Bh7YwSYeX5lq6Oe7rzvmUIVydhZgZdwZBuzLCMxE6iRSid9VGKJ_efBRHtsnUJaJ1fbsgwxJYei08vy2Up4HKfw7k0t24KHR3emSJm7Tcc4UuhPCtyImY1kTqhByLpbLYB9d4dd7jDzAw2_GwgU4FGGV7NjRqNvqrvZDSkkbPt256j0LugkziLotRDeJd0nWXX86Y01w49VPnTTU3PVuJmCLvKBFKx4p232Ev84qiTYBGe_dhBLNmspTN-8HEx8J09o0668nfdgZx_7bQYc8ekTsVAvbR0YqLJGbE3ql613UC_9-rn04R0piS6jbyGZVeXLffpwyVyu1RDfe9kScaf0SBFFJjTXlBQXVLVd4Swy-Y-tNG4FLBK3ldaUI3zMaC5smYgO_UaFfcb-EMNdaWte1tlsN9SrfsFBQ4_fu10lgrSrQgX1t2ccpyEKcH_BO4_13iaCIHW4A7K8aUH1SYzPbkrAlv-x26IIW9c0wcmutpJcsq7umbifDHLx7FxV_ptHhpwZ84xhubaGGaHqgd4dT4goNf8SenGixd89LhezDWw53FYEq3MUGl3PQFqoonGeKm6983JTjqlsj7nciYt_OfzJ5TS0nTM6Mq1F3CIK3_7kIoZT7B4gUmoqCh8iNvnF-aaojangU2zj82NyTqGRYbS_PzZKJfYGN3X3Lbjjwouyj3gcUpjXxlvMXYeG9oG9ouFBkH0Lu-3fnm449FrInCZ9mj7FrvHNyxN819JTVSlHJtrYmWJc9md6u4hoZuUgMp07z0JaT0gr5DFlDxMUF6c8mn_yMQDFAGNYXFwKbLUZzVh-MDQ46zTgDrAj3oC57LLIGwSyz6bn8HfRqvsXzk9IU\",\n    \"token_type\": \"Bearer\",\n    \"expires_in\": 3600,\n    \"expiration\": 1600721156,\n    \"scope\": \"ibm openid\"\n}"
+				},
+				"url": {
+					"raw": "https://food.ibm.com/ift/api/identity-proxy/exchange_token/v1/organization/ea4a75e5-75b6-4db4-894f-3de2aaac01e4",
+					"protocol": "https",
+					"host": [
+						"food",
+						"ibm",
+						"com"
+					],
+					"path": [
+						"ift",
+						"api",
+						"identity-proxy",
+						"exchange_token",
+						"v1",
+						"organization",
+						"ea4a75e5-75b6-4db4-894f-3de2aaac01e4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST commision",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"item_ref\": \"rp0001\",\n    \"item_lot\": 2020,\n    \"item_qty\": 5,\n    \"biz_loc\": \"rf0001\",\n    \"src_loc\": \"rf0001\",\n    \"dest_loc\": \"rf0001\",\n    \"date_exp\": \"2019-12-10T15:22:53.183Z\",\n    \"date_sellby\": \"2019-12-10T15:22:53.183Z\",\n    \"date_best\": \"2019-12-10T15:22:53.183Z\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/foodtrust/ilmd?action=commission",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"foodtrust",
+						"ilmd"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "commission"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "post commission from local (fac) - example response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item_ref\": \"LQrU\",\n    \"item_lot\": 101,\n    \"item_qty\": 7,\n    \"biz_loc\": \"2244002.bi17v\",\n    \"src_loc\": \"2244002.bi17v\",\n    \"dest_loc\": \"2244002.bi17v\",\n    \"date_exp\": \"2019-09-25\",\n    \"date_sellby\": \"2019-09-25\",\n    \"date_best\": \"2019-09-25\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/foodtrust/commission",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"foodtrust",
+								"commission"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "503"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1f7-IYyWuDMihgVQBLAih7sVAKtLXJs\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 25 Sep 2019 14:46:48 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": {\n        \"ids\": [\n            \"urn:ibm:provenance:asset:event:commission:72ff5038-e451-4d36-82ac-c11743638893:default:default:fc03ed92ca33b1143f79fa9c4847080fd664f3eb92460f7518209efec522a7d0\",\n            \"urn:ibm:provenance:asset:object:lotILMD:72ff5038-e451-4d36-82ac-c11743638893:default:default:498e8f9bfd8dfd7f79c6fffe86d16509174da5cccb90660c3d76b2b25f1b34ee\",\n            \"urn:ibm:provenance:asset:object:lotILMD:72ff5038-e451-4d36-82ac-c11743638893:default:default:1c16bdab404e415d60667eb86f0edc99cb04de7b0c667993e8b51e1e088d4a15\"\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "TEST FT AUTH",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/foodtrust/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"foodtrust",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST transformation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"item_ref_in\": \"rp0001\",\n    \"item_lot_in\": 2020,\n    \"item_qty_in\": 500,\n    \"item_ref_out\": \"rp0002\",\n    \"item_lot_out\": 3020,\n    \"item_qty_out\": 400,\n    \"biz_loc\": \"rf0001\",\n    \"date_exp\": \"2019-09-25\",\n    \"date_sellby\": \"2019-09-25\",\n    \"date_best\": \"2019-09-25\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/foodtrust/ilmd?action=transformation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"foodtrust",
+						"ilmd"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "transformation"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "post commission from local (fac) - example response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item_ref\": \"LQrU\",\n    \"item_lot\": 101,\n    \"item_qty\": 7,\n    \"biz_loc\": \"2244002.bi17v\",\n    \"src_loc\": \"2244002.bi17v\",\n    \"dest_loc\": \"2244002.bi17v\",\n    \"date_exp\": \"2019-09-25\",\n    \"date_sellby\": \"2019-09-25\",\n    \"date_best\": \"2019-09-25\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/foodtrust/commission",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"foodtrust",
+								"commission"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "503"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1f7-IYyWuDMihgVQBLAih7sVAKtLXJs\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 25 Sep 2019 14:46:48 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": {\n        \"ids\": [\n            \"urn:ibm:provenance:asset:event:commission:72ff5038-e451-4d36-82ac-c11743638893:default:default:fc03ed92ca33b1143f79fa9c4847080fd664f3eb92460f7518209efec522a7d0\",\n            \"urn:ibm:provenance:asset:object:lotILMD:72ff5038-e451-4d36-82ac-c11743638893:default:default:498e8f9bfd8dfd7f79c6fffe86d16509174da5cccb90660c3d76b2b25f1b34ee\",\n            \"urn:ibm:provenance:asset:object:lotILMD:72ff5038-e451-4d36-82ac-c11743638893:default:default:1c16bdab404e415d60667eb86f0edc99cb04de7b0c667993e8b51e1e088d4a15\"\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "POST observ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"item_ref\": \"rp0002\",\n    \"item_lot\": 3020,\n    \"item_qty\": 100,\n    \"biz_loc\": \"rf0001\",\n    \"item_disp\":\"damaged\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/foodtrust/ilmd?action=observation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"foodtrust",
+						"ilmd"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "observation"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "post commission from local (fac) - example response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item_ref\": \"LQrU\",\n    \"item_lot\": 101,\n    \"item_qty\": 7,\n    \"biz_loc\": \"2244002.bi17v\",\n    \"src_loc\": \"2244002.bi17v\",\n    \"dest_loc\": \"2244002.bi17v\",\n    \"date_exp\": \"2019-09-25\",\n    \"date_sellby\": \"2019-09-25\",\n    \"date_best\": \"2019-09-25\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/foodtrust/commission",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"foodtrust",
+								"commission"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "503"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1f7-IYyWuDMihgVQBLAih7sVAKtLXJs\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 25 Sep 2019 14:46:48 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": {\n        \"ids\": [\n            \"urn:ibm:provenance:asset:event:commission:72ff5038-e451-4d36-82ac-c11743638893:default:default:fc03ed92ca33b1143f79fa9c4847080fd664f3eb92460f7518209efec522a7d0\",\n            \"urn:ibm:provenance:asset:object:lotILMD:72ff5038-e451-4d36-82ac-c11743638893:default:default:498e8f9bfd8dfd7f79c6fffe86d16509174da5cccb90660c3d76b2b25f1b34ee\",\n            \"urn:ibm:provenance:asset:object:lotILMD:72ff5038-e451-4d36-82ac-c11743638893:default:default:1c16bdab404e415d60667eb86f0edc99cb04de7b0c667993e8b51e1e088d4a15\"\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "POST aggregation",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"item_ref\": \"rp0002\",\n    \"item_lot\": 3020,\n    \"item_qty\": 100,\n    \"biz_loc\": \"rf0001\",\n    \"pallet\": \"pallet01\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/foodtrust/ilmd?action=aggregation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"foodtrust",
+						"ilmd"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "aggregation"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "post commission from local (fac) - example response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item_ref\": \"LQrU\",\n    \"item_lot\": 101,\n    \"item_qty\": 7,\n    \"biz_loc\": \"2244002.bi17v\",\n    \"src_loc\": \"2244002.bi17v\",\n    \"dest_loc\": \"2244002.bi17v\",\n    \"date_exp\": \"2019-09-25\",\n    \"date_sellby\": \"2019-09-25\",\n    \"date_best\": \"2019-09-25\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/foodtrust/commission",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"foodtrust",
+								"commission"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "503"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1f7-IYyWuDMihgVQBLAih7sVAKtLXJs\""
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 25 Sep 2019 14:46:48 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": {\n        \"ids\": [\n            \"urn:ibm:provenance:asset:event:commission:72ff5038-e451-4d36-82ac-c11743638893:default:default:fc03ed92ca33b1143f79fa9c4847080fd664f3eb92460f7518209efec522a7d0\",\n            \"urn:ibm:provenance:asset:object:lotILMD:72ff5038-e451-4d36-82ac-c11743638893:default:default:498e8f9bfd8dfd7f79c6fffe86d16509174da5cccb90660c3d76b2b25f1b34ee\",\n            \"urn:ibm:provenance:asset:object:lotILMD:72ff5038-e451-4d36-82ac-c11743638893:default:default:1c16bdab404e415d60667eb86f0edc99cb04de7b0c667993e8b51e1e088d4a15\"\n        ]\n    }\n}"
+				}
+			]
+		}
+	],
+	"protocolProfileBehavior": {}
+}
