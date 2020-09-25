@@ -2,7 +2,6 @@ const chalk = require("chalk");
 const log = (text) => console.log(chalk.magenta("[r/foodtrust]", text));
 
 const { auth, srvAssets } = require("../services/foodtrust");
-
 const { epcisCommission, epcisTransformation } = require("../services/xmlMsgs");
 const { epcisObservation, epcisAggregation } = require("../services/xmlMsgs");
 
