@@ -9,5 +9,6 @@
   "SGLN": "urn:epc:id:sgln",
   "BIZSTEP": "urn:epcglobal:cbv:bizstep",
   "DISP": "urn:epcglobal:cbv:disp",
-  "UUID": "urn:uuid"
+  "UUID": "urn:uuid",
+  "SSCC": "urn:epc:id:sscc"
 }

@@ -18,8 +18,8 @@ const {
   farm: f,
 } = require("../XMLMessages/XML_Tags.json");
 
-const { LFTPI, FTLPN, FTLI } = require("../XMLMessages/GS1_Patterns.json");
-const { UUID, DISP } = require("../XMLMessages/GS1_Patterns.json");
+const { LFTPI, FTLI } = require("../XMLMessages/GS1_Patterns.json");
+const { UUID, DISP, SSCC } = require("../XMLMessages/GS1_Patterns.json");
 
 const PREFIX = config.get("FT_COMPANY_PREFIX");
 
@@ -39,11 +39,7 @@ const epcisCommission = async (values) => {
   const { biz_loc, src_loc, dest_loc } = values;
   const { date_exp, date_sellby, date_best } = values;
 
-  const xmlFilePath = path.join(
-    cwd,
-    "server/XMLMessages",
-    "EPCIS_Commission.xml"
-  );
+  const xmlFilePath = path.join(cwd, "server/XMLMessages", "epcis_com.xml");
   const xmlFile = await fs.readFile(xmlFilePath);
   const xml = await parseString(xmlFile);
 
@@ -92,34 +88,31 @@ const epcisTransformation = async (values) => {
   const { biz_loc } = values;
   const { date_exp, date_sellby, date_best } = values;
 
-  const xmlFilePath = path.join(cwd, "XMLMessages", "EPCIS_Transformation.xml");
+  const xmlFilePath = path.join(cwd, "server/XMLMessages", "epcis_trn.xml");
   const xmlFile = await fs.readFile(xmlFilePath);
   const xml = await parseString(xmlFile);
 
-  // const bizLocation = `${FTLI}:${biz_loc}`;
-  const item_epc_in = `${LFTPI}:${item_ref_in.split(":").pop()}.${item_lot_in}`;
-  const item_epc_out = `${LFTPI}:${item_ref_out
-    .split(":")
-    .pop()}.${item_lot_out}`;
+  const location = `${FTLI}:${PREFIX}.${biz_loc}`;
+  const epcClassIn = `${LFTPI}:${PREFIX}.${item_ref_in}.${item_lot_in}`;
+  const epcClassOut = `${LFTPI}:${PREFIX}.${item_ref_out}.${item_lot_out}`;
+
+  log("epcClassIn: " + epcClassIn);
+  log("epcClassOut: " + epcClassOut);
+  log(`location: ${FTLI}:${PREFIX}.${biz_loc}`);
 
   xml[r][b][0][el][0][e][0][te][0].eventTime[0] = new Date().toISOString();
   xml[r][b][0][el][0][e][0][te][0][be][0].eventID = `${UUID}:${uuidv1()}`;
-  xml[r][b][0][el][0][e][0][te][0][iql][0][qe][0].epcClass = item_epc_in;
+  xml[r][b][0][el][0][e][0][te][0][iql][0][qe][0].epcClass = epcClassIn;
   xml[r][b][0][el][0][e][0][te][0][iql][0][qe][0].quantity = item_qty_in;
-  // xml[r][b][0][el][0][e][0][te][0][iql][0][qe][0].uom = `kg`;
 
-  xml[r][b][0][el][0][e][0][te][0][oql][0][qe][0].epcClass = item_epc_out;
+  xml[r][b][0][el][0][e][0][te][0][oql][0][qe][0].epcClass = epcClassOut;
   xml[r][b][0][el][0][e][0][te][0][oql][0][qe][0].quantity = item_qty_out;
-  // xml[r][b][0][el][0][e][0][te][0][oql][0][qe][0].uom = `kg`;
 
-  xml[r][b][0][el][0][e][0][te][0].bizLocation[0].id = biz_loc;
+  xml[r][b][0][el][0][e][0][te][0].bizLocation[0].id = location;
 
   xml[r][b][0][el][0][e][0][te][0][e][0].ilmd[0][exp] = date_exp;
   xml[r][b][0][el][0][e][0][te][0][e][0].ilmd[0][sellBy] = date_sellby;
   xml[r][b][0][el][0][e][0][te][0][e][0].ilmd[0][best] = date_best;
-
-  log(JSON.stringify(xml[r][b][0][el][0][e][0][te][0]));
-  // log(JSON.stringify(xml[root].EPCISBody[0].EventList[0].extension[0].eventTime));
 
   const builder = new xml2js.Builder();
   const outputXml = builder.buildObject(xml);
@@ -142,21 +135,22 @@ const epcisObservation = async (values) => {
   const { item_ref, item_qty, item_lot } = values;
   const { biz_loc, item_disp } = values;
 
-  const xmlFilePath = path.join(cwd, "XMLMessages", "EPCIS_Observation.xml");
+  const xmlFilePath = path.join(cwd, "server/XMLMessages", "epcis_obs.xml");
   const xmlFile = await fs.readFile(xmlFilePath);
   const xml = await parseString(xmlFile);
 
-  // const bizLocation = `${FTLI}:${biz_loc}`;
-  const item_epc = `${LFTPI}:${item_ref.split(":").pop()}.${item_lot}`;
+  const location = `${FTLI}:${PREFIX}.${biz_loc}`;
+  const epcClass = `${LFTPI}:${PREFIX}.${item_ref}.${item_lot}`;
 
-  log(item_epc);
+  log("epcClass: " + epcClass);
+  log(`location: ${FTLI}:${PREFIX}.${biz_loc}`);
 
   xml[r][b][0][el][0][oe][0].eventTime[0] = new Date().toISOString();
   xml[r][b][0][el][0][oe][0].baseExtension[0].eventID = `${UUID}:${uuidv1()}`;
   xml[r][b][0][el][0][oe][0].disposition = `${DISP}:${item_disp}`;
-  xml[r][b][0][el][0][oe][0].bizLocation[0].id = biz_loc;
-  // xml[r][b][0][el][0][oe][0].epcList[0].epc = item_epc;
-  xml[r][b][0][el][0][oe][0][e][0][ql][0][qe][0].epcClass = item_epc;
+  xml[r][b][0][el][0][oe][0].bizLocation[0].id = location;
+
+  xml[r][b][0][el][0][oe][0][e][0][ql][0][qe][0].epcClass = epcClass;
   xml[r][b][0][el][0][oe][0][e][0][ql][0][qe][0].quantity = item_qty;
 
   const builder = new xml2js.Builder();
@@ -179,21 +173,23 @@ const epcisAggregation = async (values) => {
   const { item_ref, item_lot, item_qty } = values;
   const { pallet, biz_loc } = values;
 
-  const xmlFilePath = path.join(cwd, "XMLMessages", "EPCIS_Aggregation.xml");
+  const xmlFilePath = path.join(cwd, "server/XMLMessages", "epcis_agg.xml");
   const xmlFile = await fs.readFile(xmlFilePath);
   const xml = await parseString(xmlFile);
 
-  // const bizLocation = `${FTLI}:${biz_loc}`;
-  const item_epc = `${LFTPI}:${item_ref.split(":").pop()}.${item_lot}`;
-  // const item_epc = `${LFTPI}:${PREFIX}.${item_ref}.${item_lot}`;
-  const pallet_serial = `${FTLPN}:${PREFIX}.${pallet}`;
-  log(pallet_serial);
+  const location = `${FTLI}:${PREFIX}.${biz_loc}`;
+  const epcClass = `${LFTPI}:${PREFIX}.${item_ref}.${item_lot}`;
+  const palletId = `${SSCC}:${PREFIX}.${pallet}`;
+
+  log("epcClass: " + epcClass);
+  log(`location: ${FTLI}:${PREFIX}.${biz_loc}`);
+  log("palletId: " + palletId);
 
   xml[r][b][0][el][0][ea][0].eventTime[0] = new Date().toISOString();
   xml[r][b][0][el][0][ea][0].baseExtension[0].eventID = `${UUID}:${uuidv1()}`;
-  xml[r][b][0][el][0][ea][0].parentID = pallet_serial;
-  xml[r][b][0][el][0][ea][0].bizLocation[0].id = biz_loc;
-  xml[r][b][0][el][0][ea][0][e][0][ql][0][qe][0].epcClass = item_epc;
+  xml[r][b][0][el][0][ea][0].parentID = palletId;
+  xml[r][b][0][el][0][ea][0].bizLocation[0].id = location;
+  xml[r][b][0][el][0][ea][0][e][0][ql][0][qe][0].epcClass = epcClass;
   xml[r][b][0][el][0][ea][0][e][0][ql][0][qe][0].quantity = item_qty;
 
   const builder = new xml2js.Builder();
