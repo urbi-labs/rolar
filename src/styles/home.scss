@@ -4,4 +4,30 @@
   width: 100%;
   height: 100vh;
   border: 1px dashed green;
+
+  .home__wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    border: 1px pink solid;
+
+    .home__tile {
+      border: 1px border cyan;
+      margin: 15px;
+
+      .home__tile-button {
+        display: grid;
+        place-items: center;
+        width: 130px;
+        height: 119px;
+        background-color: #73ce1b;
+      }
+
+      .home__tile-label {
+        font-style: italic;
+        text-align: center;
+      }
+    }
+  }
 }
