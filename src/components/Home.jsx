@@ -6,13 +6,17 @@ import "../styles/home.scss";
 
 class Home extends Component {
   state = {
-    data: {},
-    screen: "",
+    batch: {
+      payload: "hola",
+      step: 0,
+    },
+    screen: "batch",
   };
 
   renderScreen = (screen) => {
+    const { batch } = this.state;
     const component = {
-      batch: <Batch lala="lalalal" />,
+      batch: <Batch data={batch} />,
       sample: <div>Nuevo Lote</div>,
       mill: <div>Nuevo Lote</div>,
       cent: <div>Nuevo Lote</div>,
