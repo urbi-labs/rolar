@@ -1,0 +1,80 @@
+@import "carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss";
+@import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
+@import "carbon-components/scss/globals/scss/typography.scss";
+@import "carbon-components/scss/globals/scss/vars.scss";
+
+@import "./overrides.scss";
+@import "./mixins.scss";
+
+.schedule {
+  padding-left: 64px;
+  padding-right: 64px;
+  padding-bottom: 64px;
+  background-color: white;
+  box-sizing: border-box;
+  border-radius: 7px;
+  width: 100%;
+}
+
+.schedule__subtitle {
+  @include carbon--type-style("expressive-heading-01");
+  height: 100%;
+}
+
+.schedule__row {
+  margin-bottom: $spacing-01;
+}
+
+.schedule__left {
+  margin-top: 30px;
+  padding: 14px 22px 0px 22px;
+  // border: 1px red solid;
+  height: 100%;
+  display: grid;
+  justify-content: space-between;
+}
+
+.schedule__box {
+  margin-top: 30px;
+  padding: 14px 22px 14px 22px;
+  // border: 1px blue solid;
+  background: #eff4fd;
+  width: 100%;
+  height: 100%;
+}
+
+.schedule__calendar {
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -10px;
+  margin-left: -10px;
+  .schedule__item {
+    width: calc(25% - 10px);
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+}
+.schedule__current {
+  @include carbon--type-style("expressive-heading-04");
+  padding: 5px;
+  background: #eff4fd;
+  text-align: center;
+}
+
+.schedule__draw--subtitle {
+  @include carbon--type-style("expressive-heading-01");
+}
+
+.schedule__draw--subtitle-link {
+  cursor: pointer;
+  color: blue;
+}
+
+.schedule__draw--helper {
+  @include carbon--type-style("helper-text-01");
+}
+
+.padtop30 {
+  padding-top: 30px;
+}

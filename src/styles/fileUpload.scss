@@ -1,0 +1,74 @@
+@import "carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss";
+@import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
+@import "carbon-components/scss/globals/scss/typography.scss";
+@import "carbon-components/scss/globals/scss/vars.scss";
+
+@import "./overrides.scss";
+@import "./mixins.scss";
+
+.upload {
+  padding-top: 60px;
+  padding-left: 64px;
+  padding-right: 64px;
+  box-sizing: border-box;
+  border-radius: 7px;
+  width: 70vw;
+}
+
+.upload__title {
+  @include carbon--type-style("productive-heading-05");
+}
+.upload__subtitle {
+  @include carbon--type-style("productive-heading-02");
+  padding: 16px;
+}
+
+.upload__heading {
+  @include carbon--type-style("productive-heading-03");
+}
+
+.upload__helper {
+  @include carbon--type-style("helper-text-01");
+  color: #565656;
+}
+
+.upload__uploader {
+  background-color: white;
+  padding: 16px;
+  height: 100%;
+}
+
+.upload__row {
+  margin-bottom: $spacing-05;
+}
+
+.upload__statslink {
+  @include carbon--type-style("helper-text-01");
+  cursor: pointer;
+  text-align: right;
+}
+
+.upload__block {
+  @include carbon--type-style("code-01");
+  color: #373d42;
+  word-break: break-all;
+  height: 100%;
+}
+
+.bx--col--valign {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+}
+.bx--col--justify {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bg-white {
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 0px;
+}

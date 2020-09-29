@@ -1,0 +1,24 @@
+@import "carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss";
+@import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
+@import "carbon-components/scss/globals/scss/typography.scss";
+@import "carbon-components/scss/globals/scss/vars.scss";
+
+@import "./overrides.scss";
+@import "./mixins.scss";
+
+.results {
+  padding-left: 64px;
+  padding-right: 64px;
+  padding-bottom: 64px;
+  box-sizing: border-box;
+  border-radius: 7px;
+  width: 70vw;
+}
+
+.results__helper {
+  @include carbon--type-style("helper-text-01");
+}
+
+.results__row {
+  margin-bottom: $spacing-01;
+}

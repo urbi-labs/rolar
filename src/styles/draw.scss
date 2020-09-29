@@ -1,0 +1,86 @@
+@import "carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss";
+@import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
+@import "carbon-components/scss/globals/scss/typography.scss";
+@import "carbon-components/scss/globals/scss/vars.scss";
+
+@import "./overrides.scss";
+@import "./mixins.scss";
+
+.draw__container {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.loading-centered {
+  position: fixed;
+  top: 25%;
+  left: 45%;
+}
+.toast-centered {
+  position: fixed;
+  top: 50px;
+  left: 45%;
+}
+
+.draw {
+  padding-top: 91px;
+  padding-left: 64px;
+  padding-right: 64px;
+  padding-bottom: 64px;
+  box-sizing: border-box;
+  border-radius: 7px;
+  width: 80vw;
+}
+
+.draw__heading {
+  @include carbon--type-style("productive-heading-05");
+}
+.draw__helper {
+  @include carbon--type-style("helper-text-01");
+  color: #565656;
+}
+
+.draw__row {
+  margin-bottom: $spacing-05;
+}
+
+.ballot {
+  padding: 20px;
+  background-color: white;
+  // // box-sizing: border-box;
+  border-radius: 7px;
+  width: 100%;
+}
+.draw__blochain {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  background-color: #eff4fd;
+  margin-top: $spacing-05;
+}
+
+.bx--col--valign {
+  display: flex;
+  align-self: center;
+}
+.draw__block {
+  @include carbon--type-style("code-01");
+  color: #003665;
+  word-break: break-all;
+  height: 100%;
+}
+
+.draw__blockchain-title {
+  @include carbon--type-style("productive-heading-01");
+  color: blue;
+  font-weight: 500;
+  padding-top: $spacing-05;
+  padding-bottom: $spacing-05;
+}
+.draw__blockchain-logo {
+  display: block;
+  margin: auto;
+}

@@ -1,0 +1,40 @@
+@import "carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss";
+@import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
+@import "carbon-components/scss/globals/scss/typography.scss";
+@import "carbon-components/scss/globals/scss/vars.scss";
+
+@import "./overrides.scss";
+@import "./mixins.scss";
+
+.stats {
+  padding-top: 60px;
+  padding-left: 64px;
+  padding-right: 64px;
+  padding-bottom: 64px;
+  box-sizing: border-box;
+  border-radius: 7px;
+  width: 70vw;
+}
+
+.stats__heading {
+  @include carbon--type-style("productive-heading-03");
+}
+.stats__helper {
+  @include carbon--type-style("helper-text-01");
+}
+
+.stats__title {
+  @include carbon--type-style("productive-heading-05");
+}
+
+.stats-chart-size {
+  height: 450px;
+}
+.stats__chart {
+  padding: 20px;
+  background-color: white;
+}
+
+.stats__row {
+  margin-bottom: $spacing-05;
+}

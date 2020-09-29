@@ -1,0 +1,43 @@
+.landing-page__r2 .bx--tabs__nav {
+  right: 0;
+}
+
+.upload {
+  .bx--file--label {
+    @include carbon--type-style("productive-heading-02");
+  }
+}
+
+.draw {
+  .bx--btn--tertiary {
+    margin-left: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.gray {
+  color: #565656;
+}
+
+.blue {
+  color: blue;
+}
+
+.bb {
+  border: 1px blue solid;
+}
+
+.bg--white {
+  background-color: white;
+}
+
+.red {
+  color: red;
+}
+
+.gray {
+  color: darkslategray;
+}
+.green {
+  color: green;
+}

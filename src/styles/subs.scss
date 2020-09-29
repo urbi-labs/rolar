@@ -1,0 +1,83 @@
+@import "carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss";
+@import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
+@import "carbon-components/scss/globals/scss/typography.scss";
+@import "carbon-components/scss/globals/scss/vars.scss";
+
+@import "./overrides.scss";
+@import "./mixins.scss";
+
+.centered {
+  //   position: fixed;
+  //   top: 45%;
+  left: 50%;
+  /* bring your own prefixes */
+  //   transform: translate(-50%, -50%);
+}
+
+.subs {
+  /* position: absolute; */
+  //   padding-top: 60px;
+  padding-left: 64px;
+  padding-right: 64px;
+  padding-bottom: 64px;
+  background-color: white;
+  box-sizing: border-box;
+  border-radius: 7px;
+  width: 100%;
+  border: 1px red solid;
+}
+
+.subs__subtitle {
+  @include carbon--type-style("expressive-heading-01");
+  height: 100%;
+}
+
+.subs__row {
+  margin-bottom: $spacing-01;
+}
+
+.subs__left {
+  margin-top: 30px;
+  padding: 14px 22px 0px 22px;
+  border: 1px red solid;
+  height: 100%;
+  display: grid;
+  justify-content: space-between;
+}
+
+.subs__box {
+  margin-top: 30px;
+  padding: 14px 22px 14px 22px;
+  border: 1px blue solid;
+  background: #eff4fd;
+  width: 100%;
+  height: 100%;
+}
+
+.subs__calendar {
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -10px;
+  margin-left: -10px;
+  .subs__item {
+    width: calc(25% - 10px);
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+}
+.subs__current {
+  border: 1px blue solid;
+  text-align: center;
+}
+
+.subs__draw {
+  @include carbon--type-style("expressive-heading-01");
+}
+.subs__draw--helper {
+  @include carbon--type-style("helper-text-01");
+}
+
+.padtop30 {
+  padding-top: 30px;
+}
