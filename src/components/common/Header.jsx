@@ -9,7 +9,11 @@ function Header() {
   //   setUser(getCurrentUser());
   // }, []);
 
-  return <div>Rolar De Cuyo</div>;
+  return (
+    <div className="header__container">
+      <div className="header__title">Rolar De Cuyo</div>
+    </div>
+  );
 }
 
 export default Header;

@@ -1,3 +1,16 @@
-.container {
-  background-color: #f3f3f3;
+.template__container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  height: 100vh;
+  width: 100vw;
+  background: #f4f4f4;
+  padding: 16px 25px 16px 25px;
+}
+
+@media screen and (max-width: 600px) {
+  .template__container {
+    width: 100vw;
+    // height: 100vh;
+  }
 }

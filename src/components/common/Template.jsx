@@ -5,7 +5,7 @@ import "../../styles/template.scss";
 
 function Template(Screen) {
   return () => (
-    <div>
+    <div className="template__container">
       <Header />
       <Screen />
     </div>

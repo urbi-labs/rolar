@@ -1,0 +1,20 @@
+@import "carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss";
+@import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
+@import "carbon-components/scss/globals/scss/typography.scss";
+@import "carbon-components/scss/globals/scss/vars.scss";
+
+.header__title {
+  //   @include carbon--type-style("expressive-heading-01");
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  /* identical to box height */
+
+  color: #6a6a6a;
+}
+
+.header__container {
+  border: 1px blue solid;
+}
