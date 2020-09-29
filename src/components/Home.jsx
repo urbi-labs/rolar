@@ -7,10 +7,10 @@ import "../styles/home.scss";
 class Home extends Component {
   state = {
     batch: {
-      payload: "hola",
+      payload: {},
       step: 0,
     },
-    screen: "batch",
+    screen: "",
   };
 
   renderScreen = (screen) => {
@@ -23,7 +23,6 @@ class Home extends Component {
       storage: <div>Nuevo Lote</div>,
       tank: <div>Nuevo Lote</div>,
     };
-
     return component[screen];
   };
 
