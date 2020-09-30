@@ -1,0 +1,28 @@
+{
+  "sections": [
+    {
+      "key": "batch",
+      "label": "Nuevo lote"
+    },
+    {
+      "key": "sample",
+      "label": "Control de muestra"
+    },
+    {
+      "key": "mill",
+      "label": "Ingreso al molino"
+    },
+    {
+      "key": "cent",
+      "label": "Ingreso a centrífuga vertical"
+    },
+    {
+      "key": "storage",
+      "label": "Ingreso al almacenamiento"
+    },
+    {
+      "key": "tank",
+      "label": "Cierre de tanques"
+    }
+  ]
+}

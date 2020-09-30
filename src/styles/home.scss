@@ -1,19 +1,17 @@
 .home__container {
   display: flex;
-  flex-direction: column;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   border: 1px dashed green;
 
   .home__wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 0 auto;
     border: 1px pink solid;
 
     .home__tile {
-      border: 1px border cyan;
+      border: 1px cyan border;
       margin: 15px;
 
       .home__tile-button {
@@ -25,6 +23,14 @@
       }
 
       .home__tile-label {
+        font-family: Lato;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 10px;
+        line-height: 12px;
+        /* identical to box height, or 112% */
+        text-align: center;
+        color: #6f914d;
         font-style: italic;
         text-align: center;
       }
