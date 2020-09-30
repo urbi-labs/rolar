@@ -3,6 +3,7 @@ import Batch from "./Batch";
 import Template from "./common/Template";
 
 import "../styles/home.scss";
+import { date } from "joi";
 
 class Home extends Component {
   state = {
@@ -16,7 +17,9 @@ class Home extends Component {
   renderScreen = (screen) => {
     const { batch } = this.state;
     const component = {
-      batch: <Batch data={batch} />,
+      batch: (
+        <Batch data={batch} step={this.handleStep} submit={this.handleSubmit} />
+      ),
       sample: <div>Nuevo Lote</div>,
       mill: <div>Nuevo Lote</div>,
       cent: <div>Nuevo Lote</div>,
@@ -24,6 +27,37 @@ class Home extends Component {
       tank: <div>Nuevo Lote</div>,
     };
     return component[screen];
+  };
+
+  handleBatch = (screen) => {
+    this.setState({ screen }, () => console.log(this.state));
+  };
+
+  handleStep = (screen, next = true) => {
+    const newState = { ...this.state };
+    const data = newState[screen];
+    const { step } = data;
+    newState.screen = screen;
+
+    data.step = next ? step + 1 : step - 1;
+    if (data.step < 0) {
+      data.step = 0;
+      newState.screen = "";
+    }
+
+    newState[screen] = data;
+    this.setState(newState, () => console.log(this.state));
+  };
+
+  handleSubmit = (screen) => {
+    const newState = { ...this.state };
+    const data = newState[screen];
+
+    //submit logic
+    data.step = 0;
+
+    newState.screen = "";
+    this.setState(newState, () => console.log(this.state));
   };
 
   render() {
@@ -35,7 +69,11 @@ class Home extends Component {
       <div className="home__container">
         <div className="home__wrapper">
           {[0, 1, 2, 3, 4, 5].map((e, i) => (
-            <div className="home__tile" key={i}>
+            <div
+              className="home__tile"
+              key={i}
+              onClick={() => this.handleBatch("batch")}
+            >
               <div className="home__tile-button">{e}</div>
               <div className="home__tile-label">label</div>
             </div>
