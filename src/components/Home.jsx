@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Batch from "./Batch";
+import Feedback from "./Feedback";
 import Template from "./common/Template";
 
 import "../styles/home.scss";
@@ -11,6 +12,10 @@ class Home extends Component {
       payload: {},
       step: 0,
     },
+    sample: {
+      payload: {},
+      step: 0,
+    },
     screen: "",
   };
 
@@ -18,18 +23,20 @@ class Home extends Component {
     const { batch } = this.state;
     const component = {
       batch: (
-        <Batch
-          data={batch}
-          step={this.handleStep}
-          submit={this.handleSubmit}
-          restart={this.handleRestart}
-        />
+        <Batch data={batch} step={this.handleStep} submit={this.handleSubmit} />
       ),
       sample: <div>Nuevo Lote</div>,
       mill: <div>Nuevo Lote</div>,
       cent: <div>Nuevo cent</div>,
       storage: <div>Nuevo Lote</div>,
       tank: <div>Nuevo Lote</div>,
+      feedback: (
+        <Feedback
+          label="lalala"
+          serial="123"
+          restart={this.handleRestart}
+        ></Feedback>
+      ),
     };
     return component[screen];
   };
@@ -65,8 +72,8 @@ class Home extends Component {
   handleSubmit = (screen) => {
     const newState = { ...this.state };
     console.log("registrando informacion...");
-
-    newState[screen].step = 2;
+    // submit data logic
+    newState.screen = "feedback";
     this.setState(newState, () => console.log(this.state));
   };
 
