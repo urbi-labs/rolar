@@ -3,7 +3,6 @@ import Batch from "./Batch";
 import Template from "./common/Template";
 
 import "../styles/home.scss";
-import { date } from "joi";
 
 class Home extends Component {
   state = {
