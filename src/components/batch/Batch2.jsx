@@ -24,14 +24,13 @@ const props = (titleText) => ({
   invalidText: "A valid value is required",
   size: "sm",
   direction: "bottom",
-  onChange: console.log("onChange"),
-  onToggleClick: console.log("onClick"),
+  onChange: () => console.log("onChange"),
+  onToggleClick: () => console.log("onClick"),
 });
 
 const inputProps = (labelText) => ({
   // className: "",
   id: labelText,
-  // defaultValue: "This is not a default value",
   size: "sm",
   labelText,
   placeholder: "",
@@ -44,8 +43,8 @@ const inputProps = (labelText) => ({
   // warnText: "This will overwrite your current settings",
   // helperText: "Optional help text",
   inline: false,
-  onClick: console.log("onClick"),
-  onChange: console.log("onChange"),
+  onClick: () => console.log("onClick"),
+  onChange: () => console.log("onChange"),
 });
 
 const Batch2 = ({ step, submit }) => {

@@ -24,8 +24,8 @@ const props = (titleText) => ({
   invalidText: "A valid value is required",
   size: "sm",
   direction: "bottom",
-  onChange: console.log("onChange"),
-  onToggleClick: console.log("onClick"),
+  onChange: () => console.log("onChange"),
+  onToggleClick: () => console.log("onClick"),
 });
 
 const Batch1 = ({ step }) => {
