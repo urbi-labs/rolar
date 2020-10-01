@@ -1,26 +1,14 @@
-.landing-page__r2 .bx--tabs__nav {
-  right: 0;
-}
-
-.upload {
-  .bx--file--label {
-    @include carbon--type-style("productive-heading-02");
+.template__container {
+  .bx--grid {
+    margin-left: 0px;
+    margin-right: 0px;
+    .bx--row {
+      .bx--col {
+        // display: grid;
+        // place-items: center;
+      }
+    }
   }
-}
-
-.draw {
-  .bx--btn--tertiary {
-    margin-left: 1rem;
-    margin-top: 1rem;
-  }
-}
-
-.gray {
-  color: #565656;
-}
-
-.blue {
-  color: blue;
 }
 
 .bb {
