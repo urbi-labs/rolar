@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
   return res.status(200).send(batch);
 });
 
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   const batch = await Batch.find().sort({
     timestamp: "desc",
   });

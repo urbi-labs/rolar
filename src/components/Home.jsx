@@ -10,7 +10,7 @@ import { sections } from "../config.json";
 import { clients, oliveTypes } from "../config.json";
 
 // Services
-import { submitBatch } from "../services/apiService";
+import { submitBatch, getBatches } from "../services/apiService";
 
 class Home extends Component {
   state = {
@@ -23,7 +23,6 @@ class Home extends Component {
         chuteName: "100",
         chuteWeight: 2700,
         grossWeight: 4700,
-        netWeight: 2000,
         deliveryNumber: "0001-123000A",
         receiptNumber: "ABX123",
       },
@@ -69,7 +68,7 @@ class Home extends Component {
     const newState = { ...this.state };
     const initSection = {
       batch: this.initializeBatch,
-      sample: <div>Nuevo Lote</div>,
+      sample: this.initializeSample,
       mill: <div>Nuevo Lote</div>,
       cent: <div>Nuevo cent</div>,
       storage: <div>Nuevo Lote</div>,
@@ -90,6 +89,19 @@ class Home extends Component {
       }),
       oliveTypes,
     };
+  };
+
+  initializeSample = async () => {
+    const { data } = await getBatches();
+    const items = [];
+    data.forEach((doc, ind) => {
+      items.push({
+        id: ind + "",
+        text: doc._id,
+      });
+    });
+    console.log(items);
+    return items;
   };
 
   handleComboChange = (event, screen, field) => {

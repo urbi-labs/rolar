@@ -29,7 +29,7 @@ const Batch2 = ({ step, submit, data, onComboChange, onInputChange }) => {
   if (!data) return "Cargando...";
   let items = [];
 
-  const { client, chuteWeight } = data.payload;
+  const { client, chuteWeight, grossWeight } = data.payload;
   const { clients } = data.init;
 
   const preset = client === "Rolar de Cuyo SA" || client === "Acequión SA";
@@ -58,9 +58,7 @@ const Batch2 = ({ step, submit, data, onComboChange, onInputChange }) => {
               />
             ) : (
               <TextInput
-                onChange={(event) =>
-                  onInputChange(event, "batch", "chuteWeight")
-                }
+                onChange={(event) => onInputChange(event, "batch", "chuteName")}
                 {...inputProps("Nro. Tolva")}
               />
             )}
@@ -83,7 +81,9 @@ const Batch2 = ({ step, submit, data, onComboChange, onInputChange }) => {
           </div>
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, "batch", "netWeight")}
+              disabled={true}
+              // onChange={(event) => onInputChange(event, "batch", "netWeight")}
+              value={grossWeight - chuteWeight}
               {...inputProps("KG Neto")}
             />
           </div>
