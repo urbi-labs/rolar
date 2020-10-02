@@ -6,14 +6,7 @@ import "../../styles/batch.scss";
 // Docs ComboBox
 // https://react.carbondesignsystem.com/?path=/story/combobox--default
 
-const items = [
-  {
-    id: "rolar",
-    text: "Rolar",
-  },
-];
-
-const props = (titleText) => ({
+const comboProps = (titleText) => ({
   id: titleText,
   placeholder: "Elegir una opción...",
   titleText,
@@ -24,12 +17,13 @@ const props = (titleText) => ({
   invalidText: "A valid value is required",
   size: "sm",
   direction: "bottom",
-  onChange: () => console.log("onChange"),
   onToggleClick: () => console.log("onClick"),
 });
 
-const Batch1 = ({ step }) => {
+const Batch1 = ({ step, data, onComboChange }) => {
   console.log("rendering Batch1...");
+  if (!data) return "Cargando...";
+  const { clients, parcels, oliveTypes } = data.init;
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
@@ -42,27 +36,30 @@ const Batch1 = ({ step }) => {
         <div className="bx--row custom__row">
           <div className="bx--col">
             <ComboBox
-              items={items}
+              items={clients}
               itemToString={(item) => (item ? item.text : "")}
-              {...props("Cliente")}
+              onChange={(event) => onComboChange(event, "batch", "client")}
+              {...comboProps("Cliente")}
             />
           </div>
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
             <ComboBox
-              items={items}
+              items={parcels}
               itemToString={(item) => (item ? item.text : "")}
-              {...props("Cuadro")}
+              onChange={(event) => onComboChange(event, "batch", "parcel")}
+              {...comboProps("Cuadro")}
             />
           </div>
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
             <ComboBox
-              items={items}
+              items={oliveTypes}
               itemToString={(item) => (item ? item.text : "")}
-              {...props("Variedad")}
+              onChange={(event) => onComboChange(event, "batch", "oliveType")}
+              {...comboProps("Variedad")}
             />
           </div>
         </div>

@@ -1,19 +1,12 @@
 const auth = require("../middleware/auth");
-const {
-  Batch,
-  validate
-} = require("../models/batch");
+const { Batch, validate } = require("../models/batch");
 const express = require("express");
 const router = express.Router();
 
-router.post("/", auth, async (req, res) => {
-  const {
-    body
-  } = req;
+router.post("/", async (req, res) => {
+  const { body } = req;
 
-  const {
-    error
-  } = validate(body);
+  const { error } = validate(body);
   if (error) return res.status(400).send(error.details[0].message);
 
   const newBatch = {
@@ -23,7 +16,7 @@ router.post("/", auth, async (req, res) => {
   await Batch.calcNetWeight(newBatch);
 
   const batch = new Batch({
-    ...newBatch
+    ...newBatch,
   });
 
   await batch.save();

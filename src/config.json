@@ -24,5 +24,44 @@
       "key": "tank",
       "label": "Cierre de tanques"
     }
-  ]
+  ],
+  "clients": [
+    {
+      "id": "rolar",
+      "text": "Rolar de Cuyo SA",
+      "chutes": [
+        { "id": "100", "text": "100", "value": "2700" },
+        { "id": "101", "text": "101", "value": "2720" },
+        { "id": "102", "text": "102", "value": "1580" },
+        { "id": "103", "text": "103", "value": "1380" }
+      ]
+    },
+    {
+      "id": "acequion",
+      "text": "Acequión SA",
+      "chutes": [
+        { "id": "1", "text": "1", "value": "2000" },
+        { "id": "2", "text": "2", "value": "1980" },
+        { "id": "3", "text": "3", "value": "1700" },
+        { "id": "4", "text": "4", "value": "1740" }
+      ]
+    },
+    { "id": "fideicomiso", "text": "Fideicomiso I" },
+    { "id": "osiris", "text": "Osiris SA" },
+    { "id": "viñas", "text": "Viñas Marsili SA" },
+    { "id": "ode", "text": "ODE" },
+    { "id": "ranfer", "text": "Ranfer" },
+    { "id": "olivaterra", "text": "Olivaterra SA" },
+    { "id": "olimas", "text": "Olimás SA" },
+    { "id": "otros", "text": "Otros" }
+  ],
+  "oliveTypes": [
+    { "id": "0", "text": "Arbequina" },
+    { "id": "1", "text": "Barnea" },
+    { "id": "2", "text": "Coratina" },
+    { "id": "3", "text": "Changlot" },
+    { "id": "4", "text": "Picual" }
+  ],
+  "baseURL": "https://rolar.mybluemix.net",
+  "tokenKey": "rolar-token"
 }

@@ -6,10 +6,28 @@ import Template from "./common/Template";
 import "../styles/home.scss";
 import { sections } from "../config.json";
 
+// Settings for batch section
+import { clients, oliveTypes } from "../config.json";
+
+// Services
+import { submitBatch } from "../services/apiService";
+
 class Home extends Component {
   state = {
     batch: {
-      payload: {},
+      payload: {
+        _user: "5f4fe8cd71164f1d5d65ae04",
+        client: "Rolar de Cuyo SA",
+        parcel: "2",
+        oliveType: "Coratina",
+        chuteName: "100",
+        chuteWeight: 2700,
+        grossWeight: 4700,
+        netWeight: 2000,
+        deliveryNumber: "0001-123000A",
+        receiptNumber: "ABX123",
+      },
+      init: {},
       step: 0,
     },
     sample: {
@@ -23,7 +41,13 @@ class Home extends Component {
     const { batch } = this.state;
     const component = {
       batch: (
-        <Batch data={batch} step={this.handleStep} submit={this.handleSubmit} />
+        <Batch
+          data={batch}
+          step={this.handleStep}
+          submit={this.handleSubmit}
+          onComboChange={this.handleComboChange}
+          onInputChange={this.handleInputChange}
+        />
       ),
       sample: <div>Nuevo Lote</div>,
       mill: <div>Nuevo Lote</div>,
@@ -41,11 +65,55 @@ class Home extends Component {
     return component[screen];
   };
 
-  handleBatch = (screen) => {
-    this.setState({ screen }, () => console.log(this.state));
+  handleOnClick = (screen) => {
+    const newState = { ...this.state };
+    const initSection = {
+      batch: this.initializeBatch,
+      sample: <div>Nuevo Lote</div>,
+      mill: <div>Nuevo Lote</div>,
+      cent: <div>Nuevo cent</div>,
+      storage: <div>Nuevo Lote</div>,
+      tank: <div>Nuevo Lote</div>,
+    };
+
+    newState[screen].init = initSection[screen]();
+    newState.screen = screen;
+
+    this.setState(newState, () => console.log(this.state));
   };
 
-  handleStep = (screen, next = true, reset) => {
+  initializeBatch = () => {
+    return {
+      clients,
+      parcels: [...Array(15).keys()].map((x, i) => {
+        return { id: i, text: ++x + "" };
+      }),
+      oliveTypes,
+    };
+  };
+
+  handleComboChange = (event, screen, field) => {
+    const newState = { ...this.state };
+
+    newState[screen].payload[field] = event.selectedItem
+      ? event.selectedItem.text
+      : "";
+
+    if (field === "chuteName")
+      newState[screen].payload.chuteWeight = event.selectedItem
+        ? event.selectedItem.value
+        : "0";
+
+    this.setState(newState, () => console.log(this.state));
+  };
+
+  handleInputChange = (event, screen, field) => {
+    const newState = { ...this.state };
+    newState[screen].payload[field] = event.target.value || 0;
+    this.setState(newState, () => console.log(this.state));
+  };
+
+  handleStep = (screen, next = true) => {
     const newState = { ...this.state };
     const data = newState[screen];
     const { step } = data;
@@ -69,10 +137,13 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-  handleSubmit = (screen) => {
+  handleSubmit = async (screen) => {
     const newState = { ...this.state };
-    console.log("registrando informacion...");
-    // submit data logic
+    console.log("registrando informacion... ", screen);
+    // Submit Logic
+    const { payload } = newState[screen];
+    const { data } = await submitBatch(payload);
+    console.log({ data });
     newState.screen = "feedback";
     this.setState(newState, () => console.log(this.state));
   };
@@ -91,7 +162,7 @@ class Home extends Component {
               <div
                 className="home__tile"
                 key={i}
-                onClick={() => this.handleBatch(key)}
+                onClick={() => this.handleOnClick(key)}
               >
                 <div className="home__tile-button">
                   <img src={`/images/${key}.png`} alt={key} />

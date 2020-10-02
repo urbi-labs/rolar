@@ -6,49 +6,37 @@ import "../../styles/batch.scss";
 // Docs ComboBox: https://react.carbondesignsystem.com/?path=/story/combobox--default
 // Docs TextInput: https://react.carbondesignsystem.com/?path=/story/textinput--default
 
-const items = [
-  {
-    id: "rolar",
-    text: "Rolar",
-  },
-];
-
-const props = (titleText) => ({
+const comboProps = (titleText) => ({
   id: titleText,
   placeholder: "Elegir una opción...",
   titleText,
-  // helperText: "Optional helper text here",
   light: true,
-  disabled: false,
-  invalid: false,
-  invalidText: "A valid value is required",
   size: "sm",
-  direction: "bottom",
-  onChange: () => console.log("onChange"),
   onToggleClick: () => console.log("onClick"),
 });
 
 const inputProps = (labelText) => ({
-  // className: "",
   id: labelText,
   size: "sm",
   labelText,
-  placeholder: "",
   light: true,
-  disabled: false,
-  hideLabel: false,
-  invalid: false,
-  invalidText: "A valid value is required",
-  // warn: false,
-  // warnText: "This will overwrite your current settings",
-  // helperText: "Optional help text",
-  inline: false,
+  type: "number",
   onClick: () => console.log("onClick"),
-  onChange: () => console.log("onChange"),
 });
 
-const Batch2 = ({ step, submit }) => {
+const Batch2 = ({ step, submit, data, onComboChange, onInputChange }) => {
   console.log("rendering Batch2...");
+  if (!data) return "Cargando...";
+  let items = [];
+  const { client } = data.payload;
+  const { clients } = data.init;
+
+  const preset = client === "Rolar de Cuyo SA" || client === "Acequión SA";
+  if (preset) {
+    const filter = clients.filter((c) => (c.text === client ? c.chutes : ""));
+    items = filter[0] ? filter[0].chutes : "";
+  }
+
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
@@ -56,34 +44,70 @@ const Batch2 = ({ step, submit }) => {
           <div className="bx--col ">Paso1</div>
         </div>
         <div className="bx--row custom__row">
-          <div className="bx--col"> Fecha Hora Cliente</div>
+          <div className="bx--col"> Fecha Hora </div>
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
-            <ComboBox
-              items={items}
-              itemToString={(item) => (item ? item.text : "")}
-              {...props("Nro. Tolva")}
+            {preset ? (
+              <ComboBox
+                items={items}
+                itemToString={(item) => (item ? item.text : "")}
+                onChange={(event) => onComboChange(event, "batch", "chuteName")}
+                {...comboProps("Nro. Tolva")}
+              />
+            ) : (
+              <TextInput
+                type="text"
+                onChange={(event) =>
+                  onInputChange(event, "batch", "chuteWeight")
+                }
+                {...inputProps("Nro. Tolva")}
+              />
+            )}
+          </div>
+          <div className="bx--col">
+            <TextInput
+              disabled={preset}
+              type="text"
+              onChange={(event) => onInputChange(event, "batch", "chuteWeight")}
+              {...inputProps("Tara")}
+            />
+          </div>
+        </div>
+        <div className="bx--row custom__row">
+          <div className="bx--col">
+            <TextInput
+              type="text"
+              onChange={(event) => onInputChange(event, "batch", "grossWeight")}
+              {...inputProps("KG Bruto")}
             />
           </div>
           <div className="bx--col">
-            <TextInput type="text" {...inputProps("Tara")} />
+            <TextInput
+              type="text"
+              onChange={(event) => onInputChange(event, "batch", "netWeight")}
+              {...inputProps("KG Neto")}
+            />
           </div>
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
-            <TextInput type="text" {...inputProps("KG Bruto")} />
+            <TextInput
+              type="text"
+              onChange={(event) =>
+                onInputChange(event, "batch", "deliveryNumber")
+              }
+              {...inputProps("Nro. Remito")}
+            />
           </div>
           <div className="bx--col">
-            <TextInput type="text" {...inputProps("KG Neto")} />
-          </div>
-        </div>
-        <div className="bx--row custom__row">
-          <div className="bx--col">
-            <TextInput type="text" {...inputProps("Nro. Remito")} />
-          </div>
-          <div className="bx--col">
-            <TextInput type="text" {...inputProps("Nro. Recibo")} />
+            <TextInput
+              type="text"
+              onChange={(event) =>
+                onInputChange(event, "batch", "receiptNumber")
+              }
+              {...inputProps("Nro. Recibo")}
+            />
           </div>
         </div>
       </div>

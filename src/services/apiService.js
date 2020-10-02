@@ -1,5 +1,5 @@
 import http from "./httpService";
 
-export function saveBatch(data) {
+export function submitBatch(data) {
   return http.post(`/api/batches`, data);
 }
