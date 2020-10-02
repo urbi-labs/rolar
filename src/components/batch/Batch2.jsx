@@ -62,13 +62,13 @@ const Batch2 = ({ step, submit, data, onComboChange, onInputChange }) => {
                   onInputChange(event, "batch", "chuteWeight")
                 }
                 {...inputProps("Nro. Tolva")}
-                value={chuteWeight || 0}
               />
             )}
           </div>
           <div className="bx--col">
             <TextInput
               disabled={preset}
+              value={chuteWeight || 0}
               onChange={(event) => onInputChange(event, "batch", "chuteWeight")}
               {...inputProps("Tara")}
             />
