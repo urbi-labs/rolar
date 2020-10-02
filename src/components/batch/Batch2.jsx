@@ -28,7 +28,8 @@ const Batch2 = ({ step, submit, data, onComboChange, onInputChange }) => {
   console.log("rendering Batch2...");
   if (!data) return "Cargando...";
   let items = [];
-  const { client } = data.payload;
+
+  const { client, chuteWeight } = data.payload;
   const { clients } = data.init;
 
   const preset = client === "Rolar de Cuyo SA" || client === "Acequión SA";
@@ -36,7 +37,7 @@ const Batch2 = ({ step, submit, data, onComboChange, onInputChange }) => {
     const filter = clients.filter((c) => (c.text === client ? c.chutes : ""));
     items = filter[0] ? filter[0].chutes : "";
   }
-
+  console.log({ chuteWeight });
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
@@ -57,18 +58,17 @@ const Batch2 = ({ step, submit, data, onComboChange, onInputChange }) => {
               />
             ) : (
               <TextInput
-                type="text"
                 onChange={(event) =>
                   onInputChange(event, "batch", "chuteWeight")
                 }
                 {...inputProps("Nro. Tolva")}
+                value={chuteWeight || 0}
               />
             )}
           </div>
           <div className="bx--col">
             <TextInput
               disabled={preset}
-              type="text"
               onChange={(event) => onInputChange(event, "batch", "chuteWeight")}
               {...inputProps("Tara")}
             />
@@ -77,14 +77,12 @@ const Batch2 = ({ step, submit, data, onComboChange, onInputChange }) => {
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              type="text"
               onChange={(event) => onInputChange(event, "batch", "grossWeight")}
               {...inputProps("KG Bruto")}
             />
           </div>
           <div className="bx--col">
             <TextInput
-              type="text"
               onChange={(event) => onInputChange(event, "batch", "netWeight")}
               {...inputProps("KG Neto")}
             />
@@ -93,7 +91,6 @@ const Batch2 = ({ step, submit, data, onComboChange, onInputChange }) => {
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              type="text"
               onChange={(event) =>
                 onInputChange(event, "batch", "deliveryNumber")
               }
@@ -102,7 +99,6 @@ const Batch2 = ({ step, submit, data, onComboChange, onInputChange }) => {
           </div>
           <div className="bx--col">
             <TextInput
-              type="text"
               onChange={(event) =>
                 onInputChange(event, "batch", "receiptNumber")
               }

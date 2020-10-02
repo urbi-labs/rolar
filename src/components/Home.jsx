@@ -101,8 +101,8 @@ class Home extends Component {
 
     if (field === "chuteName")
       newState[screen].payload.chuteWeight = event.selectedItem
-        ? event.selectedItem.value
-        : "0";
+        ? parseInt(event.selectedItem.value)
+        : 0;
 
     this.setState(newState, () => console.log(this.state));
   };
