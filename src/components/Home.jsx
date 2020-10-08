@@ -2,21 +2,25 @@ import React, { Component } from "react";
 import Batch from "./Batch";
 import Feedback from "./Feedback";
 import Template from "./common/Template";
-
+import Sample from './Sample';
+import Storage from './Storage';
+import Mill from './Mill';
+import Cent from './Cent';
+import Tank from './Tank';
 import "../styles/home.scss";
-import { sections } from "../config.json";
+import { sections, prodLine } from "../config.json";
 
 // Settings for batch section
 import { clients, oliveTypes } from "../config.json";
 
 // Services
-import { submitBatch, getBatches } from "../services/apiService";
+import { submitBatch, getBatches, getTanks } from "../services/apiService";
 
 class Home extends Component {
   state = {
     batch: {
       payload: {
-        _user: "5f4fe8cd71164f1d5d65ae04",
+        _user: "5f4fe8cd71164f1d5d65ae04",  
         client: "Rolar de Cuyo SA",
         parcel: "2",
         oliveType: "Coratina",
@@ -29,15 +33,60 @@ class Home extends Component {
       init: {},
       step: 0,
     },
-    sample: {
-      payload: {},
+    tank: {
+      payload: {
+        
+      },
+      init: {},
       step: 0,
+    },
+    storage: {
+      payload: {
+        
+      },
+      init: {},
+      step: 0,
+    },
+    cent: {
+      payload: {
+        
+      },
+      init: {},
+      step: 0,
+    },
+    mill: {
+      payload: {
+        
+      },
+      init: {},
+      step: 0,
+    },
+    sample: {
+      payload: {
+        _batch: "5f5695c6573a414b3a847952",
+        _user: "5f4fe8cd71164f1d5d65ae04",
+        hidraulicOil: false,
+        frost: 0,
+        mummified: 0,
+        dehydrated: 0,
+        waterExcess: 0,
+        branchExcess: 0,
+        leafExcess: 0,
+        maturityIndex: 0,
+        moisturePase: 0,
+        wetFat: 0,
+        dryFat: 0,
+        taurusPomace: 0,
+        rexPomace: 0,
+      },
+      step: 0,
+      init: {}
     },
     screen: "",
   };
 
   renderScreen = (screen) => {
-    const { batch } = this.state;
+    const { batch, sample, tank, mill, cent, storage } = this.state;
     const component = {
       batch: (
         <Batch
@@ -48,11 +97,51 @@ class Home extends Component {
           onInputChange={this.handleInputChange}
         />
       ),
-      sample: <div>Nuevo Lote</div>,
-      mill: <div>Nuevo Lote</div>,
-      cent: <div>Nuevo cent</div>,
-      storage: <div>Nuevo Lote</div>,
-      tank: <div>Nuevo Lote</div>,
+      sample: (
+        <Sample 
+          data={sample}  
+          step={this.handleStep} 
+          onComboChange={this.handleComboChange} 
+          onInputChange={this.handleInputChange}
+          submit={this.handleSubmit}
+
+        />
+      ),
+      mill: (
+        <Mill 
+          data={mill}  
+          step={this.handleStep} 
+          onComboChange={this.handleComboChange} 
+          onInputChange={this.handleInputChange}
+          submit={this.handleSubmit}
+
+      />),
+      cent: (
+        <Cent 
+          data={cent} 
+          step={this.handleStep}
+          submit={this.handleSubmit}
+          onComboChange={this.handleComboChange}
+          onInputChange={this.handleInputChange}
+        />
+      ),
+      storage: (
+        <Storage 
+          data={storage} 
+          step={this.handleStep}
+          submit={this.handleSubmit}
+          onComboChange={this.handleComboChange}
+          onInputChange={this.handleInputChange}
+        />
+      ),
+      tank:( <Tank 
+          data={tank}
+          step={this.handleStep}
+          submit={this.handleSubmit}
+          onComboChange={this.handleComboChange}
+          onInputChange={this.handleInputChange}/>
+      ),
+          
       feedback: (
         <Feedback
           label="lalala"
@@ -60,26 +149,34 @@ class Home extends Component {
           restart={this.handleRestart}
         ></Feedback>
       ),
+  
     };
     return component[screen];
   };
 
-  handleOnClick = (screen) => {
+  handleOnClick = async (screen) => {
     const newState = { ...this.state };
+
     const initSection = {
       batch: this.initializeBatch,
-      sample: this.initializeSample,
-      mill: <div>Nuevo Lote</div>,
-      cent: <div>Nuevo cent</div>,
-      storage: <div>Nuevo Lote</div>,
-      tank: <div>Nuevo Lote</div>,
+      sample: this.initializeWithBatches,
+      mill: this.initializeWithBatchesAndProductionLine,
+      cent: this.initializeWithBatchesAndProductionLine,
+      storage: this.initializeWithBatches,
+      tank: this.initializeWithTanks
     };
 
-    newState[screen].init = initSection[screen]();
+    newState[screen].init = await initSection[screen]();
     newState.screen = screen;
 
     this.setState(newState, () => console.log(this.state));
   };
+
+  initializeWithBatchesAndProductionLine = async () => {
+    const batches = await this.getBatchesArray();
+  
+    return { batches, prodLine };
+  }
 
   initializeBatch = () => {
     return {
@@ -89,20 +186,43 @@ class Home extends Component {
       }),
       oliveTypes,
     };
-  };
+  }
 
-  initializeSample = async () => {
+  getBatchesArray = async () => {
     const { data } = await getBatches();
     const items = [];
     data.forEach((doc, ind) => {
+      console.log(doc)
       items.push({
+        /*...doc,*/
         id: ind + "",
-        text: doc._id,
+        text: doc._id
       });
     });
     console.log(items);
     return items;
-  };
+  }
+
+  initializeWithBatches = async () => {
+    return await this.getBatchesArray();
+  }
+
+  
+  initializeWithTanks = async () => {
+    const { data } = await getTanks();
+    const items = [];
+    data.forEach((doc, ind) => {
+      console.log(doc)
+      items.push({
+        /*...doc,*/
+        id: ind + "",
+        text: doc._id
+      });
+    });
+    console.log(items);
+    return items;
+  }
+
 
   handleComboChange = (event, screen, field) => {
     const newState = { ...this.state };
@@ -153,6 +273,7 @@ class Home extends Component {
     const newState = { ...this.state };
     console.log("registrando informacion... ", screen);
     // Submit Logic
+    //TODO: Screen logic
     const { payload } = newState[screen];
     const { data } = await submitBatch(payload);
     console.log({ data });
@@ -174,7 +295,7 @@ class Home extends Component {
               <div
                 className="home__tile"
                 key={i}
-                onClick={() => this.handleOnClick(key)}
+                onClick={async () => await this.handleOnClick(key)}
               >
                 <div className="home__tile-button">
                   <img src={`/images/${key}.png`} alt={key} />

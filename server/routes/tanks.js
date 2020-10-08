@@ -15,4 +15,13 @@ router.post("/", auth, async (req, res) => {
   return res.status(200).send(tank);
 });
 
+router.get("/", async (req, res) => {
+  const tanks = await Tank.find().sort({
+    timestamp: "desc",
+  });
+  res.send(tanks);
+});
+
+
+
 module.exports = router;

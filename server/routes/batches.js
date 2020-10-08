@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
   await Batch.calcNetWeight(newBatch);
 
   const batch = new Batch({
-    ...newBatch,
+    ...newBatch
   });
 
   await batch.save();

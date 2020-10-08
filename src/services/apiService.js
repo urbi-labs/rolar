@@ -7,3 +7,8 @@ export function submitBatch(data) {
 export function getBatches() {
   return http.get(`/api/batches`);
 }
+
+
+export function getTanks(){
+  return http.get(`/api/tanks`);
+}

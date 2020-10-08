@@ -23,6 +23,7 @@ const comboProps = (titleText) => ({
 const Batch1 = ({ step, data, onComboChange }) => {
   console.log("rendering Batch1...");
   if (!data) return "Cargando...";
+  console.log(data)
   const { clients, parcels, oliveTypes } = data.init;
   return (
     <Fragment>
