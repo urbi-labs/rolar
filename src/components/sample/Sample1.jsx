@@ -19,7 +19,9 @@ const comboProps = (titleText) => ({
 export default function Sample1({ data, onComboChange, step }) {
   if (!data) return "Cargando...";
   const { init: batches } = data;
+  
   return (
+
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
         <div className="bx--row custom__row">

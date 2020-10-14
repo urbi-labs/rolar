@@ -14,7 +14,7 @@ import { sections, prodLine } from "../config.json";
 import { clients, oliveTypes } from "../config.json";
 
 // Services
-import { submitBatch, getBatches, getTanks } from "../services/apiService";
+import { submitBatch, getBatches, getTanks} from "../services/apiService";
 
 class Home extends Component {
   state = {
@@ -49,14 +49,25 @@ class Home extends Component {
     },
     cent: {
       payload: {
-        
+        _batch:"",
+        _user: "",
+        productionLine: "",
+        initialTemp: 30,
+        finalTemp: 40,
+        kneadingTime: 2,
+        pumpSpeed: 40,   
       },
       init: {},
       step: 0,
     },
     mill: {
       payload: {
-        
+        _batch:"",
+        _user: "",
+        productionLine: "",
+        sieve: "",
+        microtalcum: 300,
+        enzymes: 300,
       },
       init: {},
       step: 0,
@@ -69,6 +80,7 @@ class Home extends Component {
         frost: 0,
         mummified: 0,
         dehydrated: 0,
+        beaten: 0,
         waterExcess: 0,
         branchExcess: 0,
         leafExcess: 0,
@@ -104,6 +116,7 @@ class Home extends Component {
           onComboChange={this.handleComboChange} 
           onInputChange={this.handleInputChange}
           submit={this.handleSubmit}
+          handleToggle={this.handleToggle}
 
         />
       ),
@@ -114,6 +127,7 @@ class Home extends Component {
           onComboChange={this.handleComboChange} 
           onInputChange={this.handleInputChange}
           submit={this.handleSubmit}
+          handleMillSlider={this.handleMillSlider}
 
       />),
       cent: (
@@ -123,6 +137,7 @@ class Home extends Component {
           submit={this.handleSubmit}
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
+          handleCentSlider={this.handleCentSlider}
         />
       ),
       storage: (
@@ -245,6 +260,32 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
+  handleMillSlider = (event,value, screen, field) => {
+    const newState = { ...this.state };
+    console.log(event)
+    console.log("registrando información del mill slider")
+    newState[screen].payload[field] =value || 0;
+   this.setState(newState, () => console.log(this.state)); 
+ 
+  } 
+
+  handleCentSlider = (event,value) => {
+    const newState = { ...this.state };
+    console.log(event)
+    newState.cent.payload.initialTemp =value[0] ;
+    newState.cent.payload.finalTemp =value[1] ;
+    console.log( newState)
+   this.setState(newState, () => console.log(this.state)); 
+  } 
+
+  handleToggle =(event, screen, field)=>{
+    console.log("toggle changing")
+    const newState = { ...this.state };
+    newState[screen].payload[field] = event.target.value;
+    this.setState(newState, () => console.log(this.state));
+  }
+
+
   handleStep = (screen, next = true) => {
     const newState = { ...this.state };
     const data = newState[screen];
@@ -280,6 +321,7 @@ class Home extends Component {
     newState.screen = "feedback";
     this.setState(newState, () => console.log(this.state));
   };
+
 
   render() {
     const { screen } = this.state;

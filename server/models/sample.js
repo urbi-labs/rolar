@@ -97,6 +97,7 @@ function validateSampleSchema(sample) {
     _user: Joi.objectId().required(),
     hidraulicOil: Joi.boolean(),
     frost: Joi.number().min(0).max(100),
+    beaten: Joi.number().min(0).max(100),
     mummified: Joi.number().min(0).max(100),
     dehydrated: Joi.number().min(0).max(100),
     waterExcess: Joi.number().min(0).max(100),
