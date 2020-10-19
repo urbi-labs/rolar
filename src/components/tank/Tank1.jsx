@@ -1,9 +1,45 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import { ComboBox } from "carbon-components-react";
+import Buttons from "../common/Buttons.jsx";
 
-export default function Tank1() {
+const comboProps = (titleText) => ({
+    id: titleText,
+    placeholder: "Elegir una opción...",
+    titleText,
+    // helperText: "Optional helper text here",
+    light: true,
+    disabled: false,
+    invalid: false,
+    invalidText: "A valid value is required",
+    size: "sm",
+    direction: "bottom",
+    onToggleClick: () => console.log("onClick"),
+  });
+
+export default function Tank1({ step, data, onComboChange }) {
+    const { init: tanks } = data;
     return (
-        <div>
-            
+        <Fragment>
+      <div className="bx--grid bx--grid--full-width">
+        <div className="bx--row custom__row">
+          <div className="bx--col ">Paso1</div>
         </div>
-    )
+        <div className="bx--row custom__row">
+          <div className="bx--col"> Fecha Hora Cliente</div>
+        </div>
+        <div className="bx--row custom__row">
+          <div className="bx--col">
+            <ComboBox
+              items={tanks}
+              itemToString={(item) => (item ? item.text : "")}
+              onChange={(event) => onComboChange(event, "tank", "_tank")}
+              {...comboProps("Tanque")}
+            />
+          </div>
+        </div>
+      </div>
+
+      <Buttons screen="tank" left="Anterior" right="Siguiente" onStep={step} />
+    </Fragment>
+    );
 }

@@ -6,7 +6,7 @@ const Tank = ({ data, step, submit, onComboChange, onInputChange }) => {
   const { step: screen } = data;
   const section = [
     <Tank1 data={data} onComboChange={onComboChange} step={step} />,
-    <Tank2 />,
+    <Tank2 onComboChange={onComboChange} data={data} onInputChange={onInputChange} />,
   ];
   return section[screen];
 };

@@ -36,3 +36,7 @@ export function getSamples(data) {
 export function getTanks(){
   return http.get(`/api/tanks`);
 }
+
+export function getBatchById(id){
+  return http.get(`/api/batches/${id}`);
+}

@@ -31,4 +31,14 @@ router.get("/", async (req, res) => {
   res.send(batch);
 });
 
+router.get("/:id", async(req,res) => {
+  const { params } = req;
+  const { id } = params; 
+  console.log(id);
+
+  const batch = await Batch.findById(id);
+
+  res.status(200).send(batch)
+})
+
 module.exports = router;
