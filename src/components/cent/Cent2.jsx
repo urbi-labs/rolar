@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import Slider from "@material-ui/core/Slider";
 import { ComboBox, TextInput } from "carbon-components-react";
 import Buttons from "../common/Buttons.jsx";

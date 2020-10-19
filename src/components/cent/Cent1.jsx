@@ -36,7 +36,7 @@ const Cent1 = ({ step, data, onComboChange }) => {
             <ComboBox
               items={batches}
               itemToString={(item) => (item ? item.text : "")}
-              onChange={(event) => onComboChange(event, "cent", "batches")}
+              onChange={(event) => onComboChange(event, "cent", "_batch")}
               {...comboProps("Lote")}
             />
           </div>
@@ -46,7 +46,7 @@ const Cent1 = ({ step, data, onComboChange }) => {
             <ComboBox
               items={prodLine}
               itemToString={(item) => (item ? item.text : "")}
-              onChange={(event) => onComboChange(event, "cent", "prodLine")}
+              onChange={(event) => onComboChange(event, "cent", "productionLine")}
               {...comboProps("Linea de Producción")}
             />
           </div>

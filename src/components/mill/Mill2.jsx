@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import Slider from "@material-ui/core/Slider";
 import { ComboBox, TextInput } from "carbon-components-react";
 import Buttons from "../common/Buttons.jsx";
@@ -26,12 +26,12 @@ const inputProps = (labelText) => ({
 
 const Mill2 = ({step, submit, data, onComboChange, onInputChange, handleMillSlider }) => {
   console.log("rendering Mill2...");
-  const [val, setVal] = useState(87)
+
   if (!data) return "Cargando...";
 
   const items = [
     { "id": "1", "text": "Criba 1" },
-   { "id": "3", "text": "Criba 2" }]
+    { "id": "2", "text": "Criba 2" }]
 
 
   return (
@@ -83,8 +83,6 @@ const Mill2 = ({step, submit, data, onComboChange, onInputChange, handleMillSlid
         onSubmit={submit}
       />
        </div>
-
-     
     </Fragment>
     
   );

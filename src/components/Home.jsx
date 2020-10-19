@@ -14,7 +14,7 @@ import { sections, prodLine } from "../config.json";
 import { clients, oliveTypes } from "../config.json";
 
 // Services
-import { submitBatch, getBatches, getTanks} from "../services/apiService";
+import { submitBatch, getBatches, getTanks, submitCent, submitMill, submitSample} from "../services/apiService";
 
 class Home extends Component {
   state = {
@@ -50,7 +50,7 @@ class Home extends Component {
     cent: {
       payload: {
         _batch:"",
-        _user: "",
+        _user: "5f4fe8cd71164f1d5d65ae04",
         productionLine: "",
         initialTemp: 30,
         finalTemp: 40,
@@ -63,7 +63,7 @@ class Home extends Component {
     mill: {
       payload: {
         _batch:"",
-        _user: "",
+        _user: "5f4fe8cd71164f1d5d65ae04",
         productionLine: "",
         sieve: "",
         microtalcum: 300,
@@ -251,6 +251,7 @@ class Home extends Component {
         ? parseInt(event.selectedItem.value)
         : 0;
 
+     
     this.setState(newState, () => console.log(this.state));
   };
 
@@ -310,7 +311,7 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-  handleSubmit = async (screen) => {
+/*  handleSubmit = async (screen) => {
     const newState = { ...this.state };
     console.log("registrando informacion... ", screen);
     // Submit Logic
@@ -320,7 +321,45 @@ class Home extends Component {
     console.log({ data });
     newState.screen = "feedback";
     this.setState(newState, () => console.log(this.state));
-  };
+  }; */
+
+  handleSubmit = async (screen) => {
+    const newState = { ...this.state };
+    const { payload } = newState[screen];
+    console.log("registrando informacion... ", screen);
+
+    switch (screen) {
+      case "batch" :
+        await submitBatch(payload);
+        break;
+      
+      case "sample":
+        await submitSample(payload);
+        break;
+      
+      case "mill":
+        await submitMill(payload);
+        break;
+    
+      case "cent":
+        await submitCent(payload);
+        break;
+      
+/*    case "storage":
+        const {data} = await submitStorage(payload);
+        break;
+  
+      case "tank":
+        const {data} = await submitStorage(payload);
+        break; */
+
+      default:
+        console.log("No screen recognized")
+    }
+    newState.screen = "feedback";
+    this.setState(newState, () => console.log(this.state));
+  }
+ 
 
 
   render() {

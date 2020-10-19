@@ -1,9 +1,9 @@
-// const auth = require("../middleware/auth");
+const auth = require("../middleware/auth");
 const { Batch, validate } = require("../models/batch");
 const express = require("express");
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/" ,async (req, res) => {
   const { body } = req;
 
   const { error } = validate(body);
