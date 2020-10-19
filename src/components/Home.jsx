@@ -14,7 +14,7 @@ import { sections, prodLine } from "../config.json";
 import { clients, oliveTypes } from "../config.json";
 
 // Services
-import { submitBatch, getBatches, getTanks } from "../services/apiService";
+import { submitBatch, getBatches, getTanks, getBatchById } from "../services/apiService";
 
 class Home extends Component {
   state = {
@@ -42,7 +42,15 @@ class Home extends Component {
     },
     storage: {
       payload: {
-        
+        _batch: '',
+        _tank: '',
+        initialMeasure: 0,
+        finalMeasure: 0,
+        name: '',
+        cone: 0,
+        capacity: 0,
+        radius: 0,
+        active: true
       },
       init: {},
       step: 0,
@@ -131,7 +139,9 @@ class Home extends Component {
           step={this.handleStep}
           submit={this.handleSubmit}
           onComboChange={this.handleComboChange}
+          onComboChangeID={this.handleComboChangeID}
           onInputChange={this.handleInputChange}
+          getPerformance={this.getPerformance}
         />
       ),
       tank:( <Tank 
@@ -162,7 +172,7 @@ class Home extends Component {
       sample: this.initializeWithBatches,
       mill: this.initializeWithBatchesAndProductionLine,
       cent: this.initializeWithBatchesAndProductionLine,
-      storage: this.initializeWithBatches,
+      storage: this.initializeWithBatchesAndTanks,
       tank: this.initializeWithTanks
     };
 
@@ -187,6 +197,15 @@ class Home extends Component {
       oliveTypes,
     };
   }
+  
+  getPerformance = async () => {
+    //Traer netWeight del batch
+    const { _batch } = this.state.storage.payload;
+    if(_batch !== ''){
+      //const response = await getBatchById(_batch);
+      //TODO: Refactor or reimagine this
+    }
+  }
 
   getBatchesArray = async () => {
     const { data } = await getBatches();
@@ -207,6 +226,15 @@ class Home extends Component {
     return await this.getBatchesArray();
   }
 
+  initializeWithBatchesAndTanks = async () => {
+    const batches = await this.getBatchesArray();
+    const tanks = await getTanks();
+    return {
+      batches,
+      tanks
+    };
+  }
+
   
   initializeWithTanks = async () => {
     const { data } = await getTanks();
@@ -223,9 +251,22 @@ class Home extends Component {
     return items;
   }
 
+  handleComboChangeID = (event, screen, field) => {
+    const newState = { ...this.state };
+
+    console.log(event);
+
+    newState[screen].payload[field] = event.selectedItem
+      ? event.selectedItem.id
+      : "";
+
+    this.setState(newState, () => console.log(this.state));
+  };
 
   handleComboChange = (event, screen, field) => {
     const newState = { ...this.state };
+
+    console.log(event);
 
     newState[screen].payload[field] = event.selectedItem
       ? event.selectedItem.text

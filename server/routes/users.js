@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 
-router.get("/", auth, async (req, res) => {
+router.get("/", /*auth  , */async (req, res) => {
   const user = await User.find().sort({ timestamp: "desc" });
   res.send(user);
 });

@@ -17,11 +17,10 @@ router.post("/", auth, async (req, res) => {
 
 router.get("/", async (req, res) => {
   const tanks = await Tank.find().sort({
-    timestamp: "desc",
+    timestamp: "asc",
   });
   res.send(tanks);
 });
-
 
 
 module.exports = router;
