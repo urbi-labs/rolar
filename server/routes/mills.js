@@ -3,7 +3,7 @@ const { validate, Mill } = require("../models/mill");
 const express = require("express");
 const router = express.Router();
 
-router.post("/", auth, async (req, res) => {
+router.post("/", /*auth,*/async (req, res) => {
   const { body } = req;
 
   const { error } = validate(body);
@@ -17,7 +17,7 @@ router.post("/", auth, async (req, res) => {
   return res.status(200).send(mill);
 });
 
-router.get("/", auth, async (req, res) => {
+router.get("/", /*auth,*/async (req, res) => {
   const mills = await Mill.find().sort({
     timestamp: "desc",
   });

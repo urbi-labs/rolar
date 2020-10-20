@@ -35,39 +35,11 @@ export default function Tank2({step, submit, data, onComboChange, onInputChange,
           <div className="bx--col"> Lote Fecha Hora</div>
         </div>
         <div className="bx--row custom__row">
-          <div className="bx--col">
-          <ComboBox
-                items={data.init.tanks.data}
-                itemToString={(item) => (!!item ? "Tank " + item.name : "")}
-                onChange={(event) => onComboChange(event)}
-                {...comboProps("Tanque destino")}
-              />
-          </div>
-          <div className="bx--col">
-            <TextInput
-              disabled={true}
-              value={data.payload.cone || 0}
-              {...inputProps("Cono")}
-            />
-          </div>
-        </div>
-        <div className="bx--row custom__row">
-          <div className="bx--col">
-            <TextInput
-              onChange={(event) => onInputChange(event, "storage", "initialMeasure")}
-              {...inputProps("Inicio regla nivel")}
-            />
-          </div>
-          <div className="bx--col">
-            <TextInput
-              onChange={(event) => onInputChange(event, "storage", "finalMeasure")}
-              {...inputProps("Fin regla nivel")}
-            />
-          </div>
+          <div className="bx--col"> Lote Fecha Hora</div>
         </div>
       </div>
       <Buttons
-        screen="storage"
+        screen="tank"
         left="Anterior"
         right="Registrar"
         onStep={step}

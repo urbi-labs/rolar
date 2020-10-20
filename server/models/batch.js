@@ -26,7 +26,10 @@ const batchSchema = new Schema({
     required: true,
     trim: true,
   },
-
+  tookSample: {
+    type: Boolean,
+    default: false
+  },
   chuteName: {
     type: String,
     require: true
@@ -55,7 +58,7 @@ const batchSchema = new Schema({
   },
   lastStatus: {
     type: String,
-    enum: ["batch", "mill", "verticalCentrifuge", "storage"],
+    enum: ["batch", "mill", "cent", "storage"],
     required: true,
     default: "batch",
   },

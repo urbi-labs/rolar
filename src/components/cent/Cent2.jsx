@@ -32,9 +32,9 @@ const Mill2 = ({step, submit, data, onComboChange, onInputChange, handleCentSlid
   
   
   const items = [
-    { "id": "1", "text": "2hs" },
-    { "id": "2", "text": "2.30hs" },
-    {"id" :"3", "text":"3hs"}]
+    { "id": "1", "text": "2" },
+    { "id": "2", "text": "2.5" },
+    {"id" :"3", "text":"3"}]
 
 
   return (
@@ -51,7 +51,7 @@ const Mill2 = ({step, submit, data, onComboChange, onInputChange, handleCentSlid
      
         <div className="bx--row custom__row">
           <div className="bx--col">
-          <span> Temperatura de Amasado</span>
+          <span> Temperatura de Amasado (en C)</span>
           <Slider
           //ARREGLAR
             aria-labelledby="range-slider"
@@ -69,7 +69,7 @@ const Mill2 = ({step, submit, data, onComboChange, onInputChange, handleCentSlid
                 items={items}
                 itemToString={(item) => (item ? item.text : "")}
                 onChange={(event) => onComboChange(event, "cent", "kneadingTime")}
-                {...comboProps("Tiempo de amasado")}
+                {...comboProps("Tiempo de amasado (en hs)")}
               />
           </div>
         </div>

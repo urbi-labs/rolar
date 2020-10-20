@@ -21,15 +21,15 @@ export function submitMill(data) {
 }
 
 export function getMills(data) {
-  return http.post(`/api/mills`, data);
+  return http.get(`/api/mills`, data);
 }
 
 export function submitSample(data) {
-  return http.post(`/api/mills`, data);
+  return http.post(`/api/samples`, data);
 }
 
 export function getSamples(data) {
-  return http.post(`/api/mills`, data);
+  return http.get(`/api/samples`, data);
 }
 
 
@@ -40,3 +40,31 @@ export function getTanks(){
 export function getBatchById(id){
   return http.get(`/api/batches/${id}`);
 }
+
+export function updateStatus(id, data){
+  return http.post(`/api/batches/${id}/update_status`, data);
+}
+
+export function getBatchesByStatus(status){
+  return http.get(`/api/batches/status/${status}`);
+}
+
+export function NotSampleBatches(){
+  return http.get(`/api/batches/non_sampled`);
+}
+
+export function tookSampleBatch(_id){
+  return http.post(`/api/batches/tookSample/${_id}`);
+}
+
+export function submitStorage(data){
+  return http.post(`/api/storages`,data);
+}
+export function submitTank(data){
+  return http.post(`/api/tanks`,data);
+}
+export function getStoragesFromTank(_tank){
+  return http.get(`/api/storages/tank/${_tank}`);
+}
+
+

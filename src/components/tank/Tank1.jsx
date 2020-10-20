@@ -16,7 +16,7 @@ const comboProps = (titleText) => ({
     onToggleClick: () => console.log("onClick"),
   });
 
-export default function Tank1({ step, data, onComboChange }) {
+export default function Tank1({ step, data, onComboChange, getStoragesFromTank, onComboChangeID }) {
     const { init: tanks } = data;
     return (
         <Fragment>
@@ -32,7 +32,11 @@ export default function Tank1({ step, data, onComboChange }) {
             <ComboBox
               items={tanks}
               itemToString={(item) => (item ? item.text : "")}
-              onChange={(event) => onComboChange(event, "tank", "_tank")}
+              onChange={(event) => {
+                const { id: tank_id } = event.selectedItem;
+                onComboChangeID(event, "tank", "_tank");
+                getStoragesFromTank(tank_id)
+              }}
               {...comboProps("Tanque")}
             />
           </div>

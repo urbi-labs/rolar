@@ -62,8 +62,8 @@ const Sample2 = ({ step, submit, data, onComboChange, onInputChange, handleToggl
                 defaultToggled= {false}
                 id="toggle-1"
                 labelText="Aceite Hidráulico"
-                labelA= {"No"}
-                labelB= { 'Si'}
+                labelA= {true}
+                labelB= {false}
                 onChange={(event) => handleToggle(event,"sample","hidraulicOil")}s
                 />
           </div>

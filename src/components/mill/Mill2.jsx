@@ -48,6 +48,7 @@ const Mill2 = ({step, submit, data, onComboChange, onInputChange, handleMillSlid
           <div className="bx--col">
                <ComboBox
                 items={items}
+                itemToString={(item) => (item ? item.text : "")}
                 onChange={(event) => onComboChange(event, "mill", "sieve")}
                 {...comboProps("Nro. Criba")}
               />

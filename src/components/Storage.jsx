@@ -6,7 +6,7 @@ const Storage = ({ data, step, submit, onComboChange, onInputChange, onComboChan
   const { step: screen } = data;
   const section = [
     <Storage1 data={data} onComboChange={onComboChange} step={step} />,
-    <Storage2 onComboChange={onComboChange} onComboChangeID={onComboChangeID} data={data} onInputChange={onInputChange} getPerformance={getPerformance} />,
+    <Storage2 onComboChange={onComboChange} step={step} submit={submit} onComboChangeID={onComboChangeID} data={data} onInputChange={onInputChange} getPerformance={getPerformance} />,
   ];
   return section[screen];
 };

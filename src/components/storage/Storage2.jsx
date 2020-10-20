@@ -35,12 +35,9 @@ export default function Storage2({step, submit, data, onComboChange, onInputChan
     const updateTank = (event) => {
       console.log(event)
       if(event !== null && event.selectedItem !== null){
-        const { cone, _id, name, capacity, radius, active } = event.selectedItem;
+        const { cone, _id, radius } = event.selectedItem;
         //TODO: Refactor code 
-        onInputChange({ target: {value: name } },"storage","name");
-        onInputChange({ target: {value: capacity } },"storage","capacity");
         onInputChange({ target: {value: radius } },"storage","radius");
-        onInputChange({ target: {value: active } },"storage","active");  //Not working
         onInputChange({ target: {value: cone } },"storage","cone");
         onComboChange({ selectedItem: { text: _id } }, "storage", "_tank");
       }

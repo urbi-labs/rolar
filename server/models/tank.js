@@ -9,7 +9,7 @@ const tankSchema = new Schema({
   cone: { type: Number, required: true },
   capacity: { type: Number, required: true },
   radius: { type: Number, required: true },
-  active: { type: Boolean, default: true },
+  active: { type: Boolean, default: false },
   timestamp: { type: Date, default: Date.now },
 });
 

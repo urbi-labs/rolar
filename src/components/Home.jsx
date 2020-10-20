@@ -14,7 +14,22 @@ import { sections, prodLine } from "../config.json";
 import { clients, oliveTypes } from "../config.json";
 
 // Services
-import { submitBatch, getBatches, getTanks, submitCent, submitMill, submitSample, getBatchById} from "../services/apiService";
+import { 
+  submitBatch,
+  tookSampleBatch, 
+  NotSampleBatches, 
+  getBatches, 
+  getStoragesFromTank,
+  getTanks, 
+  submitCent, 
+  submitMill,
+  submitStorage,
+  submitTank, 
+  submitSample, 
+  getBatchById, 
+  updateStatus, 
+  getBatchesByStatus
+} from "../services/apiService";
 class Home extends Component {
   state = {
     batch: {
@@ -34,7 +49,9 @@ class Home extends Component {
     },
     tank: {
       payload: {
-        
+        _user: "5f4fe8cd71164f1d5d65ae04",
+        batchArray: [],
+        _tank: ''
       },
       init: {},
       step: 0,
@@ -42,14 +59,12 @@ class Home extends Component {
     storage: {
       payload: {
         _batch: '',
+        _user: "5f4fe8cd71164f1d5d65ae04",
         _tank: '',
         initialMeasure: 0,
         finalMeasure: 0,
-        name: '',
         cone: 0,
-        capacity: 0,
-        radius: 0,
-        active: true
+        radius: 0
       },
       init: {},
       step: 0,
@@ -163,6 +178,8 @@ class Home extends Component {
           step={this.handleStep}
           submit={this.handleSubmit}
           onComboChange={this.handleComboChange}
+          onComboChangeID={this.handleComboChangeID}
+          getStoragesFromTank={this.getStoragesFromTank}
           onInputChange={this.handleInputChange}/>
       ),
           
@@ -183,10 +200,10 @@ class Home extends Component {
 
     const initSection = {
       batch: this.initializeBatch,
-      sample: this.initializeWithBatches,
-      mill: this.initializeWithBatchesAndProductionLine,
-      cent: this.initializeWithBatchesAndProductionLine,
-      storage: this.initializeWithBatchesAndTanks,
+      sample: this.getSampleBatches,
+      mill: this.getMillBatches,
+      cent: this.getCentBatches,
+      storage: this.getStorageBatches,
       tank: this.initializeWithTanks
     };
 
@@ -196,10 +213,40 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-  initializeWithBatchesAndProductionLine = async () => {
-    const batches = await this.getBatchesArray();
-  
+  getSampleBatches = async () => {
+    const { data } = await NotSampleBatches();
+    console.log(data);
+    const items = [];
+    data.forEach((doc, ind) => {
+      console.log(doc)
+      items.push({
+        /*...doc,*/
+        id: ind + "",
+        text: doc._id
+      });
+    });
+    console.log(items);
+    return items;
+  }
+
+  getMillBatches = async () => {
+    const batches = await this.getBatchesArray('batch');
+
     return { batches, prodLine };
+  }
+  getCentBatches = async () => {
+    const batches = await this.getBatchesArray('mill');
+
+    return { batches, prodLine };
+  }
+
+  getStorageBatches = async () => {
+    const batches   = await this.getBatchesArray('cent');
+    const tanks     = await getTanks();
+    return {
+      batches,
+      tanks
+    };
   }
 
   initializeBatch = () => {
@@ -221,8 +268,8 @@ class Home extends Component {
     }
   }
 
-  getBatchesArray = async () => {
-    const { data } = await getBatches();
+  getBatchesArray = async (status) => {
+    const { data } = await getBatchesByStatus(status);
     const items = [];
     data.forEach((doc, ind) => {
       console.log(doc)
@@ -236,20 +283,6 @@ class Home extends Component {
     return items;
   }
 
-  initializeWithBatches = async () => {
-    return await this.getBatchesArray();
-  }
-
-  initializeWithBatchesAndTanks = async () => {
-    const batches = await this.getBatchesArray();
-    const tanks = await getTanks();
-    return {
-      batches,
-      tanks
-    };
-  }
-
-  
   initializeWithTanks = async () => {
     const { data } = await getTanks();
     const items = [];
@@ -257,18 +290,28 @@ class Home extends Component {
       console.log(doc)
       items.push({
         /*...doc,*/
-        id: ind + "",
-        text: doc._id
+        id: doc._id,
+        text: "Tanque " + doc.name
       });
     });
     console.log(items);
     return items;
   }
 
+  getStoragesFromTank = async (_tank) => {
+    const {data:storages} = await getStoragesFromTank(_tank);
+    const newState = { ...this.state };
+    const items = []
+
+    storages.forEach((elem, index) => {
+      items.push(elem);
+    });
+    newState['tank'].payload['batchArray'] = items;
+    this.setState(newState, () => console.log(this.state))
+  }
+
   handleComboChangeID = (event, screen, field) => {
     const newState = { ...this.state };
-
-    console.log(event);
 
     newState[screen].payload[field] = event.selectedItem
       ? event.selectedItem.id
@@ -320,9 +363,14 @@ class Home extends Component {
   } 
 
   handleToggle =(event, screen, field)=>{
-    console.log("toggle changing")
+    console.log("toggle changing");
+    let { value } = event.target;
+    if(value === 'on')
+      value = true;
+    else
+      value = false;
     const newState = { ...this.state };
-    newState[screen].payload[field] = event.target.value;
+    newState[screen].payload[field] = value;
     this.setState(newState, () => console.log(this.state));
   }
 
@@ -366,6 +414,10 @@ class Home extends Component {
   handleSubmit = async (screen) => {
     const newState = { ...this.state };
     const { payload } = newState[screen];
+    const { _batch } = payload;
+    const status = {
+      "status": screen
+    };
     console.log("registrando informacion... ", screen);
 
     switch (screen) {
@@ -375,23 +427,29 @@ class Home extends Component {
       
       case "sample":
         await submitSample(payload);
+        await tookSampleBatch(_batch);
         break;
       
       case "mill":
         await submitMill(payload);
+        const resp = await updateStatus(_batch,status);
+        console.log(resp);
         break;
     
       case "cent":
         await submitCent(payload);
+        await updateStatus(_batch,status);
         break;
-      
-/*    case "storage":
-        const {data} = await submitStorage(payload);
+      case "storage":
+        delete payload.radius;
+        await submitStorage(payload);
+        await updateStatus(_batch,status);
+        //actualizar active del tanque
         break;
   
       case "tank":
-        const {data} = await submitStorage(payload);
-        break; */
+        await submitTank(payload);
+        break; 
 
       default:
         console.log("No screen recognized")
