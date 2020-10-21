@@ -103,20 +103,6 @@ const Sample2 = ({ step, submit, data, onComboChange, onInputChange, handleToggl
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, "sample", "mummified")}
-              {...inputProps("Momificada")}
-            />
-          </div>
-          <div className="bx--col">
-            <TextInput
-               onChange={(event) => onInputChange(event, "sample", "dehydrated")}
-              {...inputProps("Deshidratada")}
-            />
-          </div>
-        </div>
-        <div className="bx--row custom__row">
-          <div className="bx--col">
-            <TextInput
               onChange={(event) =>
                 onInputChange(event, "sample", "branchExcess")
               }
