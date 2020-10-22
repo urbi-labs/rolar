@@ -71,7 +71,7 @@ export default function Storage2({step, submit, data, onComboChange, onInputChan
                 labelText="Cono"
                 labelA= {true}
                 labelB= {false}
-                onChange={(event) => handleToggle(event,"storage","cone")}
+                onToggle={(event) => handleToggle(event,"storage","cone")}
                 />
         </div>
         <div className="bx--row custom__row">

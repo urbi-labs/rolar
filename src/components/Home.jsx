@@ -367,13 +367,9 @@ class Home extends Component {
 
   handleToggle =(event, screen, field)=>{
     console.log("toggle changing");
-    let { value } = event.target;
-    if(value === 'on')
-      value = true;
-    else
-      value = false;
+    console.log(event)
     const newState = { ...this.state };
-    newState[screen].payload[field] = value;
+    newState[screen].payload[field] = event;
     this.setState(newState, () => console.log(this.state));
   }
 
