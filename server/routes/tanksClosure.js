@@ -5,7 +5,7 @@ const { Storage } = require("../models/storage");
 const express = require("express");
 const router = express.Router();
 
-router.post("/", auth, async (req, res) => {
+router.post("/",/* auth, */async (req, res) => {
   const { body } = req;
 
   const { error } = validate(body);
@@ -30,6 +30,7 @@ router.post("/", auth, async (req, res) => {
 
   try {
     await tankClosure.save();
+    //TODO: Check this
     await Tank.findByIdAndUpdate({ _id: _tank }, { active: false });
 
     return res.status(200).send(tankClosure);

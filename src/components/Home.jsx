@@ -21,6 +21,7 @@ import {
   getBatches, 
   getStoragesFromTank,
   getTanks, 
+  getAllTanks, 
   submitCent, 
   submitMill,
   submitStorage,
@@ -63,7 +64,8 @@ class Home extends Component {
         _tank: '',
         initialMeasure: 0,
         finalMeasure: 0,
-        cone: 0,
+        coneValue: 0, 
+        cone: false,
         radius: 0
       },
       init: {},
@@ -171,6 +173,7 @@ class Home extends Component {
           onComboChangeID={this.handleComboChangeID}
           onInputChange={this.handleInputChange}
           getPerformance={this.getPerformance}
+          handleToggle={this.handleToggle}
         />
       ),
       tank:( <Tank 
@@ -242,7 +245,7 @@ class Home extends Component {
 
   getStorageBatches = async () => {
     const batches   = await this.getBatchesArray('cent');
-    const tanks     = await getTanks();
+    const tanks     = await getAllTanks();
     return {
       batches,
       tanks
@@ -374,7 +377,6 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   }
 
-
   handleStep = (screen, next = true) => {
     const newState = { ...this.state };
     const data = newState[screen];
@@ -442,6 +444,7 @@ class Home extends Component {
         break;
       case "storage":
         delete payload.radius;
+        delete payload.coneValue;
         await submitStorage(payload);
         await updateStatus(_batch,status);
         //actualizar active del tanque

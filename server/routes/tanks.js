@@ -3,7 +3,7 @@ const { Tank, validate } = require("../models/tank");
 const express = require("express");
 const router = express.Router();
 
-router.post("/", auth, async (req, res) => {
+router.post("/", /*auth,*/ async (req, res) => {
   const { body } = req;
 
   const { error } = validate(body);
@@ -22,5 +22,11 @@ router.get("/", async (req, res) => {
   res.send(tanks);
 });
 
+router.get("/all", async (req, res) => {
+  const tanks = await Tank.find().sort({
+    timestamp: "asc",
+  });
+  res.send(tanks);
+});
 
 module.exports = router;

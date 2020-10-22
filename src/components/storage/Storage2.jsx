@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react'
-import { ComboBox, TextInput } from "carbon-components-react";
+import { ComboBox, TextInput, Toggle } from "carbon-components-react";
 import Buttons from "../common/Buttons.jsx";
 
 const comboProps = (titleText) => ({
@@ -25,20 +25,24 @@ const inputProps = (labelText) => ({
 });
   
 
-export default function Storage2({step, submit, data, onComboChange, onInputChange, getPerformance}) {
+export default function Storage2({step, submit, data, onComboChange, onInputChange, getPerformance, handleToggle}) {
     console.log("[DEBUG]")
     console.log(data)
+  
 
-    const { initialMeasure, finalMeasure, cone, radius } = data.payload;
-    const totalLitres = cone * (Math.PI*(((Math.pow(radius/1000,2)*(finalMeasure - initialMeasure)/1000))))*1000; 
-    
+    let { initialMeasure, finalMeasure, coneValue, radius, cone } = data.payload;
+    if(!cone){
+      coneValue = 0.5 * coneValue;
+    }
+    console.log(coneValue + " valor del cono " + cone)
+    const totalLitres = coneValue + (Math.PI*(((Math.pow(radius/1000,2)*(finalMeasure - initialMeasure)/1000))))*1000; 
     const updateTank = (event) => {
       console.log(event)
       if(event !== null && event.selectedItem !== null){
         const { cone, _id, radius } = event.selectedItem;
         //TODO: Refactor code 
         onInputChange({ target: {value: radius } },"storage","radius");
-        onInputChange({ target: {value: cone } },"storage","cone");
+        onInputChange({ target: {value: cone } },"storage","coneValue");
         onComboChange({ selectedItem: { text: _id } }, "storage", "_tank");
       }
     } 
@@ -60,13 +64,15 @@ export default function Storage2({step, submit, data, onComboChange, onInputChan
                 {...comboProps("Tanque destino")}
               />
           </div>
-          <div className="bx--col">
-            <TextInput
-              disabled={true}
-              value={data.payload.cone || 0}
-              {...inputProps("Cono")}
-            />
-          </div>
+          <Toggle
+                aria-label="toggle button"
+                defaultToggled= {false}
+                id="toggle-1"
+                labelText="Cono"
+                labelA= {true}
+                labelB= {false}
+                onChange={(event) => handleToggle(event,"storage","cone")}
+                />
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">

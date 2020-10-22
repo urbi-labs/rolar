@@ -36,6 +36,9 @@ export function getSamples(data) {
 export function getTanks(){
   return http.get(`/api/tanks`);
 }
+export function getAllTanks(){
+  return http.get(`/api/tanks/all`);
+}
 
 export function getBatchById(id){
   return http.get(`/api/batches/${id}`);
@@ -61,7 +64,7 @@ export function submitStorage(data){
   return http.post(`/api/storages`,data);
 }
 export function submitTank(data){
-  return http.post(`/api/tanks`,data);
+  return http.post(`/api/closures`,data);
 }
 export function getStoragesFromTank(_tank){
   return http.get(`/api/storages/tank/${_tank}`);
