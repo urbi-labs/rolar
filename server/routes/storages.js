@@ -8,7 +8,6 @@ const router = express.Router();
 
 router.post("/",/* auth, */async (req, res) => {
   const { body } = req;
-  const { _tank } = body;
   console.log(body)
   const { error } = validate(body);
   if (error) return res.status(400).send(error.details[0].message);
@@ -20,10 +19,6 @@ router.post("/",/* auth, */async (req, res) => {
   const storage = new Storage({ ...newStorage });
 
   await storage.save();
-
-  let tank = await Tank.findById(_tank);
-  tank["active"] = true;
-  await tank.save();
 
   return res.status(200).send(storage);
 });

@@ -68,7 +68,7 @@ export default function Storage2({step, submit, data, onComboChange, onInputChan
                 aria-label="toggle button"
                 defaultToggled= {false}
                 id="toggle-1"
-                labelText="Cono"
+                labelText="Se lleno el cono?"
                 labelA= {true}
                 labelB= {false}
                 onToggle={(event) => handleToggle(event,"storage","cone")}

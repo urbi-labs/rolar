@@ -29,9 +29,9 @@ const storageSchema = new Schema({
     type: ObjectId,
     ref: "User",
   },
-  //TODO: pregutar a Ceci
-  /*cone: { type: Boolean, default: false },*/
-  cone: { type: Number, default: 0 },
+  //TODO: Cambiar cone a boolean
+  cone: { type: Boolean, default: false },
+  /*cone: { type: Number, default: 0 },*/
   initialMeasure: { type: Number, default: 0, required: true },
   finalMeasure: { type: Number, default: 0, required: true },
   totalCm: { type: Number, default: 0, required: true },
@@ -82,8 +82,7 @@ function validateStorageSchema(storage) {
     totalLitres: Joi.number(),
     oilWeight: Joi.number(),
     performance: Joi.number(),
-    /*cone: Joi.boolean(),*/
-    cone: Joi.number(),
+    cone: Joi.boolean(),
     validated: Joi.boolean(),
     validationDate: Joi.date(),
   });

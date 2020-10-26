@@ -49,7 +49,7 @@ export default function Tank2({step, submit, data, onComboChange, onInputChange,
           {batchArray.map((e) => {
             let { _batch, timestamp } = e;
             const date = new Date(timestamp);
-            _batch = _batch.substring(_batch.length - 5, _batch.length)
+            _batch = _batch.substring(_batch.length - 5, _batch.length);
             const fullDate = date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear();
             const fullTime = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
             return (
