@@ -8,8 +8,8 @@ const winston = require("winston");
 const cors = require("cors");
 const express = require("express");
 const app = express();
-const env = app.get("env");
 
+const env = app.get("env");
 const chalk = require("chalk");
 const log = (text) =>
   env !== "test" ? console.log(chalk.cyan(`[server] ${text}`)) : null;

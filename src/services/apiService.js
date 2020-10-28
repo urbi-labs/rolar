@@ -32,42 +32,39 @@ export function getSamples(data) {
   return http.get(`/api/samples`, data);
 }
 
-
-export function getTanks(){
+export function getTanks() {
   return http.get(`/api/tanks`);
 }
-export function getAllTanks(){
+export function getAllTanks() {
   return http.get(`/api/tanks/all`);
 }
 
-export function getBatchById(id){
+export function getBatchById(id) {
   return http.get(`/api/batches/${id}`);
 }
 
-export function updateStatus(id, data){
+export function updateStatus(id, data) {
   return http.post(`/api/batches/${id}/update_status`, data);
 }
 
-export function getBatchesByStatus(status){
+export function getBatchesByStatus(status) {
   return http.get(`/api/batches/status/${status}`);
 }
 
-export function NotSampleBatches(){
+export function NotSampleBatches() {
   return http.get(`/api/batches/non_sampled`);
 }
 
-export function tookSampleBatch(_id){
+export function tookSampleBatch(_id) {
   return http.post(`/api/batches/tookSample/${_id}`);
 }
 
-export function submitStorage(data){
-  return http.post(`/api/storages`,data);
+export function submitStorage(data) {
+  return http.post(`/api/storages`, data);
 }
-export function submitTank(data){
-  return http.post(`/api/closures`,data);
+export function submitTank(data) {
+  return http.post(`/api/closures`, data);
 }
-export function getStoragesFromTank(_tank){
+export function getStoragesFromTank(_tank) {
   return http.get(`/api/storages/tank/${_tank}`);
 }
-
-

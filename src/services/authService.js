@@ -9,10 +9,14 @@ const apiEndpoint = "/api/auth";
 
 http.setJwt(getJwt());
 
-export async function login(mail, password) {
-  const { data: jwt } = await http.post(apiEndpoint, { mail, password });
-  const { token } = jwt;
-  localStorage.setItem(tokenKey, token);
+export async function login(username, password) {
+  console.log({ username });
+  const { data: jwt } = await http.post(apiEndpoint, {
+    name: username,
+    password,
+  });
+
+  localStorage.setItem(tokenKey, jwt);
   http.setJwt(getJwt());
 }
 export async function checkLogin(mail, password) {

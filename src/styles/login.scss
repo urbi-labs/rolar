@@ -1,0 +1,34 @@
+@import "carbon-components/scss/globals/scss/vendor/@carbon/type/scss/font-family.scss";
+@import "carbon-components/scss/globals/scss/vendor/@carbon/layout/scss/breakpoint.scss";
+@import "carbon-components/scss/globals/scss/typography.scss";
+@import "carbon-components/scss/globals/scss/vars.scss";
+
+@import "./overrides.scss";
+@import "./mixins.scss";
+
+.login {
+  font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  padding-top: 127px;
+  border-radius: 7px;
+  width: 80vw;
+  display: flex;
+  justify-content: center;
+}
+
+.login__heading {
+  @include carbon--type-style("productive-heading-05");
+}
+.login__helper {
+  @include carbon--type-style("helper-text-01");
+  color: #565656;
+  font-size: 14px;
+}
+
+.login__row {
+  margin-bottom: $spacing-05;
+}
+
+.login--box {
+  background-color: white;
+  padding: 20px;
+}

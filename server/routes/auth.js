@@ -6,8 +6,8 @@ const router = express.Router();
 router.post("/", async (req, res) => {
   const { body } = req;
   const { name, password } = body;
-
   const user = await User.findOne({ name });
+  console.log(user);
 
   if (!user) return res.status(404).send(`El usuario no existe.`);
 
