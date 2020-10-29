@@ -10,15 +10,15 @@
     },
     {
       "key": "mill",
-      "label": "Ingreso al molino"
+      "label": "Ingreso molino"
     },
     {
       "key": "cent",
-      "label": "Ingreso a centrífuga vertical"
+      "label": "Ingreso centrífuga"
     },
     {
       "key": "storage",
-      "label": "Ingreso al almacenamiento"
+      "label": "Ingreso almacenamiento"
     },
     {
       "key": "tank",
@@ -26,8 +26,8 @@
     }
   ],
   "prodLine": [
-    {"text": "Linea 1 ", "id": 1 },
-    {"text": "Linea 2 ", "id": 2 } 
+    { "text": "Linea 1 ", "id": 1 },
+    { "text": "Linea 2 ", "id": 2 }
   ],
   "clients": [
     {

@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import Batch from "./Batch";
 import Feedback from "./Feedback";
 import Template from "./common/Template";
-import Sample from './Sample';
-import Storage from './Storage';
-import Mill from './Mill';
-import Cent from './Cent';
-import Tank from './Tank';
+import Sample from "./Sample";
+import Storage from "./Storage";
+import Mill from "./Mill";
+import Cent from "./Cent";
+import Tank from "./Tank";
 import "../styles/home.scss";
 import { sections, prodLine } from "../config.json";
 
@@ -14,28 +14,28 @@ import { sections, prodLine } from "../config.json";
 import { clients, oliveTypes } from "../config.json";
 
 // Services
-import { 
+import {
   submitBatch,
-  tookSampleBatch, 
-  NotSampleBatches, 
-  getBatches, 
+  tookSampleBatch,
+  NotSampleBatches,
+  getBatches,
   getStoragesFromTank,
-  getTanks, 
-  getAllTanks, 
-  submitCent, 
+  getTanks,
+  getAllTanks,
+  submitCent,
   submitMill,
   submitStorage,
-  submitTank, 
-  submitSample, 
-  getBatchById, 
-  updateStatus, 
-  getBatchesByStatus
+  submitTank,
+  submitSample,
+  getBatchById,
+  updateStatus,
+  getBatchesByStatus,
 } from "../services/apiService";
 class Home extends Component {
   state = {
     batch: {
       payload: {
-        _user: "5f4fe8cd71164f1d5d65ae04",  
+        _user: "5f4fe8cd71164f1d5d65ae04",
         client: "Rolar de Cuyo SA",
         parcel: "2",
         oliveType: "Coratina",
@@ -52,41 +52,41 @@ class Home extends Component {
       payload: {
         _user: "5f4fe8cd71164f1d5d65ae04",
         batchArray: [],
-        _tank: ''
+        _tank: "",
       },
       init: {},
       step: 0,
     },
     storage: {
       payload: {
-        _batch: '',
+        _batch: "",
         _user: "5f4fe8cd71164f1d5d65ae04",
-        _tank: '',
+        _tank: "",
         initialMeasure: 0,
         finalMeasure: 0,
-        coneValue: 0, 
+        coneValue: 0,
         cone: false,
-        radius: 0
+        radius: 0,
       },
       init: {},
       step: 0,
     },
     cent: {
       payload: {
-        _batch:"",
+        _batch: "",
         _user: "5f4fe8cd71164f1d5d65ae04",
         productionLine: "",
         initialTemp: 30,
         finalTemp: 40,
         kneadingTime: 2,
-        pumpSpeed: 40,   
+        pumpSpeed: 40,
       },
       init: {},
       step: 0,
     },
     mill: {
       payload: {
-        _batch:"",
+        _batch: "",
         _user: "5f4fe8cd71164f1d5d65ae04",
         productionLine: "",
         sieve: "",
@@ -116,7 +116,7 @@ class Home extends Component {
         rexPomace: 0,
       },
       step: 0,
-      init: {}
+      init: {},
     },
     screen: "",
   };
@@ -134,29 +134,28 @@ class Home extends Component {
         />
       ),
       sample: (
-        <Sample 
-          data={sample}  
-          step={this.handleStep} 
-          onComboChange={this.handleComboChange} 
+        <Sample
+          data={sample}
+          step={this.handleStep}
+          onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
           submit={this.handleSubmit}
           handleToggle={this.handleToggle}
-
         />
       ),
       mill: (
-        <Mill 
-          data={mill}  
-          step={this.handleStep} 
-          onComboChange={this.handleComboChange} 
+        <Mill
+          data={mill}
+          step={this.handleStep}
+          onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
           submit={this.handleSubmit}
           handleMillSlider={this.handleMillSlider}
-
-      />),
+        />
+      ),
       cent: (
-        <Cent 
-          data={cent} 
+        <Cent
+          data={cent}
           step={this.handleStep}
           submit={this.handleSubmit}
           onComboChange={this.handleComboChange}
@@ -165,8 +164,8 @@ class Home extends Component {
         />
       ),
       storage: (
-        <Storage 
-          data={storage} 
+        <Storage
+          data={storage}
           step={this.handleStep}
           submit={this.handleSubmit}
           onComboChange={this.handleComboChange}
@@ -176,16 +175,18 @@ class Home extends Component {
           handleToggle={this.handleToggle}
         />
       ),
-      tank:( <Tank 
+      tank: (
+        <Tank
           data={tank}
           step={this.handleStep}
           submit={this.handleSubmit}
           onComboChange={this.handleComboChange}
           onComboChangeID={this.handleComboChangeID}
           getStoragesFromTank={this.getStoragesFromTank}
-          onInputChange={this.handleInputChange}/>
+          onInputChange={this.handleInputChange}
+        />
       ),
-          
+
       feedback: (
         <Feedback
           label="lalala"
@@ -193,7 +194,6 @@ class Home extends Component {
           restart={this.handleRestart}
         ></Feedback>
       ),
-  
     };
     return component[screen];
   };
@@ -207,7 +207,7 @@ class Home extends Component {
       mill: this.getMillBatches,
       cent: this.getCentBatches,
       storage: this.getStorageBatches,
-      tank: this.initializeWithTanks
+      tank: this.initializeWithTanks,
     };
 
     newState[screen].init = await initSection[screen]();
@@ -221,36 +221,37 @@ class Home extends Component {
     console.log(data);
     const items = [];
     data.forEach((doc, ind) => {
-      console.log(doc)
+      console.log(doc);
       items.push({
         /*...doc,*/
         id: ind + "",
-        text: doc._id
+        text: doc._id,
       });
     });
     console.log(items);
     return items;
-  }
+  };
 
   getMillBatches = async () => {
-    const batches = await this.getBatchesArray('batch');
+    const batches = await this.getBatchesArray("batch");
 
     return { batches, prodLine };
-  }
+  };
+
   getCentBatches = async () => {
-    const batches = await this.getBatchesArray('mill');
+    const batches = await this.getBatchesArray("mill");
 
     return { batches, prodLine };
-  }
+  };
 
   getStorageBatches = async () => {
-    const batches   = await this.getBatchesArray('cent');
-    const tanks     = await getAllTanks();
+    const batches = await this.getBatchesArray("cent");
+    const tanks = await getAllTanks();
     return {
       batches,
-      tanks
+      tanks,
     };
-  }
+  };
 
   initializeBatch = () => {
     return {
@@ -260,58 +261,58 @@ class Home extends Component {
       }),
       oliveTypes,
     };
-  }
-  
+  };
+
   getPerformance = async () => {
     //Traer netWeight del batch
     const { _batch } = this.state.storage.payload;
-    if(_batch !== ''){
+    if (_batch !== "") {
       //const response = await getBatchById(_batch);
       //TODO: Refactor or reimagine this
     }
-  }
+  };
 
   getBatchesArray = async (status) => {
     const { data } = await getBatchesByStatus(status);
     const items = [];
     data.forEach((doc, ind) => {
-      console.log(doc)
+      console.log(doc);
       items.push({
         /*...doc,*/
         id: ind + "",
-        text: doc._id
+        text: doc._id,
       });
     });
     console.log(items);
     return items;
-  }
+  };
 
   initializeWithTanks = async () => {
     const { data } = await getTanks();
     const items = [];
     data.forEach((doc, ind) => {
-      console.log(doc)
+      console.log(doc);
       items.push({
         /*...doc,*/
         id: doc._id,
-        text: "Tanque " + doc.name
+        text: "Tanque " + doc.name,
       });
     });
     console.log(items);
     return items;
-  }
+  };
 
   getStoragesFromTank = async (_tank) => {
-    const {data:storages} = await getStoragesFromTank(_tank);
+    const { data: storages } = await getStoragesFromTank(_tank);
     const newState = { ...this.state };
-    const items = []
+    const items = [];
 
     storages.forEach((elem, index) => {
       items.push(elem);
     });
-    newState['tank'].payload['batchArray'] = items;
-    this.setState(newState, () => console.log(this.state))
-  }
+    newState["tank"].payload["batchArray"] = items;
+    this.setState(newState, () => console.log(this.state));
+  };
 
   handleComboChangeID = (event, screen, field) => {
     const newState = { ...this.state };
@@ -337,7 +338,6 @@ class Home extends Component {
         ? parseInt(event.selectedItem.value)
         : 0;
 
-     
     this.setState(newState, () => console.log(this.state));
   };
 
@@ -347,31 +347,30 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-  handleMillSlider = (event,value, screen, field) => {
+  handleMillSlider = (event, value, screen, field) => {
     const newState = { ...this.state };
-    console.log(event)
-    console.log("registrando información del mill slider")
-    newState[screen].payload[field] =value || 0;
-   this.setState(newState, () => console.log(this.state)); 
- 
-  } 
+    console.log(event);
+    console.log("registrando información del mill slider");
+    newState[screen].payload[field] = value || 0;
+    this.setState(newState, () => console.log(this.state));
+  };
 
-  handleCentSlider = (event,value) => {
+  handleCentSlider = (event, value) => {
     const newState = { ...this.state };
-    console.log(event)
-    newState.cent.payload.initialTemp =value[0] ;
-    newState.cent.payload.finalTemp =value[1] ;
-    console.log( newState)
-   this.setState(newState, () => console.log(this.state)); 
-  } 
+    console.log(event);
+    newState.cent.payload.initialTemp = value[0];
+    newState.cent.payload.finalTemp = value[1];
+    console.log(newState);
+    this.setState(newState, () => console.log(this.state));
+  };
 
-  handleToggle =(event, screen, field)=>{
+  handleToggle = (event, screen, field) => {
     console.log("toggle changing");
-    console.log(event)
+    console.log(event);
     const newState = { ...this.state };
     newState[screen].payload[field] = event;
     this.setState(newState, () => console.log(this.state));
-  }
+  };
 
   handleStep = (screen, next = true) => {
     const newState = { ...this.state };
@@ -397,7 +396,7 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-/*  handleSubmit = async (screen) => {
+  /*  handleSubmit = async (screen) => {
     const newState = { ...this.state };
     console.log("registrando informacion... ", screen);
     // Submit Logic
@@ -414,50 +413,48 @@ class Home extends Component {
     const { payload } = newState[screen];
     const { _batch } = payload;
     const status = {
-      "status": screen
+      status: screen,
     };
     console.log("registrando informacion... ", screen);
 
     switch (screen) {
-      case "batch" :
+      case "batch":
         await submitBatch(payload);
         break;
-      
+
       case "sample":
         await submitSample(payload);
         await tookSampleBatch(_batch);
         break;
-      
+
       case "mill":
         await submitMill(payload);
-        const resp = await updateStatus(_batch,status);
+        const resp = await updateStatus(_batch, status);
         console.log(resp);
         break;
-    
+
       case "cent":
         await submitCent(payload);
-        await updateStatus(_batch,status);
+        await updateStatus(_batch, status);
         break;
       case "storage":
         delete payload.radius;
         delete payload.coneValue;
         await submitStorage(payload);
-        await updateStatus(_batch,status);
+        await updateStatus(_batch, status);
         //actualizar active del tanque
         break;
-  
+
       case "tank":
         await submitTank(payload);
-        break; 
+        break;
 
       default:
-        console.log("No screen recognized")
+        console.log("No screen recognized");
     }
     newState.screen = "feedback";
     this.setState(newState, () => console.log(this.state));
-  }
- 
-
+  };
 
   render() {
     const { screen } = this.state;

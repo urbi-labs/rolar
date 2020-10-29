@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { ComboBox, TextInput, Toggle } from "carbon-components-react";
 import Buttons from "../common/Buttons.jsx";
-import "../../styles/batch.scss";
+import "../../styles/sample.scss";
 
 // Docs ComboBox: https://react.carbondesignsystem.com/?path=/story/combobox--default
 // Docs TextInput: https://react.carbondesignsystem.com/?path=/story/textinput--default
@@ -24,21 +24,27 @@ const inputProps = (labelText) => ({
   onClick: () => console.log("onClick"),
 });
 
-
-
-const Sample2 = ({ step, submit, data, onComboChange, onInputChange, handleToggle }) => {
+const Sample2 = ({
+  step,
+  submit,
+  data,
+  onComboChange,
+  onInputChange,
+  handleToggle,
+}) => {
   console.log("rendering Sample2...");
   if (!data) return "Cargando...";
-  
+
   //consultar
   const items = [
-    { "id": "1", "text": " 1" },
-    { "id": "2", "text": " 2" },
-    { "id": "3", "text": " 3" },
-    { "id": "4", "text": " 4" },
-    { "id": "5", "text": " 5" },
-    { "id": "6", "text": " 6" },
-    { "id": "7", "text": " 7" }]
+    { id: "1", text: " 1" },
+    { id: "2", text: " 2" },
+    { id: "3", text: " 3" },
+    { id: "4", text: " 4" },
+    { id: "5", text: " 5" },
+    { id: "6", text: " 6" },
+    { id: "7", text: " 7" },
+  ];
 
   return (
     <Fragment>
@@ -51,21 +57,23 @@ const Sample2 = ({ step, submit, data, onComboChange, onInputChange, handleToggl
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
-              <TextInput
-                onChange={(event) => onInputChange(event, "sample", "frost")}
-                {...inputProps("Helada")}
-              />
+            <TextInput
+              onChange={(event) => onInputChange(event, "sample", "frost")}
+              {...inputProps("Helada")}
+            />
           </div>
           <div className="bx--col">
             <Toggle
-                aria-label="toggle button"
-                defaultToggled= {false}
-                id="toggle-1"
-                labelText="Aceite Hidráulico"
-                labelA= {"No"}
-                labelB= {"Sí"}
-                onToggle={(event) => handleToggle(event,"sample","hidraulicOil")}
-                />
+              aria-label="toggle button"
+              defaultToggled={false}
+              id="toggle-1"
+              labelText="Aceite Hidráulico"
+              labelA={"No"}
+              labelB={"Sí"}
+              onToggle={(event) =>
+                handleToggle(event, "sample", "hidraulicOil")
+              }
+            />
           </div>
         </div>
         <div className="bx--row custom__row">
@@ -77,7 +85,7 @@ const Sample2 = ({ step, submit, data, onComboChange, onInputChange, handleToggl
           </div>
           <div className="bx--col">
             <TextInput
-               onChange={(event) => onInputChange(event, "sample", "dehydrated")}
+              onChange={(event) => onInputChange(event, "sample", "dehydrated")}
               {...inputProps("Deshidratada")}
             />
           </div>
@@ -85,9 +93,7 @@ const Sample2 = ({ step, submit, data, onComboChange, onInputChange, handleToggl
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) =>
-                onInputChange(event, "sample", "beaten")
-              }
+              onChange={(event) => onInputChange(event, "sample", "beaten")}
               {...inputProps("Golpeada")}
             />
           </div>
@@ -111,30 +117,32 @@ const Sample2 = ({ step, submit, data, onComboChange, onInputChange, handleToggl
           </div>
           <div className="bx--col">
             <TextInput
-              onChange={(event) =>
-                onInputChange(event, "sample", "leafExcess")
-              }
+              onChange={(event) => onInputChange(event, "sample", "leafExcess")}
               {...inputProps("Exceso de Hojas")}
             />
           </div>
         </div>
-         <div className="bx--row custom__row">
+        <div className="bx--row custom__row">
           <div className="bx--col">
-          <ComboBox
-                items={items}
-                itemToString={(item) => (item ? item.text : "")}
-                onChange={(event) => onComboChange(event, "sample", "maturityIndex")}
-                {...comboProps("Indice de Madurez")}
-              />
+            <ComboBox
+              items={items}
+              itemToString={(item) => (item ? item.text : "")}
+              onChange={(event) =>
+                onComboChange(event, "sample", "maturityIndex")
+              }
+              {...comboProps("Indice de Madurez")}
+            />
           </div>
           <div className="bx--col">
             <TextInput
-               onChange={(event) => onInputChange(event, "sample", "moisturePase")}
+              onChange={(event) =>
+                onInputChange(event, "sample", "moisturePase")
+              }
               {...inputProps("Humedad Pasta")}
             />
           </div>
-          </div>
-          <div className="bx--row custom__row">
+        </div>
+        <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
               onChange={(event) =>
@@ -145,33 +153,27 @@ const Sample2 = ({ step, submit, data, onComboChange, onInputChange, handleToggl
           </div>
           <div className="bx--col">
             <TextInput
-              onChange={(event) =>
-                onInputChange(event, "sample", "rexPomace")
-              }
+              onChange={(event) => onInputChange(event, "sample", "rexPomace")}
               {...inputProps("Orujo Rex")}
             />
           </div>
         </div>
         <div className="bx--row custom__row">
-        <div className="bx--col">
+          <div className="bx--col">
             <TextInput
-              onChange={(event) =>
-                onInputChange(event, "sample", "wetFat")
-              }
+              onChange={(event) => onInputChange(event, "sample", "wetFat")}
               {...inputProps("Materia Grasa TC/Humedo")}
             />
           </div>
-          </div>
-          <div className="bx--row custom__row">
+        </div>
+        <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) =>
-                onInputChange(event, "sample", "dryFat")
-              }
+              onChange={(event) => onInputChange(event, "sample", "dryFat")}
               {...inputProps("Materia Grasa TC/Seco")}
             />
           </div>
-          </div>
+        </div>
       </div>
       <Buttons
         screen="sample"

@@ -1,5 +1,11 @@
 .template__container {
   .bx--grid {
+    .bx--btn--tertiary {
+      color: #73ce1b;
+      border-color: #73ce1b;
+    }
+  }
+  .bx--grid {
     margin-left: 0px;
     margin-right: 0px;
     .bx--row {
