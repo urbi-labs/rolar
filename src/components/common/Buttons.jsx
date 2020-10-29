@@ -3,7 +3,7 @@ import { Button } from "carbon-components-react";
 
 const Buttons = ({ left, right, onStep, onSubmit, screen }) => {
   return (
-    <div className="bx--grid bx--grid--full-width">
+    <div className="bx--grid bx--grid--full-width buttons">
       <div className="bx--row">
         <div className="center-btn bx--col bx--no-gutter">
           <Button

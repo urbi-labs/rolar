@@ -6,6 +6,16 @@
   width: 100vw;
   background: #f4f4f4;
   padding: 16px 25px 16px 25px;
+  .buttons {
+    position: absolute;
+    left: 0;
+    bottom: 70px;
+    width: 100vw;
+    display: inline-block;
+    // justify-content: space-evenly;
+    // place-items: center;
+    // border: 1px solid blue;
+  }
 }
 
 @media screen and (max-width: 600px) {

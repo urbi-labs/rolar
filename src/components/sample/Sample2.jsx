@@ -3,6 +3,7 @@ import { ComboBox, TextInput, Toggle } from "carbon-components-react";
 import Buttons from "../common/Buttons.jsx";
 import "../../styles/sample.scss";
 
+import paso2 from "../../images/paso2.png";
 // Docs ComboBox: https://react.carbondesignsystem.com/?path=/story/combobox--default
 // Docs TextInput: https://react.carbondesignsystem.com/?path=/story/textinput--default
 
@@ -50,7 +51,12 @@ const Sample2 = ({
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
         <div className="bx--row custom__row">
-          <div className="bx--col ">Paso1</div>
+          <div className="bx--col subtitle">Control de muestra</div>
+        </div>
+        <div className="bx--row custom__row">
+          <div className="bx--col subtitle">
+            <img src={paso2} alt="paso2"></img>
+          </div>
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col"> Fecha Hora </div>
