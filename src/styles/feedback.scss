@@ -1,0 +1,16 @@
+@import "carbon-components/scss/globals/scss/vars.scss";
+@import "./overrides.scss";
+
+.feeback__container {
+  margin-top: 100px;
+}
+.center-btn {
+  display: grid;
+  place-items: center;
+}
+
+.custom__row {
+  display: grid;
+  place-items: center;
+  margin-bottom: $spacing-04;
+}

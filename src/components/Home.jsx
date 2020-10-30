@@ -7,11 +7,10 @@ import Storage from "./Storage";
 import Mill from "./Mill";
 import Cent from "./Cent";
 import Tank from "./Tank";
-import "../styles/home.scss";
-import { sections, prodLine } from "../config.json";
 
-// Settings for batch section
+// fixed settings
 import { clients, oliveTypes } from "../config.json";
+import { sections, prodLine } from "../config.json";
 
 // Services
 import {
@@ -31,19 +30,23 @@ import {
   updateStatus,
   getBatchesByStatus,
 } from "../services/apiService";
+
+import { getCurrentUser } from "../services/authService";
+
+import "../styles/home.scss";
 class Home extends Component {
   state = {
     batch: {
       payload: {
-        _user: "5f4fe8cd71164f1d5d65ae04",
-        client: "Rolar de Cuyo SA",
-        parcel: "2",
-        oliveType: "Coratina",
-        chuteName: "100",
-        chuteWeight: 2700,
-        grossWeight: 4700,
-        deliveryNumber: "0001-123000A",
-        receiptNumber: "ABX123",
+        _user: "",
+        client: "",
+        parcel: "",
+        oliveType: "",
+        chuteName: "",
+        chuteWeight: 0,
+        grossWeight: 0,
+        deliveryNumber: "",
+        receiptNumber: "",
       },
       init: {},
       step: 0,
@@ -119,6 +122,11 @@ class Home extends Component {
       init: {},
     },
     screen: "",
+  };
+
+  componentDidMount = () => {
+    const currentUser = getCurrentUser();
+    this.setState({ currentUser });
   };
 
   renderScreen = (screen) => {
@@ -409,13 +417,16 @@ class Home extends Component {
   }; */
 
   handleSubmit = async (screen) => {
+    console.log("registrando informacion... ", screen);
+    const { currentUser } = this.state;
     const newState = { ...this.state };
     const { payload } = newState[screen];
     const { _batch } = payload;
     const status = {
       status: screen,
     };
-    console.log("registrando informacion... ", screen);
+
+    payload._user = currentUser._id;
 
     switch (screen) {
       case "batch":

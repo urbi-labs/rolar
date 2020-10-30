@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import { ComboBox } from "carbon-components-react";
 import Buttons from "../common/Buttons.jsx";
-import "../../styles/batch.scss";
+import StepTitles from "../common/StepTitles.jsx";
 
-import paso1 from "../../images/paso1.png";
+import "../../styles/batch.scss";
 
 // Docs ComboBox
 // https://react.carbondesignsystem.com/?path=/story/combobox--default
@@ -16,31 +16,22 @@ const comboProps = (titleText) => ({
   light: true,
   disabled: false,
   invalid: false,
-  invalidText: "A valid value is required",
+  invalidText: "Requerido.",
   size: "sm",
   direction: "bottom",
   onToggleClick: () => console.log("onClick"),
 });
 
-const Batch1 = ({ step, data, onComboChange }) => {
+const Batch1 = ({ step, data, onComboChange, disabled }) => {
   console.log("rendering Batch1...");
   if (!data) return "Cargando...";
   console.log(data);
   const { clients, parcels, oliveTypes } = data.init;
+
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
-        <div className="bx--row custom__row">
-          <div className="bx--col subtitle">Ingresar nuevo lote</div>
-        </div>
-        <div className="bx--row custom__row">
-          <div className="bx--col subtitle">
-            <img src={paso1} alt="paso1"></img>
-          </div>
-        </div>
-        <div className="bx--row custom__row">
-          <div className="bx--col"> Fecha Hora Cliente</div>
-        </div>
+        <StepTitles title="Ingresar nuevo lote" />
         <div className="bx--row custom__row">
           <div className="bx--col">
             <ComboBox
@@ -73,7 +64,13 @@ const Batch1 = ({ step, data, onComboChange }) => {
         </div>
       </div>
 
-      <Buttons screen="batch" left="Anterior" right="Siguiente" onStep={step} />
+      <Buttons
+        screen="batch"
+        left="Anterior"
+        right="Siguiente"
+        onStep={step}
+        disabled={disabled}
+      />
     </Fragment>
   );
 };
