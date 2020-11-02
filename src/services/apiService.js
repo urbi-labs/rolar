@@ -51,8 +51,8 @@ export function getBatchesByStatus(status) {
   return http.get(`/api/batches/status/${status}`);
 }
 
-export function NotSampleBatches() {
-  return http.get(`/api/batches/non_sampled`);
+export function NotSampleBatches(tookSample) {
+  return http.get(`/api/batches/non_sampled`, { tookSample });
 }
 
 export function tookSampleBatch(_id) {

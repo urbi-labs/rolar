@@ -6,6 +6,10 @@
   width: 100vw;
   background: #f4f4f4;
   padding: 16px 25px 16px 25px;
+  .template__grid {
+    height: 75vh;
+    overflow: scroll;
+  }
   .buttons {
     position: absolute;
     left: 0;

@@ -32,6 +32,7 @@ const Sample2 = ({
   onComboChange,
   onInputChange,
   handleToggle,
+  disabled,
 }) => {
   console.log("rendering Sample2...");
   if (!data) return "Cargando...";
@@ -49,7 +50,7 @@ const Sample2 = ({
 
   return (
     <Fragment>
-      <div className="bx--grid bx--grid--full-width">
+      <div className="bx--grid bx--grid--full-width template__grid">
         <div className="bx--row custom__row">
           <div className="bx--col subtitle">Control de muestra</div>
         </div>
@@ -187,6 +188,7 @@ const Sample2 = ({
         right="Registrar"
         onStep={step}
         onSubmit={submit}
+        disabled={disabled}
       />
     </Fragment>
   );

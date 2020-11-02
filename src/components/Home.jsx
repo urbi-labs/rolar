@@ -101,8 +101,8 @@ class Home extends Component {
     },
     sample: {
       payload: {
-        _batch: "5f5695c6573a414b3a847952",
-        _user: "5f4fe8cd71164f1d5d65ae04",
+        _batch: "",
+        _user: "",
         hidraulicOil: false,
         frost: 0,
         mummified: 0,
@@ -197,7 +197,7 @@ class Home extends Component {
 
       feedback: (
         <Feedback
-          label="lalala"
+          label=" "
           serial="123"
           restart={this.handleRestart}
         ></Feedback>

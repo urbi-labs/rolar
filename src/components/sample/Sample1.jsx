@@ -1,10 +1,9 @@
 import React, { Fragment } from "react";
 import { ComboBox } from "carbon-components-react";
+import StepTitles from "../common/StepTitles";
 import Buttons from "../common/Buttons.jsx";
 
 import "../../styles/sample.scss";
-
-import paso1 from "../../images/paso1.png";
 
 const comboProps = (titleText) => ({
   id: titleText,
@@ -20,26 +19,17 @@ const comboProps = (titleText) => ({
   onToggleClick: () => console.log("onClick"),
 });
 
-export default function Sample1({ data, onComboChange, step }) {
+export default function Sample1({ data, onComboChange, step, disabled }) {
   if (!data) return "Cargando...";
   const { init: batches } = data;
 
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
-        <div className="bx--row custom__row">
-          <div className="bx--col subtitle">Control de muestra</div>
-        </div>
-        <div className="bx--row custom__row">
-          <div className="bx--col subtitle">
-            <img src={paso1} alt="paso1"></img>
-          </div>
-        </div>
-        <div className="bx--row custom__row">
-          <div className="bx--col helper">
-            Selecciona el lote correspondiente
-          </div>
-        </div>
+        <StepTitles
+          tile="Control de muestra"
+          helper="Selecciona el lote correspondiente"
+        />
         <div className="bx--row custom__row">
           <div className="bx--col">
             <ComboBox
@@ -57,6 +47,7 @@ export default function Sample1({ data, onComboChange, step }) {
         left="Anterior"
         right="Siguiente"
         onStep={step}
+        disabled={disabled}
       />
     </Fragment>
   );
