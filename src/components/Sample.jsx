@@ -25,6 +25,7 @@ function validateStep2(payload) {
     rexPomace,
   } = payload;
   return !(
+    hidraulicOil &&
     frost &&
     mummified &&
     dehydrated &&
