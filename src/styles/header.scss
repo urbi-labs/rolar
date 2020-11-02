@@ -13,6 +13,16 @@
 
   color: #6a6a6a;
 }
+.header__role {
+  //   @include carbon--type-style("expressive-heading-01");
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  /* identical to box height */
+
+  color: red;
+}
 
 // .header__container {
 //   border: 1px blue solid;

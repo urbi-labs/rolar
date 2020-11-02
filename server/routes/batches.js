@@ -56,10 +56,10 @@ router.get("/status/:status", async (req, res) => {
   res.status(200).send(batch);
 });
 
-router.get("/non_sampled", async (req, res) => {
-  const { body } = req;
-  const { tookSample } = body;
-  console.log("api/batches/non_sampled");
+router.get("/non_sampled/:id", async (req, res) => {
+  const { id: tookSample } = req.params;
+
+  console.log("api/batches/non_sampled", tookSample);
   const batch = await Batch.find({ tookSample });
 
   res.status(200).send(batch);

@@ -16,7 +16,7 @@ import { sections, prodLine } from "../config.json";
 import {
   submitBatch,
   tookSampleBatch,
-  NotSampleBatches,
+  notSampleBatches,
   getBatches,
   getStoragesFromTank,
   getTanks,
@@ -225,7 +225,10 @@ class Home extends Component {
   };
 
   getSampleBatches = async () => {
-    const { data } = await NotSampleBatches();
+    const { currentUser } = this.state;
+    const { role } = currentUser;
+    const tookSample = role === "supervisor" ? true : false;
+    const { data } = await notSampleBatches(tookSample);
     console.log(data);
     const items = [];
     data.forEach((doc, ind) => {
