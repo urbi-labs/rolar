@@ -17,7 +17,7 @@ const comboProps = (titleText) => ({
   onToggleClick: () => console.log("onClick"),
 });
 
-const Cent1 = ({ step, data, onComboChange }) => {
+const Cent1 = ({ step, data, onComboChange, disabled }) => {
   console.log("rendering Cent1...");
   if (!data) return "Cargando...";
   console.log(data);
@@ -53,7 +53,7 @@ const Cent1 = ({ step, data, onComboChange }) => {
         </div>
       </div>
 
-      <Buttons screen="cent" left="Anterior" right="Siguiente" onStep={step} />
+      <Buttons screen="cent" left="Anterior" right="Siguiente" onStep={step} disabled={disabled} />
     </Fragment>
   );
 };

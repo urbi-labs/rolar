@@ -2,10 +2,31 @@ import React from "react";
 import Cent1 from "./cent/Cent1";
 import Cent2 from "./cent/Cent2";
 
+function validateStep1(payload) {
+  const { _batch, productionLine} = payload;
+  return !(productionLine && _batch);
+}
+
+function validateStep2(payload) {
+  const {
+    initialTemp,
+    finalTemp,
+    kneadingTime,
+    pumpSpeed
+} = payload;
+  return !(
+    initialTemp &&
+    finalTemp &&
+    kneadingTime &&
+    pumpSpeed
+);
+}
+
+
 const Cent = ({ data, step, submit, onComboChange, onInputChange, handleCentSlider }) => {
-  const { step: screen } = data;
+  const { step: screen, payload } = data;
   const section = [
-    <Cent1 data={data} onComboChange={onComboChange} step={step} />,
+    <Cent1 data={data} onComboChange={onComboChange} step={step}  disabled={validateStep1(payload)} />,
     <Cent2
       step={step}
       submit={submit}
@@ -13,6 +34,7 @@ const Cent = ({ data, step, submit, onComboChange, onInputChange, handleCentSlid
       onComboChange={onComboChange}
       onInputChange={onInputChange}
       handleCentSlider= {handleCentSlider}
+      disabled={validateStep2(payload)}
     />,
   ];
   return section[screen];

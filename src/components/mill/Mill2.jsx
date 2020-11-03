@@ -24,7 +24,7 @@ const inputProps = (labelText) => ({
 });
 
 
-const Mill2 = ({step, submit, data, onComboChange, onInputChange, handleMillSlider }) => {
+const Mill2 = ({step, submit, data, onComboChange, onInputChange, handleMillSlider, disabled }) => {
   console.log("rendering Mill2...");
 
   if (!data) return "Cargando...";
@@ -82,6 +82,7 @@ const Mill2 = ({step, submit, data, onComboChange, onInputChange, handleMillSlid
         right="Registrar"
         onStep={step}
         onSubmit={submit}
+        disabled={disabled}
       />
        </div>
     </Fragment>

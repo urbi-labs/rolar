@@ -22,7 +22,7 @@ const inputProps = (labelText) => ({
   onClick: () => console.log("onClick"),
 });
 
-const Mill2 = ({step, submit, data, onComboChange, onInputChange, handleCentSlider  }) => {
+const Cent2 = ({step, submit, data, onComboChange, onInputChange, handleCentSlider, disabled  }) => {
   
   
   console.log("rendering Cent2...");
@@ -88,6 +88,7 @@ const Mill2 = ({step, submit, data, onComboChange, onInputChange, handleCentSlid
         left="Anterior"
         right="Registrar"
         onStep={step}
+        disabled={disabled}
         onSubmit={submit}
       />
        </div>
@@ -95,4 +96,4 @@ const Mill2 = ({step, submit, data, onComboChange, onInputChange, handleCentSlid
   );
 };
 
-export default Mill2;
+export default Cent2;
