@@ -17,7 +17,7 @@ const comboProps = (titleText) => ({
   });
   
 
-export default function Storage1({ step, data, onComboChange }) {
+export default function Storage1({ step, data, onComboChange, disabled }) {
     const { batches } = data.init
     return (
         <Fragment>
@@ -40,7 +40,7 @@ export default function Storage1({ step, data, onComboChange }) {
         </div>
       </div>
 
-      <Buttons screen="storage" left="Anterior" right="Siguiente" onStep={step} />
+      <Buttons screen="storage" left="Anterior" right="Siguiente" onStep={step} disabled={disabled}/>
     </Fragment>
     )
 }

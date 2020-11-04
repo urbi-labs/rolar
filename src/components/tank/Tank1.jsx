@@ -16,7 +16,7 @@ const comboProps = (titleText) => ({
     onToggleClick: () => console.log("onClick"),
   });
 
-export default function Tank1({ step, data, onComboChange, getStoragesFromTank, onComboChangeID }) {
+export default function Tank1({ step, data, disabled, getStoragesFromTank, onComboChangeID }) {
     const { init: tanks } = data;
     return (
         <Fragment>
@@ -43,7 +43,7 @@ export default function Tank1({ step, data, onComboChange, getStoragesFromTank, 
         </div>
       </div>
 
-      <Buttons screen="tank" left="Anterior" right="Siguiente" onStep={step} />
+      <Buttons screen="tank" left="Anterior" right="Siguiente" onStep={step} disabled={disabled} />
     </Fragment>
     );
 }

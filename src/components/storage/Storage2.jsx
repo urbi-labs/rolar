@@ -25,7 +25,7 @@ const inputProps = (labelText) => ({
 });
   
 
-export default function Storage2({step, submit, data, onComboChange, onInputChange, getPerformance, handleToggle}) {
+export default function Storage2({step, submit, data, onComboChange, onInputChange, getPerformance, handleToggle, disabled}) {
     console.log("[DEBUG]")
     console.log(data)
   
@@ -127,6 +127,7 @@ export default function Storage2({step, submit, data, onComboChange, onInputChan
         right="Registrar"
         onStep={step}
         onSubmit={submit}
+        disabled={disabled}
       />
     </Fragment>
     )
