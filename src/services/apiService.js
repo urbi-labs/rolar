@@ -36,6 +36,10 @@ export function submitSample(data) {
   return http.post(`/api/samples`, data);
 }
 
+export function updateSample(data) {
+  return http.put(`/api/samples/`, data);
+}
+
 export function getSamples(data) {
   return http.get(`/api/samples`, data);
 }

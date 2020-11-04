@@ -37,6 +37,23 @@ const Sample2 = ({
   console.log("rendering Sample2...");
   if (!data) return "Cargando...";
 
+  const {
+    frost,
+    hidraulicOil,
+    mummified,
+    dehydrated,
+    beaten,
+    waterExcess,
+    branchExcess,
+    leafExcess,
+    maturityIndex,
+    moisturePase,
+    wetFat,
+    dryFat,
+    taurusPomace,
+    rexPomace,
+  } = data.payload;
+
   //consultar
   const items = [
     { id: "1", text: " 1" },
@@ -67,6 +84,7 @@ const Sample2 = ({
             <TextInput
               onChange={(event) => onInputChange(event, "samples", "frost")}
               {...inputProps("Helada")}
+              value={frost}
             />
           </div>
           <div className="bx--col">
@@ -80,6 +98,7 @@ const Sample2 = ({
               onToggle={(event) =>
                 handleToggle(event, "samples", "hidraulicOil")
               }
+              toggled={hidraulicOil}
             />
           </div>
         </div>
@@ -88,6 +107,7 @@ const Sample2 = ({
             <TextInput
               onChange={(event) => onInputChange(event, "samples", "mummified")}
               {...inputProps("Momificada")}
+              value={mummified}
             />
           </div>
           <div className="bx--col">
@@ -96,6 +116,7 @@ const Sample2 = ({
                 onInputChange(event, "samples", "dehydrated")
               }
               {...inputProps("Deshidratada")}
+              value={dehydrated}
             />
           </div>
         </div>
@@ -104,6 +125,7 @@ const Sample2 = ({
             <TextInput
               onChange={(event) => onInputChange(event, "samples", "beaten")}
               {...inputProps("Golpeada")}
+              value={beaten}
             />
           </div>
           <div className="bx--col">
@@ -112,6 +134,7 @@ const Sample2 = ({
                 onInputChange(event, "samples", "waterExcess")
               }
               {...inputProps("Exceso de Agua")}
+              value={waterExcess}
             />
           </div>
         </div>
@@ -122,6 +145,7 @@ const Sample2 = ({
                 onInputChange(event, "samples", "branchExcess")
               }
               {...inputProps("Exceso de ramas")}
+              value={branchExcess}
             />
           </div>
           <div className="bx--col">
@@ -130,6 +154,7 @@ const Sample2 = ({
                 onInputChange(event, "samples", "leafExcess")
               }
               {...inputProps("Exceso de Hojas")}
+              value={leafExcess}
             />
           </div>
         </div>
@@ -142,6 +167,7 @@ const Sample2 = ({
                 onComboChange(event, "samples", "maturityIndex")
               }
               {...comboProps("Indice de Madurez")}
+              value={maturityIndex}
             />
           </div>
           <div className="bx--col">
@@ -150,6 +176,7 @@ const Sample2 = ({
                 onInputChange(event, "samples", "moisturePase")
               }
               {...inputProps("Humedad Pasta")}
+              value={moisturePase}
             />
           </div>
         </div>
@@ -160,12 +187,14 @@ const Sample2 = ({
                 onInputChange(event, "samples", "taurusPomace")
               }
               {...inputProps("Orujo Taurus")}
+              value={taurusPomace}
             />
           </div>
           <div className="bx--col">
             <TextInput
               onChange={(event) => onInputChange(event, "samples", "rexPomace")}
               {...inputProps("Orujo Rex")}
+              value={rexPomace}
             />
           </div>
         </div>
@@ -174,6 +203,7 @@ const Sample2 = ({
             <TextInput
               onChange={(event) => onInputChange(event, "samples", "wetFat")}
               {...inputProps("Materia Grasa TC/Humedo")}
+              value={wetFat}
             />
           </div>
         </div>
@@ -182,6 +212,7 @@ const Sample2 = ({
             <TextInput
               onChange={(event) => onInputChange(event, "samples", "dryFat")}
               {...inputProps("Materia Grasa TC/Seco")}
+              value={dryFat}
             />
           </div>
         </div>

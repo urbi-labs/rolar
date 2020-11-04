@@ -228,9 +228,8 @@ class Home extends Component {
   getSampleBatches = async () => {
     const { currentUser } = this.state;
     const { role } = currentUser;
-    // const tookSample = role === "supervisor" ? true : false;
-    // const tookSample = !!role;
-    const { data } = await notSampleBatches(!!role);
+    const tookSample = role === "supervisor" ? true : false;
+    const { data } = await notSampleBatches(tookSample);
 
     const items = [];
     data.forEach((doc, ind) => {
@@ -396,16 +395,16 @@ class Home extends Component {
       data.step = 0;
       newState.screen = "";
     }
-    newState[screen] = data;
 
     // lógica para recuperar datos en vista de supervisor
-    if (step > 1) {
+    if (data.step === 1) {
       console.log(screen);
       const { _batch } = payload;
-      const response = await getByBatchId(screen, _batch);
-      console.log(response);
+      const { data: samples } = await getByBatchId(screen, _batch);
+      data.payload = samples;
     }
 
+    newState[screen] = data;
     this.setState(newState, () => console.log(this.state));
   };
 
@@ -416,8 +415,6 @@ class Home extends Component {
     newState.screen = "";
     this.setState(newState, () => console.log(this.state));
   };
-
-  getPayloadFromDB = async () => {};
 
   handleSubmit = async (screen) => {
     console.log("registrando informacion... ", screen);

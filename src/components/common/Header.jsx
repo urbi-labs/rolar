@@ -5,6 +5,7 @@ import "../../styles/header.scss";
 
 function Header() {
   const [currentUser, setUser] = useState();
+
   useEffect(() => {
     setUser(getCurrentUser());
   }, []);
