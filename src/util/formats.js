@@ -9,36 +9,49 @@ export function hora() {
   return `${date.getHours()}:${date.getMinutes()}`;
 }
 
-const optionsDayTime = {
-  year: "numeric",
-  month: "numeric",
-  day: "numeric",
-  hour: "numeric",
-  minute: "numeric",
-  second: "numeric",
-};
+export function formatID(batch) {
+  const { timestamp, _id } = batch;
 
-export function dayTime(ISODate) {
-  if (ISODate === "-") return "No disponible.";
-  return new Date(ISODate).toLocaleDateString("es-AR", optionsDayTime);
+  const id = _id.slice(-5);
+
+  const time = shortDate(timestamp);
+
+  return `${time} (Lote #${id.toUpperCase()})`;
 }
 
 export function shortDate(date) {
   return new Date(date).toLocaleDateString("es-AR", {
-    month: "numeric",
-    day: "numeric",
+    year: "2-digit",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "numeric",
+    minute: "numeric",
   });
 }
 
-export function isoFormatDMY(d) {
-  function pad(n) {
-    return (n < 10 ? "0" : "") + n;
-  }
-  return (
-    pad(d.getUTCDate()) +
-    "/" +
-    pad(d.getUTCMonth() + 1) +
-    "/" +
-    d.getUTCFullYear()
-  );
-}
+// const optionsDayTime = {
+//   year: "numeric",
+//   month: "numeric",
+//   day: "numeric",
+//   hour: "numeric",
+//   minute: "numeric",
+//   second: "numeric",
+// };
+
+// export function dayTime(ISODate) {
+//   if (ISODate === "-") return "No disponible.";
+//   return new Date(ISODate).toLocaleDateString("es-AR", optionsDayTime);
+// }
+
+// export function isoFormatDMY(d) {
+//   function pad(n) {
+//     return (n < 10 ? "0" : "") + n;
+//   }
+//   return (
+//     pad(d.getUTCDate()) +
+//     "/" +
+//     pad(d.getUTCMonth() + 1) +
+//     "/" +
+//     d.getUTCFullYear()
+//   );
+// }

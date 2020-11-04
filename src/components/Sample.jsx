@@ -9,7 +9,6 @@ function validateStep1(payload) {
 
 function validateStep2(payload) {
   const {
-    hidraulicOil,
     frost,
     mummified,
     dehydrated,
@@ -25,7 +24,6 @@ function validateStep2(payload) {
     rexPomace,
   } = payload;
   return !(
-    hidraulicOil &&
     frost &&
     mummified &&
     dehydrated &&

@@ -8,6 +8,14 @@ export function getBatches() {
   return http.get(`/api/batches`);
 }
 
+export function notSampleBatches(tookSample) {
+  return http.get(`/api/batches/non_sampled/${tookSample}`);
+}
+
+export function tookSampleBatch(_id) {
+  return http.post(`/api/batches/tookSample/${_id}`);
+}
+
 export function submitCent(data) {
   return http.post(`/api/centrifuges`, data);
 }
@@ -39,24 +47,12 @@ export function getAllTanks() {
   return http.get(`/api/tanks/all`);
 }
 
-export function getBatchById(id) {
-  return http.get(`/api/batches/${id}`);
-}
-
 export function updateStatus(id, data) {
   return http.post(`/api/batches/${id}/update_status`, data);
 }
 
 export function getBatchesByStatus(status) {
   return http.get(`/api/batches/status/${status}`);
-}
-
-export function notSampleBatches(tookSample) {
-  return http.get(`/api/batches/non_sampled/${tookSample}`);
-}
-
-export function tookSampleBatch(_id) {
-  return http.post(`/api/batches/tookSample/${_id}`);
 }
 
 export function submitStorage(data) {
@@ -67,4 +63,9 @@ export function submitTank(data) {
 }
 export function getStoragesFromTank(_tank) {
   return http.get(`/api/storages/tank/${_tank}`);
+}
+
+export function getByBatchId(route, id) {
+  console.log(`get ${route}/${id}`);
+  return http.get(`/api/${route}/batch/${id}`);
 }

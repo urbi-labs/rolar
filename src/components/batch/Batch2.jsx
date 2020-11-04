@@ -47,7 +47,7 @@ const Batch2 = ({
     const filter = clients.filter((c) => (c.text === client ? c.chutes : ""));
     items = filter[0] ? filter[0].chutes : "";
   }
-  console.log({ chuteWeight });
+
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">

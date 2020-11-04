@@ -14,24 +14,24 @@ import { sections, prodLine } from "../config.json";
 
 // Services
 import {
-  submitBatch,
   tookSampleBatch,
   notSampleBatches,
-  getBatches,
+  getByBatchId,
+  getBatchesByStatus,
   getStoragesFromTank,
   getTanks,
   getAllTanks,
+  submitBatch,
   submitCent,
   submitMill,
   submitStorage,
   submitTank,
   submitSample,
-  getBatchById,
   updateStatus,
-  getBatchesByStatus,
 } from "../services/apiService";
 
 import { getCurrentUser } from "../services/authService";
+import { formatID } from "../util/formats";
 
 import "../styles/home.scss";
 class Home extends Component {
@@ -99,7 +99,7 @@ class Home extends Component {
       init: {},
       step: 0,
     },
-    sample: {
+    samples: {
       payload: {
         _batch: "",
         _user: "",
@@ -130,7 +130,7 @@ class Home extends Component {
   };
 
   renderScreen = (screen) => {
-    const { batch, sample, tank, mill, cent, storage } = this.state;
+    const { batch, samples, tank, mill, cent, storage } = this.state;
     const component = {
       batch: (
         <Batch
@@ -141,9 +141,9 @@ class Home extends Component {
           onInputChange={this.handleInputChange}
         />
       ),
-      sample: (
+      samples: (
         <Sample
-          data={sample}
+          data={samples}
           step={this.handleStep}
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
@@ -211,13 +211,14 @@ class Home extends Component {
 
     const initSection = {
       batch: this.initializeBatch,
-      sample: this.getSampleBatches,
+      samples: this.getSampleBatches,
       mill: this.getMillBatches,
       cent: this.getCentBatches,
       storage: this.getStorageBatches,
       tank: this.initializeWithTanks,
     };
 
+    console.log(screen);
     newState[screen].init = await initSection[screen]();
     newState.screen = screen;
 
@@ -227,16 +228,16 @@ class Home extends Component {
   getSampleBatches = async () => {
     const { currentUser } = this.state;
     const { role } = currentUser;
-    const tookSample = role === "supervisor" ? true : false;
-    const { data } = await notSampleBatches(tookSample);
-    console.log(data);
+    // const tookSample = role === "supervisor" ? true : false;
+    // const tookSample = !!role;
+    const { data } = await notSampleBatches(!!role);
+
     const items = [];
     data.forEach((doc, ind) => {
-      console.log(doc);
+      const { _id } = doc;
       items.push({
-        /*...doc,*/
-        id: ind + "",
-        text: doc._id,
+        id: _id,
+        text: formatID(doc),
       });
     });
     console.log(items);
@@ -341,7 +342,7 @@ class Home extends Component {
     console.log(event);
 
     newState[screen].payload[field] = event.selectedItem
-      ? event.selectedItem.text
+      ? event.selectedItem.id // .text
       : "";
 
     if (field === "chuteName")
@@ -383,19 +384,28 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-  handleStep = (screen, next = true) => {
+  handleStep = async (screen, next = true) => {
     const newState = { ...this.state };
     const data = newState[screen];
-    const { step } = data;
-    newState.screen = screen;
+    const { step, payload } = data;
 
+    // lógica para cambiar de pantalla atras/adelante
+    newState.screen = screen;
     data.step = next ? step + 1 : step - 1;
     if (data.step < 0) {
       data.step = 0;
       newState.screen = "";
     }
-
     newState[screen] = data;
+
+    // lógica para recuperar datos en vista de supervisor
+    if (step > 1) {
+      console.log(screen);
+      const { _batch } = payload;
+      const response = await getByBatchId(screen, _batch);
+      console.log(response);
+    }
+
     this.setState(newState, () => console.log(this.state));
   };
 
@@ -407,17 +417,7 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-  /*  handleSubmit = async (screen) => {
-    const newState = { ...this.state };
-    console.log("registrando informacion... ", screen);
-    // Submit Logic
-    //TODO: Screen logic
-    const { payload } = newState[screen];
-    const { data } = await submitBatch(payload);
-    console.log({ data });
-    newState.screen = "feedback";
-    this.setState(newState, () => console.log(this.state));
-  }; */
+  getPayloadFromDB = async () => {};
 
   handleSubmit = async (screen) => {
     console.log("registrando informacion... ", screen);
@@ -436,7 +436,7 @@ class Home extends Component {
         await submitBatch(payload);
         break;
 
-      case "sample":
+      case "samples":
         await submitSample(payload);
         await tookSampleBatch(_batch);
         break;

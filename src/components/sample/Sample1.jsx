@@ -35,7 +35,7 @@ export default function Sample1({ data, onComboChange, step, disabled }) {
             <ComboBox
               items={batches}
               itemToString={(item) => (item ? item.text : "")}
-              onChange={(event) => onComboChange(event, "sample", "_batch")}
+              onChange={(event) => onComboChange(event, "samples", "_batch")}
               {...comboProps("Lote")}
             />
           </div>
@@ -43,7 +43,7 @@ export default function Sample1({ data, onComboChange, step, disabled }) {
       </div>
 
       <Buttons
-        screen="sample"
+        screen="samples"
         left="Anterior"
         right="Siguiente"
         onStep={step}

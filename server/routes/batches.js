@@ -3,7 +3,7 @@ const { Batch, validate } = require("../models/batch");
 const express = require("express");
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { body } = req;
 
   const { error } = validate(body);
@@ -24,14 +24,14 @@ router.post("/", async (req, res) => {
   return res.status(200).send(batch);
 });
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const batch = await Batch.find().sort({
     timestamp: "desc",
   });
   res.send(batch);
 });
 
-router.post("/:id/update_status", async (req, res) => {
+router.post("/:id/update_status", auth, async (req, res) => {
   const { body, params } = req;
   const { id } = params;
   const { status } = body;
@@ -45,7 +45,7 @@ router.post("/:id/update_status", async (req, res) => {
   res.status(200).send(batch);
 });
 
-router.get("/status/:status", async (req, res) => {
+router.get("/status/:status", auth, async (req, res) => {
   console.log("/api/batches/status/:status");
   const { params } = req;
   const { status } = params;
@@ -56,23 +56,18 @@ router.get("/status/:status", async (req, res) => {
   res.status(200).send(batch);
 });
 
-router.get("/non_sampled/:id", async (req, res) => {
+router.get("/non_sampled/:id", auth, async (req, res) => {
   const { id: tookSample } = req.params;
 
   console.log("api/batches/non_sampled", tookSample);
-  const batch = await Batch.find({ tookSample });
+  const batch = await Batch.find({ tookSample }).sort({ timestamp: -1 });
 
   res.status(200).send(batch);
 });
 
 router.get("/:id", async (req, res) => {
-  console.log("/:id");
-  const { params } = req;
-  const { id } = params;
-  console.log(id);
-
+  const { id } = req.params;
   const batch = await Batch.findById(id);
-
   res.status(200).send(batch);
 });
 

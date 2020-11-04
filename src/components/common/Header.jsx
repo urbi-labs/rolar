@@ -12,9 +12,7 @@ function Header() {
   return (
     <div className="header__container">
       <div className="header__title">Rolar De Cuyo</div>
-      {currentUser === "supervisor" && (
-        <div className="header__role">{currentUser.role}</div>
-      )}
+      <div className="header__role">{currentUser ? currentUser.role : ""}</div>
     </div>
   );
 }
