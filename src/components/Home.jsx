@@ -12,6 +12,19 @@ import Tank from "./Tank";
 import { clients, oliveTypes } from "../config.json";
 import { sections, prodLine } from "../config.json";
 
+// submit functions
+import {
+  submitBatch,
+  submitCent,
+  submitMill,
+  submitStorage,
+  submitTank,
+  submitSample,
+} from "../services/apiService";
+
+//update functions
+import { updateSample } from "../services/apiService";
+
 // Services
 import {
   tookSampleBatch,
@@ -21,12 +34,6 @@ import {
   getStoragesFromTank,
   getTanks,
   getAllTanks,
-  submitBatch,
-  submitCent,
-  submitMill,
-  submitStorage,
-  submitTank,
-  submitSample,
   updateStatus,
 } from "../services/apiService";
 
@@ -419,6 +426,7 @@ class Home extends Component {
   handleSubmit = async (screen) => {
     console.log("registrando informacion... ", screen);
     const { currentUser } = this.state;
+    const { role } = currentUser;
     const newState = { ...this.state };
     const { payload } = newState[screen];
     const { _batch } = payload;
@@ -434,8 +442,12 @@ class Home extends Component {
         break;
 
       case "samples":
-        await submitSample(payload);
-        await tookSampleBatch(_batch);
+        if (role === "supervisor") {
+          await updateSample(payload);
+        } else {
+          await submitSample(payload);
+          await tookSampleBatch(_batch);
+        }
         break;
 
       case "mill":
