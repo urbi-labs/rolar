@@ -16,7 +16,7 @@ export function formatID(batch) {
 
   const time = shortDate(timestamp);
 
-  return `${time} (Lote #${id.toUpperCase()})`;
+  return `${time} (#${id.toUpperCase()})`;
 }
 
 export function shortDate(date) {

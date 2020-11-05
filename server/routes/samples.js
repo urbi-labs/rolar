@@ -1,5 +1,6 @@
 const auth = require("../middleware/auth");
 const { Sample, validate } = require("../models/sample");
+const { Batch } = require("../models/batch");
 const express = require("express");
 const router = express.Router();
 
@@ -13,6 +14,10 @@ router.post("/", auth, async (req, res) => {
     ...body,
   });
   await sample.save();
+
+  // Actualizo el flag tookSample para el lote que se tomó muestra
+  const { _batch: _id } = body;
+  await Batch.findByIdAndUpdate({ _id }, { tookSample: true });
 
   return res.status(200).send(sample);
 });

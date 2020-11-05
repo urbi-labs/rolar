@@ -12,9 +12,9 @@ export function notSampleBatches(tookSample) {
   return http.get(`/api/batch/non_sampled/${tookSample}`);
 }
 
-export function tookSampleBatch(_id) {
-  return http.post(`/api/batch/tookSample/${_id}`);
-}
+// export function tookSampleBatch(_id) {
+//   return http.post(`/api/batch/tookSample/${_id}`);
+// }
 
 export function submitCent(data) {
   return http.post(`/api/cent`, data);

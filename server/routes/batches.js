@@ -71,18 +71,18 @@ router.get("/:id", async (req, res) => {
   res.status(200).send(batch);
 });
 
-router.post("/tookSample/:_id", async (req, res) => {
-  console.log("/api/batches/tookSample/:_id");
-  const { params } = req;
-  const { _id } = params;
+// router.post("/tookSample/:_id", async (req, res) => {
+//   console.log("/api/batches/tookSample/:_id");
+//   const { params } = req;
+//   const { _id } = params;
 
-  const batch = await Batch.findById(_id);
+//   const batch = await Batch.findById(_id);
 
-  batch["tookSample"] = true;
+//   batch["tookSample"] = true;
 
-  await batch.save();
+//   await batch.save();
 
-  res.status(200).send(batch);
-});
+//   res.status(200).send(batch);
+// });
 
 module.exports = router;

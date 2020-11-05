@@ -56,13 +56,13 @@ const Sample2 = ({
 
   //consultar
   const items = [
-    { id: "1", text: " 1" },
-    { id: "2", text: " 2" },
-    { id: "3", text: " 3" },
-    { id: "4", text: " 4" },
-    { id: "5", text: " 5" },
-    { id: "6", text: " 6" },
-    { id: "7", text: " 7" },
+    { id: "1", text: "1", value: "1" },
+    { id: "2", text: "2", value: "2" },
+    { id: "3", text: "3", value: "3" },
+    { id: "4", text: "4", value: "4" },
+    { id: "5", text: "5", value: "5" },
+    { id: "6", text: "6", value: "6" },
+    { id: "7", text: "7", value: "7" },
   ];
 
   return (
@@ -167,7 +167,7 @@ const Sample2 = ({
                 onComboChange(event, "samples", "maturityIndex")
               }
               {...comboProps("Indice de Madurez")}
-              value={maturityIndex}
+              selectedItem={items[maturityIndex - 1]}
             />
           </div>
           <div className="bx--col">

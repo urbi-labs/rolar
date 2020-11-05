@@ -150,9 +150,9 @@ class Home extends Component {
   };
 
   renderScreen = (screen) => {
-    const { batch, samples, tank, mill, cent, storage } = this.state;
-    const { feedback } = this.state;
+    const { batch, samples, tank, mill, cent, storage, feedback } = this.state;
     const { label, number } = feedback;
+
     const component = {
       batch: (
         <Batch
@@ -225,6 +225,7 @@ class Home extends Component {
         ></Feedback>
       ),
     };
+
     return component[screen];
   };
 
@@ -233,7 +234,7 @@ class Home extends Component {
 
     const initSection = {
       batch: this.initializeBatch,
-      samples: this.getSampleBatches,
+      samples: this.initializeSamples,
       mill: this.getMillBatches,
       cent: this.getCentBatches,
       storage: this.getStorageBatches,
@@ -247,21 +248,20 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-  getSampleBatches = async () => {
-    const { currentUser } = this.state;
-    const { role } = currentUser;
-    const tookSample = role === "supervisor" ? true : false;
-    const { data } = await notSampleBatches(tookSample);
+  initializeSamples = async () => {
+    const { supervisor } = this.state;
+    const { data } = await notSampleBatches(supervisor);
 
     const items = [];
     data.forEach((doc, ind) => {
       const { _id } = doc;
       items.push({
-        id: _id,
+        id: ind,
         text: formatID(doc),
+        value: _id,
       });
     });
-    console.log(items);
+
     return items;
   };
 
@@ -455,8 +455,13 @@ class Home extends Component {
           if (supervisor) {
             await updateSample(payload);
           } else {
-            await submitSample(payload);
-            await tookSampleBatch(_batch);
+            const { data } = await submitSample(payload);
+            newState.feedback = {
+              label: "Control de muestra registrado correctamente",
+              number: formatID(data),
+            };
+
+            // await tookSampleBatch(_batch);
           }
           break;
 
