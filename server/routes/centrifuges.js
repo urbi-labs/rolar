@@ -1,11 +1,12 @@
 const auth = require("../middleware/auth");
 const { validate, Centrifuge } = require("../models/centrifuge");
+const { Batch } = require("../models/batch");
 const express = require("express");
 const router = express.Router();
 
-router.post("/", /*auth,*/ async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { body } = req;
-  
+
   const { error } = validate(body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -13,6 +14,10 @@ router.post("/", /*auth,*/ async (req, res) => {
     ...body,
   });
   await centrifuge.save();
+
+  // Actualizo el flag de ultimo status en el lote
+  const { _batch: _id } = body;
+  await Batch.findByIdAndUpdate({ _id }, { lastStatus: "cent" });
 
   return res.status(200).send(centrifuge);
 });

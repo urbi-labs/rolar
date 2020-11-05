@@ -24,7 +24,6 @@ const comboProps = (titleText) => ({
   titleText,
   light: true,
   size: "sm",
-  onToggleClick: () => console.log("onClick"),
 });
 
 const inputProps = (labelText) => ({

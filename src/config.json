@@ -26,8 +26,8 @@
     }
   ],
   "prodLine": [
-    { "text": "Linea 1 ", "id": 1 },
-    { "text": "Linea 2 ", "id": 2 }
+    { "id": "1", "text": "Linea 1", "value": "Linea 1" },
+    { "id": "2", "text": "Linea 2", "value": "Linea 2" }
   ],
   "clients": [
     {

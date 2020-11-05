@@ -12,10 +12,6 @@ export function notSampleBatches(tookSample) {
   return http.get(`/api/batch/non_sampled/${tookSample}`);
 }
 
-// export function tookSampleBatch(_id) {
-//   return http.post(`/api/batch/tookSample/${_id}`);
-// }
-
 export function submitCent(data) {
   return http.post(`/api/cent`, data);
 }
@@ -51,12 +47,8 @@ export function getAllTanks() {
   return http.get(`/api/tank/all`);
 }
 
-export function updateStatus(id, data) {
-  return http.post(`/api/batches/${id}/update_status`, data);
-}
-
 export function getBatchesByStatus(status) {
-  return http.get(`/api/batches/status/${status}`);
+  return http.get(`/api/batch/status/${status}`);
 }
 
 export function submitStorage(data) {
@@ -73,3 +65,11 @@ export function getByBatchId(route, id) {
   console.log(`get ${route}/${id}`);
   return http.get(`/api/${route}/batch/${id}`);
 }
+
+// export function updateStatus(id, data) {
+//   return http.post(`/api/batch/${id}/update_status`, data);
+// }
+
+// export function tookSampleBatch(_id) {
+//   return http.post(`/api/batch/tookSample/${_id}`);
+// }

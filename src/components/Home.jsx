@@ -34,7 +34,7 @@ import {
   getStoragesFromTank,
   getTanks,
   getAllTanks,
-  updateStatus,
+  // updateStatus,
 } from "../services/apiService";
 
 import { getCurrentUser } from "../services/authService";
@@ -112,8 +112,8 @@ class Home extends Component {
           _user: "",
           productionLine: "",
           sieve: "",
-          microtalcum: 300,
-          enzymes: 300,
+          microtalcum: "",
+          enzymes: 0,
         },
         init: {},
         step: 0,
@@ -123,19 +123,19 @@ class Home extends Component {
           _batch: "",
           _user: "",
           hidraulicOil: false,
-          frost: 0,
-          mummified: 0,
-          dehydrated: 0,
-          beaten: 0,
-          waterExcess: 0,
-          branchExcess: 0,
-          leafExcess: 0,
-          maturityIndex: 0,
-          moisturePase: 0,
-          wetFat: 0,
-          dryFat: 0,
-          taurusPomace: 0,
-          rexPomace: 0,
+          frost: "",
+          mummified: "",
+          dehydrated: "",
+          beaten: "",
+          waterExcess: "",
+          branchExcess: "",
+          leafExcess: "",
+          maturityIndex: "",
+          moisturePase: "",
+          wetFat: "",
+          dryFat: "",
+          taurusPomace: "",
+          rexPomace: "",
         },
         step: 0,
         init: {},
@@ -236,7 +236,7 @@ class Home extends Component {
     const initSection = {
       batch: this.initializeBatch,
       samples: this.initializeSamples,
-      mill: this.getMillBatches,
+      mill: this.initializeMills,
       cent: this.getCentBatches,
       storage: this.getStorageBatches,
       tank: this.initializeWithTanks,
@@ -266,15 +266,13 @@ class Home extends Component {
     return items;
   };
 
-  getMillBatches = async () => {
+  initializeMills = async () => {
     const batches = await this.getBatchesArray("batch");
-
     return { batches, prodLine };
   };
 
   getCentBatches = async () => {
     const batches = await this.getBatchesArray("mill");
-
     return { batches, prodLine };
   };
 
@@ -310,14 +308,13 @@ class Home extends Component {
     const { data } = await getBatchesByStatus(status);
     const items = [];
     data.forEach((doc, ind) => {
-      console.log(doc);
+      const { _id } = doc;
       items.push({
-        /*...doc,*/
         id: ind + "",
-        text: doc._id,
+        text: formatID(doc),
+        value: _id,
       });
     });
-    console.log(items);
     return items;
   };
 
@@ -379,7 +376,7 @@ class Home extends Component {
 
   handleInputChange = (event, screen, field) => {
     const newState = { ...this.state };
-    newState[screen].payload[field] = event.target.value || 0;
+    newState[screen].payload[field] = event.target.value || "";
     this.setState(newState, () => console.log(this.state));
   };
 
@@ -425,11 +422,12 @@ class Home extends Component {
 
     // lógica para recuperar datos en vista de supervisor
     if (data.step === 1 && supervisor && screen !== "batch") {
-      console.log(screen);
       const { _batch } = payload;
-      const { data: samples } = await getByBatchId(screen, _batch);
-      data.payload = samples;
-      data.supervisor = true;
+      const { data } = await getByBatchId(screen, _batch);
+      if (data) {
+        data.payload = data;
+        data.supervisor = true;
+      }
     }
 
     newState[screen] = data;
@@ -442,10 +440,11 @@ class Home extends Component {
 
     const newState = { ...this.state };
     const { payload } = newState[screen];
-    const { _batch } = payload;
-    const status = {
-      status: screen,
-    };
+
+    // const { _batch } = payload;
+    // const status = {
+    //   status: screen,
+    // };
 
     payload._user = currentUser._id;
 
@@ -475,20 +474,23 @@ class Home extends Component {
         // await tookSampleBatch(_batch);
 
         case "mill":
-          await submitMill(payload);
-          const resp = await updateStatus(_batch, status);
-          console.log(resp);
+          const { data: mill } = await submitMill(payload);
+          // const resp = await updateStatus(_batch, status);
+          newState.feedback = {
+            label: "Ingreso a molino registrado correctamente",
+            number: formatID(mill),
+          };
           break;
 
         case "cent":
           await submitCent(payload);
-          await updateStatus(_batch, status);
+          // await updateStatus(_batch, status);
           break;
         case "storage":
           delete payload.radius;
           delete payload.coneValue;
           await submitStorage(payload);
-          await updateStatus(_batch, status);
+          // await updateStatus(_batch, status);
           //actualizar active del tanque
           break;
 
