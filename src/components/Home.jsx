@@ -497,7 +497,9 @@ class Home extends Component {
           break;
 
         case "tank":
-          await submitTank(payload);
+          const { data: tank } = await submitTank(payload);
+          label = "Tanque cerrado correctamente";
+          number = formatID(tank);
           break;
 
         default:
@@ -509,7 +511,7 @@ class Home extends Component {
       this.setState(newState, () => console.log(this.state));
     } catch (error) {
       alert(
-        "Error de conexión. En caso de persistir el error contacte a su administrador."
+        "Error de conexión. Si el error persiste contacte a su administrador."
       );
       console.log(error);
     }
