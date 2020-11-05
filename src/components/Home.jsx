@@ -447,16 +447,16 @@ class Home extends Component {
     // };
 
     payload._user = currentUser._id;
+    let label;
+    let number;
 
     try {
       switch (screen) {
         case "batch":
           const { data: batch } = await submitBatch(payload);
+          label = "Lote registrado correctamente";
+          number = formatID(batch);
 
-          newState.feedback = {
-            label: "Lote registrado correctamente",
-            number: formatID(batch),
-          };
           break;
 
         case "samples":
@@ -465,33 +465,35 @@ class Home extends Component {
             : await submitSample(payload);
 
           const { data: sample } = response;
-          newState.feedback = {
-            label: "Control de muestra registrado correctamente",
-            number: formatID(sample),
-          };
-          break;
+          label = "Control de muestra registrado correctamente";
+          number = formatID(sample);
 
-        // await tookSampleBatch(_batch);
+          // await tookSampleBatch(_batch);
+          break;
 
         case "mill":
           const { data: mill } = await submitMill(payload);
+          label = "Ingreso a molino registrado correctamente";
+          number = formatID(mill);
+
           // const resp = await updateStatus(_batch, status);
-          newState.feedback = {
-            label: "Ingreso a molino registrado correctamente",
-            number: formatID(mill),
-          };
           break;
 
         case "cent":
-          await submitCent(payload);
+          const { data: cent } = await submitCent(payload);
+          label = "Ingreso a centrifuga registrado correctamente";
+          number = formatID(cent);
           // await updateStatus(_batch, status);
           break;
         case "storage":
           delete payload.radius;
           delete payload.coneValue;
-          await submitStorage(payload);
+          const { data: storage } = await submitStorage(payload);
+          label = "Almacenamiento registrado correctamente";
+          number = formatID(storage);
+
           // await updateStatus(_batch, status);
-          //actualizar active del tanque
+          // actualizar active del tanque
           break;
 
         case "tank":
@@ -501,6 +503,8 @@ class Home extends Component {
         default:
           console.log("No screen recognized");
       }
+
+      newState.feedback = { label, number };
       newState.screen = "feedback";
       this.setState(newState, () => console.log(this.state));
     } catch (error) {
