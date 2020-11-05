@@ -12,13 +12,13 @@ const error = require("../middleware/error");
 
 module.exports = function (app) {
   app.use("/api/samples", samples);
-  app.use("/api/centrifuges", centrifuges);
-  app.use("/api/batches", batches);
-  app.use("/api/mills", mills);
+  app.use("/api/cent", centrifuges);
+  app.use("/api/batch", batches);
+  app.use("/api/mill", mills);
   app.use("/api/users", users);
   app.use("/api/auth", auth);
-  app.use("/api/tanks", tanks);
-  app.use("/api/storages", storages);
+  app.use("/api/tank", tanks);
+  app.use("/api/storage", storages);
   app.use("/api/closures", tanksClosure);
   app.use("/api/foodtrust", foodtrust);
   app.use("/", (req, res) => {

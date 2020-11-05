@@ -4,7 +4,7 @@ import { Button } from "carbon-components-react";
 import "../styles/feedback.scss";
 import confir from "../images/confir.png";
 
-const Feedback = ({ label, serial, restart }) => {
+const Feedback = ({ label, number, restart }) => {
   console.log("Feedback llaalalala");
   return (
     <Fragment>
@@ -23,17 +23,13 @@ const Feedback = ({ label, serial, restart }) => {
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
-            <div className="helper center-btn">{serial}</div>
+            <div className="helper center-btn">{number}</div>
           </div>
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
             <div className="center-btn bx--col bx--no-gutter">
-              <Button
-                kind="tertiary"
-                size="small"
-                onClick={() => restart("batch")}
-              >
+              <Button kind="tertiary" size="small" onClick={() => restart()}>
                 Volver a inicio
               </Button>
             </div>

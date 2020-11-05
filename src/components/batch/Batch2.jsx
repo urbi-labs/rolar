@@ -42,9 +42,10 @@ const Batch2 = ({
   const { client, chuteWeight, grossWeight } = data.payload;
   const { clients } = data.init;
 
-  const preset = client === "Rolar de Cuyo SA" || client === "Acequión SA";
+  const preset = ["rolar", "acequion"].includes(client);
   if (preset) {
-    const filter = clients.filter((c) => (c.text === client ? c.chutes : ""));
+    // para el caso de rolar o acequión, presento valores de tara predefinidas
+    const filter = clients.filter((c) => (c.value === client ? c.chutes : ""));
     items = filter[0] ? filter[0].chutes : "";
   }
 

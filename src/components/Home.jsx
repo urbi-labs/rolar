@@ -42,102 +42,117 @@ import { formatID } from "../util/formats";
 
 import "../styles/home.scss";
 class Home extends Component {
-  state = {
-    batch: {
-      payload: {
-        _user: "",
-        client: "",
-        parcel: "",
-        oliveType: "",
-        chuteName: "",
-        chuteWeight: 0,
-        grossWeight: 0,
-        deliveryNumber: "",
-        receiptNumber: "",
-      },
-      init: {},
-      step: 0,
-    },
-    tank: {
-      payload: {
-        _user: "5f4fe8cd71164f1d5d65ae04",
-        batchArray: [],
-        _tank: "",
-      },
-      init: {},
-      step: 0,
-    },
-    storage: {
-      payload: {
-        _batch: "",
-        _user: "5f4fe8cd71164f1d5d65ae04",
-        _tank: "",
-        initialMeasure: 0,
-        finalMeasure: 0,
-        coneValue: 0,
-        cone: false,
-        radius: 0,
-      },
-      init: {},
-      step: 0,
-    },
-    cent: {
-      payload: {
-        _batch: "",
-        _user: "5f4fe8cd71164f1d5d65ae04",
-        productionLine: "",
-        initialTemp: 30,
-        finalTemp: 40,
-        kneadingTime: 2,
-        pumpSpeed: 40,
-      },
-      init: {},
-      step: 0,
-    },
-    mill: {
-      payload: {
-        _batch: "",
-        _user: "5f4fe8cd71164f1d5d65ae04",
-        productionLine: "",
-        sieve: "",
-        microtalcum: 300,
-        enzymes: 300,
-      },
-      init: {},
-      step: 0,
-    },
-    samples: {
-      payload: {
-        _batch: "",
-        _user: "",
-        hidraulicOil: false,
-        frost: 0,
-        mummified: 0,
-        dehydrated: 0,
-        beaten: 0,
-        waterExcess: 0,
-        branchExcess: 0,
-        leafExcess: 0,
-        maturityIndex: 0,
-        moisturePase: 0,
-        wetFat: 0,
-        dryFat: 0,
-        taurusPomace: 0,
-        rexPomace: 0,
-      },
-      step: 0,
-      init: {},
-    },
-    screen: "",
-  };
+  state = {};
 
   componentDidMount = () => {
+    this.handleRestart();
+
     const currentUser = getCurrentUser();
-    this.setState({ currentUser });
+    const { role } = currentUser;
+    const supervisor = role === "supervisor" ? true : false;
+    this.setState({ currentUser, supervisor });
+  };
+
+  handleRestart = () => {
+    const newState = {
+      batch: {
+        payload: {
+          _user: "",
+          client: "",
+          parcel: "",
+          oliveType: "",
+          chuteName: "",
+          chuteWeight: 0,
+          grossWeight: 0,
+          deliveryNumber: "",
+          receiptNumber: "",
+        },
+        init: {},
+        step: 0,
+      },
+      tank: {
+        payload: {
+          _user: "",
+          batchArray: [],
+          _tank: "",
+        },
+        init: {},
+        step: 0,
+      },
+      storage: {
+        payload: {
+          _batch: "",
+          _user: "",
+          _tank: "",
+          initialMeasure: 0,
+          finalMeasure: 0,
+          coneValue: 0,
+          cone: false,
+          radius: 0,
+        },
+        init: {},
+        step: 0,
+      },
+      cent: {
+        payload: {
+          _batch: "",
+          _user: "",
+          productionLine: "",
+          initialTemp: 30,
+          finalTemp: 40,
+          kneadingTime: 2,
+          pumpSpeed: 40,
+        },
+        init: {},
+        step: 0,
+      },
+      mill: {
+        payload: {
+          _batch: "",
+          _user: "",
+          productionLine: "",
+          sieve: "",
+          microtalcum: 300,
+          enzymes: 300,
+        },
+        init: {},
+        step: 0,
+      },
+      samples: {
+        payload: {
+          _batch: "",
+          _user: "",
+          hidraulicOil: false,
+          frost: 0,
+          mummified: 0,
+          dehydrated: 0,
+          beaten: 0,
+          waterExcess: 0,
+          branchExcess: 0,
+          leafExcess: 0,
+          maturityIndex: 0,
+          moisturePase: 0,
+          wetFat: 0,
+          dryFat: 0,
+          taurusPomace: 0,
+          rexPomace: 0,
+        },
+        step: 0,
+        init: {},
+      },
+      feedback: { label: "", number: "" },
+      screen: "",
+    };
+    // const data = newState[screen];
+    // data.step = 0;
+    // newState.screen = "";
+    this.setState(newState, () => console.log(this.state));
   };
 
   renderScreen = (screen) => {
     const { batch, samples, tank, mill, cent, storage } = this.state;
+    const { feedback } = this.state;
+    const { label, number } = feedback;
     const component = {
       batch: (
         <Batch
@@ -204,8 +219,8 @@ class Home extends Component {
 
       feedback: (
         <Feedback
-          label=" "
-          serial="123"
+          label={label}
+          number={number}
           restart={this.handleRestart}
         ></Feedback>
       ),
@@ -225,7 +240,7 @@ class Home extends Component {
       tank: this.initializeWithTanks,
     };
 
-    console.log(screen);
+    // lógica de inicio para sección desde Home
     newState[screen].init = await initSection[screen]();
     newState.screen = screen;
 
@@ -274,8 +289,8 @@ class Home extends Component {
   initializeBatch = () => {
     return {
       clients,
-      parcels: [...Array(15).keys()].map((x, i) => {
-        return { id: i, text: ++x + "" };
+      parcels: [...Array(15).keys()].map((x) => {
+        return { id: x, text: x + 1 + "", value: x + 1 };
       }),
       oliveTypes,
     };
@@ -346,15 +361,17 @@ class Home extends Component {
     const newState = { ...this.state };
 
     console.log(event);
-
-    newState[screen].payload[field] = event.selectedItem
-      ? event.selectedItem.id // .text
+    const { selectedItem } = event;
+    newState[screen].payload[field] = selectedItem
+      ? selectedItem.value // .text
       : "";
 
-    if (field === "chuteName")
-      newState[screen].payload.chuteWeight = event.selectedItem
-        ? parseInt(event.selectedItem.value)
+    if (field === "chuteName") {
+      newState[screen].payload[field] = selectedItem.text;
+      newState[screen].payload.chuteWeight = selectedItem
+        ? parseInt(selectedItem.value)
         : 0;
+    }
 
     this.setState(newState, () => console.log(this.state));
   };
@@ -367,24 +384,18 @@ class Home extends Component {
 
   handleMillSlider = (event, value, screen, field) => {
     const newState = { ...this.state };
-    console.log(event);
-    console.log("registrando información del mill slider");
     newState[screen].payload[field] = value || 0;
     this.setState(newState, () => console.log(this.state));
   };
 
   handleCentSlider = (event, value) => {
     const newState = { ...this.state };
-    console.log(event);
     newState.cent.payload.initialTemp = value[0];
     newState.cent.payload.finalTemp = value[1];
-    console.log(newState);
     this.setState(newState, () => console.log(this.state));
   };
 
   handleToggle = (event, screen, field) => {
-    console.log("toggle changing");
-    console.log(event);
     const newState = { ...this.state };
     newState[screen].payload[field] = event;
     this.setState(newState, () => console.log(this.state));
@@ -392,6 +403,7 @@ class Home extends Component {
 
   handleStep = async (screen, next = true) => {
     const newState = { ...this.state };
+    const { supervisor } = this.state;
     const data = newState[screen];
     const { step, payload } = data;
 
@@ -404,7 +416,7 @@ class Home extends Component {
     }
 
     // lógica para recuperar datos en vista de supervisor
-    if (data.step === 1) {
+    if (data.step === 1 && supervisor && screen !== "batch") {
       console.log(screen);
       const { _batch } = payload;
       const { data: samples } = await getByBatchId(screen, _batch);
@@ -415,18 +427,10 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-  handleRestart = (screen) => {
-    const newState = { ...this.state };
-    const data = newState[screen];
-    data.step = 0;
-    newState.screen = "";
-    this.setState(newState, () => console.log(this.state));
-  };
-
   handleSubmit = async (screen) => {
-    console.log("registrando informacion... ", screen);
-    const { currentUser } = this.state;
-    const { role } = currentUser;
+    console.log("handleSubmit triggered... ", screen);
+    const { currentUser, supervisor } = this.state;
+
     const newState = { ...this.state };
     const { payload } = newState[screen];
     const { _batch } = payload;
@@ -436,47 +440,59 @@ class Home extends Component {
 
     payload._user = currentUser._id;
 
-    switch (screen) {
-      case "batch":
-        await submitBatch(payload);
-        break;
+    try {
+      switch (screen) {
+        case "batch":
+          const { data } = await submitBatch(payload);
 
-      case "samples":
-        if (role === "supervisor") {
-          await updateSample(payload);
-        } else {
-          await submitSample(payload);
-          await tookSampleBatch(_batch);
-        }
-        break;
+          newState.feedback = {
+            label: "Lote registrado correctamente",
+            number: formatID(data),
+          };
+          break;
 
-      case "mill":
-        await submitMill(payload);
-        const resp = await updateStatus(_batch, status);
-        console.log(resp);
-        break;
+        case "samples":
+          if (supervisor) {
+            await updateSample(payload);
+          } else {
+            await submitSample(payload);
+            await tookSampleBatch(_batch);
+          }
+          break;
 
-      case "cent":
-        await submitCent(payload);
-        await updateStatus(_batch, status);
-        break;
-      case "storage":
-        delete payload.radius;
-        delete payload.coneValue;
-        await submitStorage(payload);
-        await updateStatus(_batch, status);
-        //actualizar active del tanque
-        break;
+        case "mill":
+          await submitMill(payload);
+          const resp = await updateStatus(_batch, status);
+          console.log(resp);
+          break;
 
-      case "tank":
-        await submitTank(payload);
-        break;
+        case "cent":
+          await submitCent(payload);
+          await updateStatus(_batch, status);
+          break;
+        case "storage":
+          delete payload.radius;
+          delete payload.coneValue;
+          await submitStorage(payload);
+          await updateStatus(_batch, status);
+          //actualizar active del tanque
+          break;
 
-      default:
-        console.log("No screen recognized");
+        case "tank":
+          await submitTank(payload);
+          break;
+
+        default:
+          console.log("No screen recognized");
+      }
+      newState.screen = "feedback";
+      this.setState(newState, () => console.log(this.state));
+    } catch (error) {
+      alert(
+        "Error de conexión. En caso de persistir el error contacte a su administrador."
+      );
+      console.log(error);
     }
-    newState.screen = "feedback";
-    this.setState(newState, () => console.log(this.state));
   };
 
   render() {

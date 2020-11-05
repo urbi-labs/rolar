@@ -1,35 +1,35 @@
 import http from "./httpService";
 
 export function submitBatch(data) {
-  return http.post(`/api/batches`, data);
+  return http.post(`/api/batch`, data);
 }
 
 export function getBatches() {
-  return http.get(`/api/batches`);
+  return http.get(`/api/batch`);
 }
 
 export function notSampleBatches(tookSample) {
-  return http.get(`/api/batches/non_sampled/${tookSample}`);
+  return http.get(`/api/batch/non_sampled/${tookSample}`);
 }
 
 export function tookSampleBatch(_id) {
-  return http.post(`/api/batches/tookSample/${_id}`);
+  return http.post(`/api/batch/tookSample/${_id}`);
 }
 
 export function submitCent(data) {
-  return http.post(`/api/centrifuges`, data);
+  return http.post(`/api/cent`, data);
 }
 
 export function getCents(data) {
-  return http.get(`/api/centrifuges`, data);
+  return http.get(`/api/cent`, data);
 }
 
 export function submitMill(data) {
-  return http.post(`/api/mills`, data);
+  return http.post(`/api/mill`, data);
 }
 
 export function getMills(data) {
-  return http.get(`/api/mills`, data);
+  return http.get(`/api/mill`, data);
 }
 
 export function submitSample(data) {
@@ -37,7 +37,7 @@ export function submitSample(data) {
 }
 
 export function updateSample(data) {
-  return http.put(`/api/samples/`, data);
+  return http.put(`/api/samples`, data);
 }
 
 export function getSamples(data) {
@@ -45,10 +45,10 @@ export function getSamples(data) {
 }
 
 export function getTanks() {
-  return http.get(`/api/tanks`);
+  return http.get(`/api/tank`);
 }
 export function getAllTanks() {
-  return http.get(`/api/tanks/all`);
+  return http.get(`/api/tank/all`);
 }
 
 export function updateStatus(id, data) {
@@ -60,13 +60,13 @@ export function getBatchesByStatus(status) {
 }
 
 export function submitStorage(data) {
-  return http.post(`/api/storages`, data);
+  return http.post(`/api/storage`, data);
 }
 export function submitTank(data) {
   return http.post(`/api/closures`, data);
 }
 export function getStoragesFromTank(_tank) {
-  return http.get(`/api/storages/tank/${_tank}`);
+  return http.get(`/api/storage/tank/${_tank}`);
 }
 
 export function getByBatchId(route, id) {
