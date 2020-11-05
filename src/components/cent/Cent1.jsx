@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { ComboBox } from "carbon-components-react";
 import Buttons from "../common/Buttons.jsx";
+import StepTitles from "../common/StepTitles.jsx";
 import "../../styles/batch.scss";
 
 const comboProps = (titleText) => ({
@@ -9,12 +10,8 @@ const comboProps = (titleText) => ({
   titleText,
   // helperText: "Optional helper text here",
   light: true,
-  disabled: false,
-  invalid: false,
-  invalidText: "A valid value is required",
   size: "sm",
   direction: "bottom",
-  onToggleClick: () => console.log("onClick"),
 });
 
 const Cent1 = ({ step, data, onComboChange, disabled }) => {
@@ -25,12 +22,10 @@ const Cent1 = ({ step, data, onComboChange, disabled }) => {
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
-        <div className="bx--row custom__row">
-          <div className="bx--col ">Paso 1</div>
-        </div>
-        <div className="bx--row custom__row">
-          <div className="bx--col"> Selecciona el lote correspondiente</div>
-        </div>
+        <StepTitles
+          title="Ingreso a centrifuga"
+          helper="Selecciona el lote correspondiente"
+        />
         <div className="bx--row custom__row">
           <div className="bx--col">
             <ComboBox
@@ -46,14 +41,22 @@ const Cent1 = ({ step, data, onComboChange, disabled }) => {
             <ComboBox
               items={prodLine}
               itemToString={(item) => (item ? item.text : "")}
-              onChange={(event) => onComboChange(event, "cent", "productionLine")}
+              onChange={(event) =>
+                onComboChange(event, "cent", "productionLine")
+              }
               {...comboProps("Linea de Producción")}
             />
           </div>
         </div>
       </div>
 
-      <Buttons screen="cent" left="Anterior" right="Siguiente" onStep={step} disabled={disabled} />
+      <Buttons
+        screen="cent"
+        left="Anterior"
+        right="Siguiente"
+        onStep={step}
+        disabled={disabled}
+      />
     </Fragment>
   );
 };

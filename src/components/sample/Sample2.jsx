@@ -71,7 +71,7 @@ const Sample2 = ({
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width template__grid">
-        <StepTitles tile="Control de muestra" step="2" />
+        <StepTitles title="Control de muestra" step="2" />
 
         <div className="bx--row custom__row">
           <div className="bx--col">

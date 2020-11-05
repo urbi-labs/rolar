@@ -29,7 +29,7 @@ router.get("/", auth, async (req, res) => {
   res.send(mills);
 });
 
-router.get("/batch/:id", async (req, res) => {
+router.get("/batch/:id", auth, async (req, res) => {
   const { id: _batch } = req.params;
   const doc = await Mill.findOne({ _batch });
   res.status(200).send(doc);

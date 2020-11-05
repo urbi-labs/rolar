@@ -44,7 +44,7 @@ const Mill2 = ({
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
-        <StepTitles tile="Ingreso al molino" />
+        <StepTitles title="Ingreso al molino" step="2" />
         <div className="bx--row custom__row">
           <div className="bx--col">
             <ComboBox

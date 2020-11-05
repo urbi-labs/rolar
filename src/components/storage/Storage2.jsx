@@ -1,89 +1,94 @@
-import React, { Fragment } from 'react'
+import React, { Fragment } from "react";
 import { ComboBox, TextInput, Toggle } from "carbon-components-react";
 import Buttons from "../common/Buttons.jsx";
+import StepTitles from "../common/StepTitles.jsx";
 
 const comboProps = (titleText) => ({
-    id: titleText,
-    placeholder: "Elegir una opción...",
-    titleText,
-    // helperText: "Optional helper text here",
-    light: true,
-    disabled: false,
-    invalid: false,
-    invalidText: "A valid value is required",
-    size: "sm",
-    direction: "bottom",
-    onToggleClick: () => console.log("onClick"),
+  id: titleText,
+  placeholder: "Elegir una opción...",
+  titleText,
+  light: true,
+  size: "sm",
+  direction: "bottom",
 });
 const inputProps = (labelText) => ({
-    id: labelText,
-    size: "sm",
-    labelText,
-    light: true,
-    type: "number",
-    onClick: () => console.log("onClick"),
+  id: labelText,
+  size: "sm",
+  labelText,
+  light: true,
+  type: "number",
 });
-  
 
-export default function Storage2({step, submit, data, onComboChange, onInputChange, getPerformance, handleToggle, disabled}) {
-    console.log("[DEBUG]")
-    console.log(data)
-  
+export default function Storage2({
+  step,
+  submit,
+  data,
+  onComboChange,
+  onInputChange,
+  getPerformance,
+  handleToggle,
+  disabled,
+}) {
+  console.log("[DEBUG]");
+  console.log(data);
 
-    let { initialMeasure, finalMeasure, coneValue, radius, cone } = data.payload;
-    if(!cone){
-      coneValue = 0.5 * coneValue;
+  let { initialMeasure, finalMeasure, coneValue, radius, cone } = data.payload;
+  if (!cone) {
+    coneValue = 0.5 * coneValue;
+  }
+  console.log(coneValue + " valor del cono " + cone);
+  const totalLitres =
+    coneValue +
+    Math.PI *
+      ((Math.pow(radius / 1000, 2) * (finalMeasure - initialMeasure)) / 1000) *
+      1000;
+  const updateTank = (event) => {
+    console.log(event);
+    if (event !== null && event.selectedItem !== null) {
+      const { cone, _id, radius } = event.selectedItem;
+      //TODO: Refactor code
+      onInputChange({ target: { value: radius } }, "storage", "radius");
+      onInputChange({ target: { value: cone } }, "storage", "coneValue");
+      onComboChange({ selectedItem: { text: _id } }, "storage", "_tank");
     }
-    console.log(coneValue + " valor del cono " + cone)
-    const totalLitres = coneValue + (Math.PI*(((Math.pow(radius/1000,2)*(finalMeasure - initialMeasure)/1000))))*1000; 
-    const updateTank = (event) => {
-      console.log(event)
-      if(event !== null && event.selectedItem !== null){
-        const { cone, _id, radius } = event.selectedItem;
-        //TODO: Refactor code 
-        onInputChange({ target: {value: radius } },"storage","radius");
-        onInputChange({ target: {value: cone } },"storage","coneValue");
-        onComboChange({ selectedItem: { text: _id } }, "storage", "_tank");
-      }
-    } 
-    return (
-        <Fragment>
+  };
+  return (
+    <Fragment>
       <div className="bx--grid bx--grid--full-width">
-        <div className="bx--row custom__row">
-          <div className="bx--col ">Paso 2</div>
-        </div>
-        <div className="bx--row custom__row">
-          <div className="bx--col"> Lote Fecha Hora</div>
-        </div>
+        <StepTitles title="Ingreso almacenamiento" step="2" />
         <div className="bx--row custom__row">
           <div className="bx--col">
-          <ComboBox
-                items={data.init.tanks.data}
-                itemToString={(item) => (!!item ? "Tank " + item.name : "")}
-                onChange={(event) => updateTank(event)}
-                {...comboProps("Tanque destino")}
-              />
+            <ComboBox
+              items={data.init.tanks.data}
+              itemToString={(item) => (!!item ? "Tank " + item.name : "")}
+              onChange={(event) => updateTank(event)}
+              {...comboProps("Tanque destino")}
+            />
           </div>
           <Toggle
-                aria-label="toggle button"
-                defaultToggled= {false}
-                id="toggle-1"
-                labelText="Se lleno el cono?"
-                labelA= {true}
-                labelB= {false}
-                onToggle={(event) => handleToggle(event,"storage","cone")}
-                />
+            aria-label="toggle button"
+            defaultToggled={false}
+            id="toggle-1"
+            labelText="Se lleno el cono?"
+            labelA={true}
+            labelB={false}
+            onToggle={(event) => handleToggle(event, "storage", "cone")}
+          />
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, "storage", "initialMeasure")}
+              onChange={(event) =>
+                onInputChange(event, "storage", "initialMeasure")
+              }
               {...inputProps("Inicio regla nivel")}
             />
           </div>
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, "storage", "finalMeasure")}
+              onChange={(event) =>
+                onInputChange(event, "storage", "finalMeasure")
+              }
               {...inputProps("Fin regla nivel")}
             />
           </div>
@@ -98,9 +103,9 @@ export default function Storage2({step, submit, data, onComboChange, onInputChan
           </div>
           <div className="bx--col">
             <TextInput
-                disabled
-                value={totalLitres}
-                {...inputProps("Total en litros")}
+              disabled
+              value={totalLitres}
+              {...inputProps("Total en litros")}
             />
           </div>
         </div>
@@ -130,5 +135,5 @@ export default function Storage2({step, submit, data, onComboChange, onInputChan
         disabled={disabled}
       />
     </Fragment>
-    )
+  );
 }

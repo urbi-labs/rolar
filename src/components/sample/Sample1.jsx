@@ -27,7 +27,7 @@ export default function Sample1({ data, onComboChange, step, disabled }) {
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
         <StepTitles
-          tile="Control de muestra"
+          title="Control de muestra"
           helper="Selecciona el lote correspondiente"
         />
         <div className="bx--row custom__row">

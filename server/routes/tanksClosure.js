@@ -5,7 +5,7 @@ const { Storage } = require("../models/storage");
 const express = require("express");
 const router = express.Router();
 
-router.post("/",/* auth, */async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { body } = req;
 
   const { error } = validate(body);

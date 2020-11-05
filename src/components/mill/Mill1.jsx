@@ -21,7 +21,7 @@ const Mill1 = ({ step, data, onComboChange, disabled }) => {
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
         <StepTitles
-          tile="Ingreso al molino"
+          title="Ingreso al molino"
           helper="Selecciona el lote correspondiente"
         />
         <div className="bx--row custom__row">

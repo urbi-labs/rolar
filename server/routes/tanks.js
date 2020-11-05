@@ -3,7 +3,7 @@ const { Tank, validate } = require("../models/tank");
 const express = require("express");
 const router = express.Router();
 
-router.post("/", /*auth,*/ async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { body } = req;
 
   const { error } = validate(body);
@@ -15,18 +15,24 @@ router.post("/", /*auth,*/ async (req, res) => {
   return res.status(200).send(tank);
 });
 
-router.get("/", async (req, res) => {
-  const tanks = await Tank.find({active: true}).sort({
+router.get("/", auth, async (req, res) => {
+  const tanks = await Tank.find({ active: true }).sort({
     timestamp: "asc",
   });
   res.send(tanks);
 });
 
-router.get("/all", async (req, res) => {
+router.get("/all", auth, async (req, res) => {
   const tanks = await Tank.find().sort({
     timestamp: "asc",
   });
   res.send(tanks);
+});
+
+router.get("/batch/:id", auth, async (req, res) => {
+  const { id: _batch } = req.params;
+  const doc = await Tank.findOne({ _batch });
+  res.status(200).send(doc);
 });
 
 module.exports = router;

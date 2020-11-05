@@ -53,4 +53,10 @@ router.get("/tank/:tank_id", async (req, res) => {
   res.status(200).send(batches);
 });
 
+router.get("/batch/:id", auth, async (req, res) => {
+  const { id: _batch } = req.params;
+  const doc = await Storage.findOne({ _batch });
+  res.status(200).send(doc);
+});
+
 module.exports = router;
