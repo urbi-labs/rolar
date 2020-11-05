@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
 
-import { fecha, hora } from "../../util/formats";
+// import { fecha, hora } from "../../util/formats";
 import paso1 from "../../images/paso1.png";
 import paso2 from "../../images/paso2.png";
 
-const StepTitles = ({ title, helper, step, lot }) => {
+const StepTitles = ({ title, helper, step }) => {
   return (
     <Fragment>
       <div className="bx--row custom__row">
@@ -15,7 +15,7 @@ const StepTitles = ({ title, helper, step, lot }) => {
           <img src={!step ? paso1 : paso2} alt="step" />
         </div>
       </div>
-      {step && (
+      {/* {step && (
         <div className="bx--row custom__row">
           <div className="bx--col">
             <div className="bx--grid">
@@ -32,7 +32,7 @@ const StepTitles = ({ title, helper, step, lot }) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
       {helper && (
         <div className="bx--row custom__row">
           <div className="bx--col subtitle">{helper}</div>

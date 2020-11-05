@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import { ComboBox, TextInput, Toggle, Checkbox } from "carbon-components-react";
+import StepTitles from "../common/StepTitles.jsx";
 import Buttons from "../common/Buttons.jsx";
 import "../../styles/sample.scss";
 
-import paso2 from "../../images/paso2.png";
 // Docs ComboBox: https://react.carbondesignsystem.com/?path=/story/combobox--default
 // Docs TextInput: https://react.carbondesignsystem.com/?path=/story/textinput--default
 
@@ -72,17 +72,8 @@ const Sample2 = ({
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width template__grid">
-        <div className="bx--row custom__row">
-          <div className="bx--col subtitle">Control de muestra</div>
-        </div>
-        <div className="bx--row custom__row">
-          <div className="bx--col subtitle">
-            <img src={paso2} alt="paso2"></img>
-          </div>
-        </div>
-        <div className="bx--row custom__row">
-          <div className="bx--col"> Fecha Hora </div>
-        </div>
+        <StepTitles tile="Control de muestra" step="2" />
+
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
