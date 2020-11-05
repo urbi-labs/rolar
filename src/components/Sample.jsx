@@ -46,6 +46,7 @@ const Sample = ({
   submit,
   onComboChange,
   onInputChange,
+  onCheckChange,
   handleToggle,
 }) => {
   const { step: screen, payload } = data;
@@ -62,6 +63,7 @@ const Sample = ({
       data={data}
       onComboChange={onComboChange}
       onInputChange={onInputChange}
+      onCheckChange={onCheckChange}
       handleToggle={handleToggle}
       disabled={validateStep2(payload)}
     />,

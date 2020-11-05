@@ -1,11 +1,22 @@
 import React, { Fragment } from "react";
-import { ComboBox, TextInput, Toggle } from "carbon-components-react";
+import { ComboBox, TextInput, Toggle, Checkbox } from "carbon-components-react";
 import Buttons from "../common/Buttons.jsx";
 import "../../styles/sample.scss";
 
 import paso2 from "../../images/paso2.png";
 // Docs ComboBox: https://react.carbondesignsystem.com/?path=/story/combobox--default
 // Docs TextInput: https://react.carbondesignsystem.com/?path=/story/textinput--default
+
+//consultar
+const items = [
+  { id: "1", text: "1", value: "1" },
+  { id: "2", text: "2", value: "2" },
+  { id: "3", text: "3", value: "3" },
+  { id: "4", text: "4", value: "4" },
+  { id: "5", text: "5", value: "5" },
+  { id: "6", text: "6", value: "6" },
+  { id: "7", text: "7", value: "7" },
+];
 
 const comboProps = (titleText) => ({
   id: titleText,
@@ -31,6 +42,7 @@ const Sample2 = ({
   data,
   onComboChange,
   onInputChange,
+  onCheckChange,
   handleToggle,
   disabled,
 }) => {
@@ -52,18 +64,10 @@ const Sample2 = ({
     dryFat,
     taurusPomace,
     rexPomace,
+    validated,
   } = data.payload;
 
-  //consultar
-  const items = [
-    { id: "1", text: "1", value: "1" },
-    { id: "2", text: "2", value: "2" },
-    { id: "3", text: "3", value: "3" },
-    { id: "4", text: "4", value: "4" },
-    { id: "5", text: "5", value: "5" },
-    { id: "6", text: "6", value: "6" },
-    { id: "7", text: "7", value: "7" },
-  ];
+  const { supervisor } = data;
 
   return (
     <Fragment>
@@ -216,6 +220,20 @@ const Sample2 = ({
             />
           </div>
         </div>
+        {supervisor && (
+          <div className="bx--row custom__row">
+            <div className="bx--col">
+              <Checkbox
+                id="validated"
+                checked={validated}
+                labelText="Validado"
+                onChange={(event) =>
+                  onCheckChange(event, "samples", "validated")
+                }
+              />
+            </div>
+          </div>
+        )}
       </div>
       <Buttons
         screen="samples"

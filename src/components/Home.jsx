@@ -27,7 +27,7 @@ import { updateSample } from "../services/apiService";
 
 // Services
 import {
-  tookSampleBatch,
+  // tookSampleBatch,
   notSampleBatches,
   getByBatchId,
   getBatchesByStatus,
@@ -169,6 +169,7 @@ class Home extends Component {
           step={this.handleStep}
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
+          onCheckChange={this.handleCheckChange}
           submit={this.handleSubmit}
           handleToggle={this.handleToggle}
         />
@@ -382,6 +383,13 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
+  handleCheckChange = (event, screen, field) => {
+    const newState = { ...this.state };
+
+    newState[screen].payload[field] = event;
+    this.setState(newState, () => console.log(this.state));
+  };
+
   handleMillSlider = (event, value, screen, field) => {
     const newState = { ...this.state };
     newState[screen].payload[field] = value || 0;
@@ -421,6 +429,7 @@ class Home extends Component {
       const { _batch } = payload;
       const { data: samples } = await getByBatchId(screen, _batch);
       data.payload = samples;
+      data.supervisor = true;
     }
 
     newState[screen] = data;
@@ -443,27 +452,27 @@ class Home extends Component {
     try {
       switch (screen) {
         case "batch":
-          const { data } = await submitBatch(payload);
+          const { data: batch } = await submitBatch(payload);
 
           newState.feedback = {
             label: "Lote registrado correctamente",
-            number: formatID(data),
+            number: formatID(batch),
           };
           break;
 
         case "samples":
-          if (supervisor) {
-            await updateSample(payload);
-          } else {
-            const { data } = await submitSample(payload);
-            newState.feedback = {
-              label: "Control de muestra registrado correctamente",
-              number: formatID(data),
-            };
+          const response = supervisor
+            ? await updateSample(payload)
+            : await submitSample(payload);
 
-            // await tookSampleBatch(_batch);
-          }
+          const { data: sample } = response;
+          newState.feedback = {
+            label: "Control de muestra registrado correctamente",
+            number: formatID(sample),
+          };
           break;
+
+        // await tookSampleBatch(_batch);
 
         case "mill":
           await submitMill(payload);
