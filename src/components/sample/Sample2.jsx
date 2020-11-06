@@ -1,5 +1,8 @@
 import React, { Fragment } from "react";
-import { ComboBox, TextInput, Toggle, Checkbox } from "carbon-components-react";
+import { ComboBox, TextInput, Toggle } from "carbon-components-react";
+
+// custom components
+import Validated from "../common/Validated.jsx";
 import StepTitles from "../common/StepTitles.jsx";
 import Buttons from "../common/Buttons.jsx";
 import "../../styles/sample.scss";
@@ -8,6 +11,9 @@ import "../../styles/sample.scss";
 // Docs TextInput: https://react.carbondesignsystem.com/?path=/story/textinput--default
 
 //consultar
+
+const screen = "samples";
+
 const items = [
   { id: "1", text: "1", value: "1" },
   { id: "2", text: "2", value: "2" },
@@ -76,7 +82,7 @@ const Sample2 = ({
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, "samples", "frost")}
+              onChange={(event) => onInputChange(event, screen, "frost")}
               {...inputProps("Helada")}
               value={frost}
             />
@@ -89,9 +95,7 @@ const Sample2 = ({
               labelText="Aceite Hidráulico"
               labelA={"No"}
               labelB={"Sí"}
-              onToggle={(event) =>
-                handleToggle(event, "samples", "hidraulicOil")
-              }
+              onToggle={(event) => handleToggle(event, screen, "hidraulicOil")}
               toggled={hidraulicOil}
             />
           </div>
@@ -99,16 +103,14 @@ const Sample2 = ({
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, "samples", "mummified")}
+              onChange={(event) => onInputChange(event, screen, "mummified")}
               {...inputProps("Momificada")}
               value={mummified}
             />
           </div>
           <div className="bx--col">
             <TextInput
-              onChange={(event) =>
-                onInputChange(event, "samples", "dehydrated")
-              }
+              onChange={(event) => onInputChange(event, screen, "dehydrated")}
               {...inputProps("Deshidratada")}
               value={dehydrated}
             />
@@ -117,16 +119,14 @@ const Sample2 = ({
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, "samples", "beaten")}
+              onChange={(event) => onInputChange(event, screen, "beaten")}
               {...inputProps("Golpeada")}
               value={beaten}
             />
           </div>
           <div className="bx--col">
             <TextInput
-              onChange={(event) =>
-                onInputChange(event, "samples", "waterExcess")
-              }
+              onChange={(event) => onInputChange(event, screen, "waterExcess")}
               {...inputProps("Exceso de Agua")}
               value={waterExcess}
             />
@@ -135,18 +135,14 @@ const Sample2 = ({
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) =>
-                onInputChange(event, "samples", "branchExcess")
-              }
+              onChange={(event) => onInputChange(event, screen, "branchExcess")}
               {...inputProps("Exceso de ramas")}
               value={branchExcess}
             />
           </div>
           <div className="bx--col">
             <TextInput
-              onChange={(event) =>
-                onInputChange(event, "samples", "leafExcess")
-              }
+              onChange={(event) => onInputChange(event, screen, "leafExcess")}
               {...inputProps("Exceso de Hojas")}
               value={leafExcess}
             />
@@ -158,7 +154,7 @@ const Sample2 = ({
               items={items}
               itemToString={(item) => (item ? item.text : "")}
               onChange={(event) =>
-                onComboChange(event, "samples", "maturityIndex")
+                onComboChange(event, screen, "maturityIndex")
               }
               {...comboProps("Indice de Madurez")}
               selectedItem={items[maturityIndex - 1]}
@@ -166,9 +162,7 @@ const Sample2 = ({
           </div>
           <div className="bx--col">
             <TextInput
-              onChange={(event) =>
-                onInputChange(event, "samples", "moisturePase")
-              }
+              onChange={(event) => onInputChange(event, screen, "moisturePase")}
               {...inputProps("Humedad Pasta")}
               value={moisturePase}
             />
@@ -177,16 +171,14 @@ const Sample2 = ({
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) =>
-                onInputChange(event, "samples", "taurusPomace")
-              }
+              onChange={(event) => onInputChange(event, screen, "taurusPomace")}
               {...inputProps("Orujo Taurus")}
               value={taurusPomace}
             />
           </div>
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, "samples", "rexPomace")}
+              onChange={(event) => onInputChange(event, screen, "rexPomace")}
               {...inputProps("Orujo Rex")}
               value={rexPomace}
             />
@@ -195,7 +187,7 @@ const Sample2 = ({
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, "samples", "wetFat")}
+              onChange={(event) => onInputChange(event, screen, "wetFat")}
               {...inputProps("Materia Grasa TC/Humedo")}
               value={wetFat}
             />
@@ -204,29 +196,21 @@ const Sample2 = ({
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, "samples", "dryFat")}
+              onChange={(event) => onInputChange(event, screen, "dryFat")}
               {...inputProps("Materia Grasa TC/Seco")}
               value={dryFat}
             />
           </div>
         </div>
-        {supervisor && (
-          <div className="bx--row custom__row">
-            <div className="bx--col">
-              <Checkbox
-                id="validated"
-                checked={validated}
-                labelText="Validado"
-                onChange={(event) =>
-                  onCheckChange(event, "samples", "validated")
-                }
-              />
-            </div>
-          </div>
-        )}
+        <Validated
+          mode={supervisor}
+          screen={screen}
+          onCheckChange={onCheckChange}
+          validated={validated}
+        />
       </div>
       <Buttons
-        screen="samples"
+        screen={screen}
         left="Anterior"
         right="Registrar"
         onStep={step}

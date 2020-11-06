@@ -27,6 +27,21 @@ router.post("/", auth, async (req, res) => {
   return res.status(200).send(storage);
 });
 
+router.put("/", auth, async (req, res) => {
+  console.log("put triggered storages update");
+  const { body } = req;
+  const { _id } = req.body;
+
+  body.validationDate = new Date();
+  const sample = await Storage.findOneAndUpdate(
+    { _id },
+    { ...body },
+    { new: true }
+  );
+
+  return res.status(200).send(sample);
+});
+
 router.get("/tank/:tank_id", async (req, res) => {
   console.log("/api/storages/tank/:tank_id");
   const { params } = req;

@@ -1,9 +1,15 @@
 import React, { Fragment } from "react";
 import Slider from "@material-ui/core/Slider";
-import { ComboBox, TextInput, Checkbox } from "carbon-components-react";
+import { ComboBox, TextInput } from "carbon-components-react";
+
+// custom components
+import Validated from "../common/Validated.jsx";
 import StepTitles from "../common/StepTitles.jsx";
 import Buttons from "../common/Buttons.jsx";
+
 import "../../styles/mill.scss";
+
+const screen = "mill";
 
 const items = [
   { id: "1", text: "Criba 1", value: "1" },
@@ -39,7 +45,6 @@ const Mill2 = ({
   disabled,
 }) => {
   console.log("rendering Mill2...");
-
   if (!data) return "Cargando...";
 
   const { supervisor } = data;
@@ -54,7 +59,7 @@ const Mill2 = ({
             <ComboBox
               items={items}
               itemToString={(item) => (item ? item.text : "")}
-              onChange={(event) => onComboChange(event, "mill", "sieve")}
+              onChange={(event) => onComboChange(event, screen, "sieve")}
               {...comboProps("Criba", "Elegir nro de criba.")}
               selectedItem={sieve ? items[sieve - 1] : ""}
             />
@@ -62,7 +67,7 @@ const Mill2 = ({
           <div className="bx--col">
             <TextInput
               value={microtalcum}
-              onChange={(event) => onInputChange(event, "mill", "microtalcum")}
+              onChange={(event) => onInputChange(event, screen, "microtalcum")}
               {...inputProps("Microtalco", "Valor entre cero y uno.")}
             />
           </div>
@@ -79,25 +84,19 @@ const Mill2 = ({
               min={0}
               max={500}
               onChange={(event, value) =>
-                handleMillSlider(event, value, "mill", "enzymes")
+                handleMillSlider(event, value, screen, "enzymes")
               }
             />
           </div>
+          <Validated
+            mode={supervisor}
+            screen={screen}
+            onCheckChange={onCheckChange}
+            validated={validated}
+          />
         </div>
-        {supervisor && (
-          <div className="bx--row custom__row">
-            <div className="bx--col">
-              <Checkbox
-                id="validated"
-                checked={validated}
-                labelText="Validado"
-                onChange={(event) => onCheckChange(event, "mill", "validated")}
-              />
-            </div>
-          </div>
-        )}
         <Buttons
-          screen="mill"
+          screen={screen}
           left="Anterior"
           right="Registrar"
           onStep={step}

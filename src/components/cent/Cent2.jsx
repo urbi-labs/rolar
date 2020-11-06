@@ -1,10 +1,15 @@
 import React, { Fragment } from "react";
 import Slider from "@material-ui/core/Slider";
-import { ComboBox, TextInput, Checkbox } from "carbon-components-react";
+import { ComboBox, TextInput } from "carbon-components-react";
+
+// custom components
+import Validated from "../common/Validated.jsx";
 import Buttons from "../common/Buttons.jsx";
 import StepTitles from "../common/StepTitles.jsx";
 
 import "../../styles/batch.scss";
+
+const screen = "cent";
 
 const items = [
   { id: "1", text: "2", value: "2" },
@@ -73,7 +78,7 @@ const Cent2 = ({
             <ComboBox
               items={items}
               itemToString={(item) => (item ? item.text : "")}
-              onChange={(event) => onComboChange(event, "cent", "kneadingTime")}
+              onChange={(event) => onComboChange(event, screen, "kneadingTime")}
               {...comboProps("Tiempo de amasado (en hs)")}
               selectedItem={
                 items[items.findIndex((i) => i.text === kneadingTime + "")]
@@ -84,26 +89,20 @@ const Cent2 = ({
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, "cent", "pumpSpeed")}
+              onChange={(event) => onInputChange(event, screen, "pumpSpeed")}
               {...inputProps("Velocidad de bombeo")}
               value={pumpSpeed}
             />
           </div>
+          <Validated
+            mode={supervisor}
+            screen={screen}
+            onCheckChange={onCheckChange}
+            validated={validated}
+          />
         </div>
-        {supervisor && (
-          <div className="bx--row custom__row">
-            <div className="bx--col">
-              <Checkbox
-                id="validated"
-                checked={validated}
-                labelText="Validado"
-                onChange={(event) => onCheckChange(event, "cent", "validated")}
-              />
-            </div>
-          </div>
-        )}
         <Buttons
-          screen="cent"
+          screen={screen}
           left="Anterior"
           right="Registrar"
           onStep={step}

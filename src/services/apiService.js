@@ -19,6 +19,10 @@ export function getBatchById(id) {
   return http.get(`/api/batch/${id}`);
 }
 
+export function getBatchesByStatus(status) {
+  return http.get(`/api/batch/status/${status}`);
+}
+
 // samples calls
 export function submitSample(data) {
   return http.post(`/api/samples`, data);
@@ -60,6 +64,21 @@ export function getCents(data) {
   return http.get(`/api/cent`, data);
 }
 
+// storage calls
+export function submitStorage(data) {
+  return http.post(`/api/storage`, data);
+}
+
+export function updateStorage(data) {
+  return http.put(`/api/storage`, data);
+}
+
+export function getStoragesFromTank(_tank) {
+  return http.get(`/api/storage/tank/${_tank}`);
+}
+
+// tanks calls
+
 export function getTanks() {
   return http.get(`/api/tank`);
 }
@@ -67,18 +86,8 @@ export function getAllTanks() {
   return http.get(`/api/tank/all`);
 }
 
-export function getBatchesByStatus(status) {
-  return http.get(`/api/batch/status/${status}`);
-}
-
-export function submitStorage(data) {
-  return http.post(`/api/storage`, data);
-}
 export function submitTank(data) {
   return http.post(`/api/closures`, data);
-}
-export function getStoragesFromTank(_tank) {
-  return http.get(`/api/storage/tank/${_tank}`);
 }
 
 export function getByBatchId(route, id) {

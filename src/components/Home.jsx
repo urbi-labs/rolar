@@ -23,7 +23,12 @@ import {
 } from "../services/apiService";
 
 //update functions
-import { updateSample, updateMill, updateCent } from "../services/apiService";
+import {
+  updateSample,
+  updateMill,
+  updateCent,
+  updateStorage,
+} from "../services/apiService";
 
 // Services
 import {
@@ -590,18 +595,18 @@ class Home extends Component {
 
           break;
         case "storage":
-          delete payload.radius;
-          delete payload.coneValue;
-          const { data: storage } = await submitStorage(payload);
-          label = "Almacenamiento registrado correctamente";
+          // delete payload.radius;
+          // delete payload.coneValue;
+          const { data: storage } = await updateStorage(payload);
+          label = "Almacenamiento actualizado";
           number = formatID(storage);
 
           break;
 
         case "tank":
-          const { data: tank } = await submitTank(payload);
+          // const { data: tank } = await submitTank(payload);
           label = "Tanque cerrado correctamente";
-          number = formatID(tank);
+          // number = formatID(tank);
           break;
 
         default:
