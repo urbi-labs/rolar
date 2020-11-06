@@ -1,19 +1,17 @@
-import React, { Fragment } from "react";
-import { ComboBox, TextInput } from "carbon-components-react";
+import React, { Fragment, useState, useEffect } from "react";
+import { TextInput } from "carbon-components-react";
 
 // custom components
 import Buttons from "../common/Buttons.jsx";
 import StepTitles from "../common/StepTitles.jsx";
+import Validated from "../common/Validated.jsx";
+
+// custom services and helper functions
+import { getStoragesByTank } from "../../services/apiService";
+import { calcTotalLitres } from "../../util/helpers";
+import { fecha, hora } from "../../util/formats.js";
 
 const screen = "tank";
-
-const comboProps = (titleText) => ({
-  id: titleText,
-  titleText,
-  light: true,
-  size: "sm",
-  placeholder: "Elegir una opción...",
-});
 
 const inputProps = (labelText) => ({
   id: labelText,
@@ -23,45 +21,37 @@ const inputProps = (labelText) => ({
   type: "number",
 });
 
-export default function Tank2({
-  step,
-  submit,
-  data,
-  onComboChange,
-  onInputChange,
-  getPerformance,
-}) {
-  console.log("[DEBUG]");
-  console.log(data);
+export default function Tank2({ step, submit, data, onCheckChange }) {
+  const { _tank, validated } = data.payload;
+  const { supervisor } = data;
+  // const { batchArray } = data.payload;
 
-  const { batchArray } = data.payload;
-
-  const calculateTotalLitres = () => {
-    let totalLitres = 0;
-    batchArray.map((e) => {
-      totalLitres += e.totalLitres;
-    });
-    return Math.round(totalLitres * 100) / 100;
-  };
+  const [batchArray, setBatches] = useState([]);
+  useEffect(() => {
+    async function initBatches(_tank) {
+      const { data } = await getStoragesByTank(_tank);
+      setBatches(data);
+      console.log(data);
+    }
+    initBatches(_tank);
+  }, []);
 
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
         <StepTitles title="Cierre de tanques" step="2" />
-
-        {batchArray.map((e) => {
-          let { _batch, timestamp } = e;
-          const date = new Date(timestamp);
-          _batch = _batch.substring(_batch.length - 5, _batch.length);
-          const fullDate =
-            date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear();
-          const fullTime =
-            date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        <div className="bx--row custom__row">
+          <div className="bx--col">Lote</div>
+          <div className="bx--col">Fecha</div>
+          <div className="bx--col">Hora</div>
+        </div>
+        {batchArray.map((batch, ind) => {
+          const { _batch, timestamp } = batch;
           return (
-            <div className="bx--row custom__row">
-              <div className="bx--col">{_batch}</div>
-              <div className="bx--col">{fullDate}</div>
-              <div className="bx--col">{fullTime}</div>
+            <div className="bx--row custom__row" key={ind}>
+              <div className="bx--col time">{_batch.slice(-5)}</div>
+              <div className="bx--col time">{fecha(timestamp)}</div>
+              <div className="bx--col time">{hora(timestamp)}</div>
             </div>
           );
         })}
@@ -69,11 +59,17 @@ export default function Tank2({
           <div className="bx--col">
             <TextInput
               disabled={true}
-              value={calculateTotalLitres() || 0}
+              value={calcTotalLitres(batchArray)}
               {...inputProps("Litros totales")}
             />
           </div>
         </div>
+        <Validated
+          mode={supervisor}
+          screen={screen}
+          onCheckChange={onCheckChange}
+          validated={validated}
+        />
       </div>
       <Buttons
         screen={screen}

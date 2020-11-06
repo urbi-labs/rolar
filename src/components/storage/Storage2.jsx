@@ -7,7 +7,7 @@ import StepTitles from "../common/StepTitles.jsx";
 import Validated from "../common/Validated.jsx";
 
 // services and utility functions
-import { calcs } from "../../util/calcs";
+import { calcs } from "../../util/helpers";
 import { getBatchById } from "../../services/apiService";
 
 const screen = "storage";

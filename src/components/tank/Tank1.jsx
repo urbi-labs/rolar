@@ -16,14 +16,9 @@ const comboProps = (titleText) => ({
   direction: "bottom",
 });
 
-export default function Tank1({
-  step,
-  data,
-  disabled,
-  getStoragesFromTank,
-  onComboChangeID,
-}) {
+export default function Tank1({ step, data, disabled, onComboChange }) {
   const { init: tanks } = data;
+
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
@@ -37,9 +32,7 @@ export default function Tank1({
               items={tanks}
               itemToString={(item) => (item ? item.text : "")}
               onChange={(event) => {
-                const { id: tank_id } = event.selectedItem;
-                onComboChangeID(event, screen, "_tank");
-                getStoragesFromTank(tank_id);
+                onComboChange(event, screen, "_tank");
               }}
               {...comboProps("Tanque")}
             />

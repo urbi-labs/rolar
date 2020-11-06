@@ -39,4 +39,19 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
+router.put("/", auth, async (req, res) => {
+  // update to tank clousure triggered
+  const { body } = req;
+  const { _id } = req.body;
+
+  body.validationDate = new Date();
+  const sample = await TankClosure.findOneAndUpdate(
+    { _id },
+    { ...body },
+    { new: true }
+  );
+
+  return res.status(200).send(sample);
+});
+
 module.exports = router;

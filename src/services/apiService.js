@@ -73,7 +73,8 @@ export function updateStorage(data) {
   return http.put(`/api/storage`, data);
 }
 
-export function getStoragesFromTank(_tank) {
+export function getStoragesByTank(_tank) {
+  if (!_tank) return;
   return http.get(`/api/storage/tank/${_tank}`);
 }
 
@@ -82,6 +83,7 @@ export function getStoragesFromTank(_tank) {
 export function getTanks() {
   return http.get(`/api/tank`);
 }
+
 export function getAllTanks() {
   return http.get(`/api/tank/all`);
 }
@@ -90,8 +92,13 @@ export function submitTank(data) {
   return http.post(`/api/closures`, data);
 }
 
+export function updateTank(data) {
+  return http.put(`/api/closures`, data);
+}
+
 export function getByBatchId(route, id) {
   console.log(`get ${route}/${id}`);
+  if (!id) return;
   return http.get(`/api/${route}/batch/${id}`);
 }
 

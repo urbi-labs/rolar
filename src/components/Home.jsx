@@ -37,7 +37,7 @@ import {
   notSampleBatches,
   getByBatchId,
   getBatchesByStatus,
-  getStoragesFromTank,
+  // getStoragesFromTank,
   getTanks,
   getAllTanks,
   // tookSampleBatch,
@@ -207,7 +207,6 @@ class Home extends Component {
           data={storage}
           step={this.handleStep}
           submit={submit}
-          onComboChangeID={this.handleComboChangeID}
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
           onCheckChange={this.handleCheckChange}
@@ -219,11 +218,9 @@ class Home extends Component {
           data={tank}
           step={this.handleStep}
           submit={submit}
-          onComboChangeID={this.handleComboChangeID}
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
           onCheckChange={this.handleCheckChange}
-          getStoragesFromTank={this.getStoragesFromTank}
         />
       ),
 
@@ -348,20 +345,7 @@ class Home extends Component {
         value: _id,
       });
     });
-    console.log(items);
     return items;
-  };
-
-  getStoragesFromTank = async (_tank) => {
-    const { data: storages } = await getStoragesFromTank(_tank);
-    const newState = { ...this.state };
-    const items = [];
-
-    storages.forEach((elem, index) => {
-      items.push(elem);
-    });
-    newState["tank"].payload["batchArray"] = items;
-    this.setState(newState, () => console.log(this.state));
   };
 
   handleComboChangeID = (event, screen, field) => {
@@ -381,6 +365,7 @@ class Home extends Component {
     const data = newState[screen];
 
     data.payload[field] = selectedItem ? selectedItem.value : "";
+    if (supervisor) data.supervisor = true;
 
     if (field === "chuteName") {
       data.payload[field] = selectedItem.text;
@@ -390,15 +375,17 @@ class Home extends Component {
     }
 
     // lógica para recuperar datos en vista de supervisor
-    if (data.step === 0 && supervisor && screen !== "batch") {
+    if (
+      data.step === 0 &&
+      supervisor &&
+      screen !== "batch" &&
+      screen !== "tank"
+    ) {
       const { payload } = data;
       const { _batch } = payload;
       const { data: doc } = await getByBatchId(screen, _batch);
 
-      if (doc) {
-        data.payload = doc;
-        data.supervisor = true;
-      }
+      if (doc) data.payload = doc;
     }
 
     newState[screen] = data;
@@ -452,7 +439,12 @@ class Home extends Component {
     }
 
     // lógica para recuperar datos en vista de supervisor
-    if (data.step === 1 && supervisor && screen !== "batch") {
+    if (
+      data.step === 1 &&
+      supervisor &&
+      screen !== "batch" &&
+      screen !== "tank"
+    ) {
       const { _batch } = payload;
       const { data: doc } = await getByBatchId(screen, _batch);
       if (doc) {

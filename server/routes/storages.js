@@ -42,7 +42,7 @@ router.put("/", auth, async (req, res) => {
   return res.status(200).send(sample);
 });
 
-router.get("/tank/:tank_id", async (req, res) => {
+router.get("/tank/:tank_id", auth, async (req, res) => {
   console.log("/api/storages/tank/:tank_id");
   const { params } = req;
   const { tank_id } = params;

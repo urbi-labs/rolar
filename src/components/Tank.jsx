@@ -13,8 +13,7 @@ const Tank = ({
   submit,
   onComboChange,
   onInputChange,
-  onComboChangeID,
-  getStoragesFromTank,
+  onCheckChange,
 }) => {
   const { step: screen, payload } = data;
   const section = [
@@ -22,17 +21,15 @@ const Tank = ({
       disabled={validateStep1(payload)}
       data={data}
       step={step}
-      onComboChangeID={onComboChangeID}
       onComboChange={onComboChange}
-      getStoragesFromTank={getStoragesFromTank}
     />,
     <Tank2
       submit={submit}
       data={data}
-      onComboChangeID={onComboChangeID}
+      step={step}
       onComboChange={onComboChange}
       onInputChange={onInputChange}
-      step={step}
+      onCheckChange={onCheckChange}
     />,
   ];
   return section[screen];

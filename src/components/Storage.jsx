@@ -18,7 +18,6 @@ const Storage = ({
   submit,
   onComboChange,
   onInputChange,
-  onComboChangeID,
   handleToggle,
   onCheckChange,
 }) => {
@@ -36,7 +35,6 @@ const Storage = ({
       step={step}
       submit={submit}
       handleToggle={handleToggle}
-      onComboChangeID={onComboChangeID}
       onComboChange={onComboChange}
       onInputChange={onInputChange}
       onCheckChange={onCheckChange}
