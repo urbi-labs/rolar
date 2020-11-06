@@ -17,8 +17,9 @@ const comboProps = (titleText) => ({
 const Cent1 = ({ step, data, onComboChange, disabled }) => {
   console.log("rendering Cent1...");
   if (!data) return "Cargando...";
-  console.log(data);
+
   const { batches, prodLine } = data.init;
+  const { productionLine } = data.payload;
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
@@ -45,6 +46,9 @@ const Cent1 = ({ step, data, onComboChange, disabled }) => {
                 onComboChange(event, "cent", "productionLine")
               }
               {...comboProps("Linea de Producción")}
+              selectedItem={
+                prodLine[prodLine.findIndex((i) => i.text === productionLine)]
+              }
             />
           </div>
         </div>

@@ -23,7 +23,7 @@ router.post("/", auth, async (req, res) => {
 });
 
 router.put("/", auth, async (req, res) => {
-  console.log("put triggered sample update");
+  console.log("put triggered mill update");
   const { body } = req;
   const { _id } = req.body;
 

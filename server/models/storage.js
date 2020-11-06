@@ -10,28 +10,11 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
 const storageSchema = new Schema({
-  _batch: {
-    type: ObjectId,
-    ref: "Batch",
-    required: true,
-  },
-  _user: {
-    type: ObjectId,
-    ref: "User",
-    required: true,
-  },
-  _tank: {
-    type: ObjectId,
-    ref: "Tank",
-    required: true,
-  },
-  _supervisor: {
-    type: ObjectId,
-    ref: "User",
-  },
-  //TODO: Cambiar cone a boolean
+  _batch: { type: ObjectId, ref: "Batch", required: true },
+  _user: { type: ObjectId, ref: "User", required: true },
+  _tank: { type: ObjectId, ref: "Tank", required: true },
+  _supervisor: { type: ObjectId, ref: "User" },
   cone: { type: Boolean, default: false },
-  /*cone: { type: Number, default: 0 },*/
   initialMeasure: { type: Number, default: 0, required: true },
   finalMeasure: { type: Number, default: 0, required: true },
   totalCm: { type: Number, default: 0, required: true },

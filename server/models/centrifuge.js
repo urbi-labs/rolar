@@ -6,52 +6,17 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
 const centrifugeSchema = new Schema({
-  _batch: {
-    type: ObjectId,
-    ref: "Batch",
-    required: true,
-  },
-  _user: {
-    type: ObjectId,
-    ref: "User",
-    required: true,
-  },
-  _supervisor: {
-    type: ObjectId,
-    ref: "User",
-  },
-  productionLine: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  initialTemp: {
-    type: Number,
-    required: true,
-  },
-  finalTemp: {
-    type: Number,
-    required: true,
-  },
-  kneadingTime: {
-    type: Number,
-    required: true,
-  },
-  pumpSpeed: {
-    type: Number,
-    required: true,
-  },
-  validated: {
-    type: Boolean,
-    default: false,
-  },
-  validationDate: {
-    type: Date,
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now,
-  },
+  _batch: { type: ObjectId, ref: "Batch", required: true },
+  _user: { type: ObjectId, ref: "User", required: true },
+  _supervisor: { type: ObjectId, ref: "User" },
+  productionLine: { type: String, required: true, trim: true },
+  initialTemp: { type: Number, required: true },
+  finalTemp: { type: Number, required: true },
+  kneadingTime: { type: Number, required: true },
+  pumpSpeed: { type: Number, required: true },
+  validated: { type: Boolean, default: false },
+  validationDate: { type: Date },
+  timestamp: { type: Date, default: Date.now },
 });
 
 const Centrifuge = mongoose.model("Centrifuge", centrifugeSchema);

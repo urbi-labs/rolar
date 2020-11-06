@@ -5,11 +5,7 @@ const Joi = require("joi");
 const tokenSchema = new Schema({
   token: { type: Object, required: true },
   type: { type: String, default: "IAM" },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    required: true,
-  },
+  createdAt: { type: Date, default: Date.now },
 });
 
 tokenSchema.index({ createdAt: 1 }, { expireAfterSeconds: 3600 });

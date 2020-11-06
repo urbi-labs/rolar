@@ -21,15 +21,8 @@ const userSchema = new Schema({
     required: true,
     trim: true,
   },
-  role: {
-    type: String,
-    enum: ["operator", "supervisor"],
-    default: "operator",
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now,
-  },
+  role: { type: String, default: "operator" },
+  timestamp: { type: Date, default: Date.now },
 });
 
 userSchema.methods.generateAuthToken = function () {

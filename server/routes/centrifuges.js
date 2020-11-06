@@ -22,6 +22,21 @@ router.post("/", auth, async (req, res) => {
   return res.status(200).send(centrifuge);
 });
 
+router.put("/", auth, async (req, res) => {
+  console.log("put triggered cent update");
+  const { body } = req;
+  const { _id } = req.body;
+
+  body.validationDate = new Date();
+  const sample = await Centrifuge.findOneAndUpdate(
+    { _id },
+    { ...body },
+    { new: true }
+  );
+
+  return res.status(200).send(sample);
+});
+
 router.get("/", auth, async (req, res) => {
   const centrifuges = await Centrifuge.find().sort({
     timestamp: "desc",

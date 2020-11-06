@@ -32,6 +32,7 @@ export function getSamples(data) {
 export function submitMill(data) {
   return http.post(`/api/mill`, data);
 }
+
 export function updateMill(data) {
   return http.put(`/api/mill`, data);
 }
@@ -40,8 +41,14 @@ export function getMills(data) {
   return http.get(`/api/mill`, data);
 }
 
+// centrifuge calls
+
 export function submitCent(data) {
   return http.post(`/api/cent`, data);
+}
+
+export function updateCent(data) {
+  return http.put(`/api/cent`, data);
 }
 
 export function getCents(data) {

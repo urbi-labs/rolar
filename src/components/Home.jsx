@@ -23,7 +23,7 @@ import {
 } from "../services/apiService";
 
 //update functions
-import { updateSample, updateMill } from "../services/apiService";
+import { updateSample, updateMill, updateCent } from "../services/apiService";
 
 // Services
 import {
@@ -97,11 +97,11 @@ class Home extends Component {
         payload: {
           _batch: "",
           _user: "",
-          productionLine: "",
-          initialTemp: 30,
-          finalTemp: 40,
-          kneadingTime: 2,
-          pumpSpeed: 40,
+          productionLine: "Linea 1",
+          initialTemp: "",
+          finalTemp: "",
+          kneadingTime: "",
+          pumpSpeed: "",
         },
         init: {},
         step: 0,
@@ -195,6 +195,7 @@ class Home extends Component {
           submit={submit}
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
+          onCheckChange={this.handleCheckChange}
           handleCentSlider={this.handleCentSlider}
         />
       ),
@@ -203,9 +204,10 @@ class Home extends Component {
           data={storage}
           step={this.handleStep}
           submit={submit}
-          onComboChange={this.handleComboChange}
           onComboChangeID={this.handleComboChangeID}
+          onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
+          onCheckChange={this.handleCheckChange}
           getPerformance={this.getPerformance}
           handleToggle={this.handleToggle}
         />
@@ -215,10 +217,11 @@ class Home extends Component {
           data={tank}
           step={this.handleStep}
           submit={submit}
-          onComboChange={this.handleComboChange}
           onComboChangeID={this.handleComboChangeID}
-          getStoragesFromTank={this.getStoragesFromTank}
+          onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
+          onCheckChange={this.handleCheckChange}
+          getStoragesFromTank={this.getStoragesFromTank}
         />
       ),
 
@@ -241,7 +244,7 @@ class Home extends Component {
       batch: this.initializeBatch,
       samples: this.initializeSamples,
       mill: this.initializeMills,
-      cent: this.getCentBatches,
+      cent: this.initializeCents,
       storage: this.getStorageBatches,
       tank: this.initializeWithTanks,
     };
@@ -289,8 +292,10 @@ class Home extends Component {
     return { batches, prodLine };
   };
 
-  getCentBatches = async () => {
-    const batches = await this.getBatchesArray("mill");
+  initializeCents = async () => {
+    const { supervisor } = this.state;
+    const status = supervisor ? "cent" : "mill";
+    const batches = await this.getBatchesArray(status);
     return { batches, prodLine };
   };
 
@@ -568,14 +573,14 @@ class Home extends Component {
 
         case "mill":
           const { data: mill } = await updateMill(payload);
-          label = "Ingreso a molino registrado correctamente";
+          label = "Ingreso a molino actualizado";
           number = formatID(mill);
 
           break;
 
         case "cent":
-          const { data: cent } = await submitCent(payload);
-          label = "Ingreso a centrifuga registrado correctamente";
+          const { data: cent } = await updateCent(payload);
+          label = "Ingreso a centrifuga actualizado";
           number = formatID(cent);
 
           break;

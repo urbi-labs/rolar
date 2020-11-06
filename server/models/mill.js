@@ -1,17 +1,14 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
+const { ObjectId } = Schema.Types;
 
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 
 const millSchema = new Schema({
-  _batch: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Batch",
-    required: true,
-  },
-  _user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  _supervisor: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  _batch: { type: ObjectId, ref: "Batch", required: true },
+  _user: { type: ObjectId, ref: "User", required: true },
+  _supervisor: { type: ObjectId, ref: "User" },
   productionLine: { type: String },
   sieve: { type: String },
   microtalcum: { type: Number, default: 0 },

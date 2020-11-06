@@ -43,7 +43,6 @@ const Mill2 = ({
   if (!data) return "Cargando...";
 
   const { supervisor } = data;
-
   const { sieve, microtalcum, enzymes, validated } = data.payload;
 
   return (
