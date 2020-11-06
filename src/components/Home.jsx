@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+
+// custom components
 import Batch from "./Batch";
 import Feedback from "./Feedback";
 import Template from "./common/Template";
@@ -22,7 +24,7 @@ import {
   submitSample,
 } from "../services/apiService";
 
-//update functions
+// update functions
 import {
   updateSample,
   updateMill,
@@ -30,15 +32,15 @@ import {
   updateStorage,
 } from "../services/apiService";
 
-// Services
+// get data from db related functions
 import {
-  // tookSampleBatch,
   notSampleBatches,
   getByBatchId,
   getBatchesByStatus,
   getStoragesFromTank,
   getTanks,
   getAllTanks,
+  // tookSampleBatch,
   // updateStatus,
 } from "../services/apiService";
 
@@ -50,12 +52,11 @@ class Home extends Component {
   state = {};
 
   componentDidMount = () => {
-    this.handleRestart();
-
     const currentUser = getCurrentUser();
     const { role } = currentUser;
     const supervisor = role === "supervisor" ? true : false;
     this.setState({ currentUser, supervisor });
+    this.handleRestart();
   };
 
   handleRestart = () => {
@@ -78,8 +79,8 @@ class Home extends Component {
       tank: {
         payload: {
           _user: "",
-          batchArray: [],
           _tank: "",
+          batchArray: [],
         },
         init: {},
         step: 0,
@@ -148,10 +149,7 @@ class Home extends Component {
       feedback: { label: "", number: "" },
       screen: "",
     };
-    // const data = newState[screen];
-    // data.step = 0;
-    // newState.screen = "";
-    this.setState(newState, () => console.log(this.state));
+    this.setState(newState, () => console.log("handleRestart", this.state));
   };
 
   renderScreen = (screen) => {
@@ -175,10 +173,10 @@ class Home extends Component {
         <Sample
           data={samples}
           step={this.handleStep}
+          submit={submit}
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
           onCheckChange={this.handleCheckChange}
-          submit={submit}
           handleToggle={this.handleToggle}
         />
       ),
@@ -186,10 +184,10 @@ class Home extends Component {
         <Mill
           data={mill}
           step={this.handleStep}
+          submit={submit}
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
           onCheckChange={this.handleCheckChange}
-          submit={submit}
           handleMillSlider={this.handleMillSlider}
         />
       ),
@@ -250,7 +248,7 @@ class Home extends Component {
       mill: this.initializeMills,
       cent: this.initializeCents,
       storage: this.initializeStorage,
-      tank: this.initializeWithTanks,
+      tank: this.initializeTanks,
     };
 
     // lógica de inicio para sección desde Home
@@ -339,7 +337,7 @@ class Home extends Component {
     return items;
   };
 
-  initializeWithTanks = async () => {
+  initializeTanks = async () => {
     const { data } = await getTanks();
     const items = [];
     data.forEach((doc, ind) => {
@@ -416,7 +414,6 @@ class Home extends Component {
 
   handleCheckChange = (event, screen, field) => {
     const newState = { ...this.state };
-
     newState[screen].payload[field] = event;
     this.setState(newState, () => console.log(this.state));
   };
@@ -475,11 +472,6 @@ class Home extends Component {
     const newState = { ...this.state };
     const { payload } = newState[screen];
 
-    // const { _batch } = payload;
-    // const status = {
-    //   status: screen,
-    // };
-
     payload._user = currentUser._id;
     let label;
     let number;
@@ -517,8 +509,8 @@ class Home extends Component {
           // await updateStatus(_batch, status);
           break;
         case "storage":
-          delete payload.radius;
-          delete payload.coneValue;
+          // delete payload.radius;
+          // delete payload.coneValue;
           const { data: storage } = await submitStorage(payload);
           label = "Almacenamiento registrado correctamente";
           number = formatID(storage);
@@ -551,10 +543,8 @@ class Home extends Component {
   handleUpdate = async (screen) => {
     console.log("handleUpdate triggered... ", screen);
     const { currentUser } = this.state;
-
     const newState = { ...this.state };
     const { payload } = newState[screen];
-
     payload._supervisor = currentUser._id;
 
     let label;

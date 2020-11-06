@@ -1,14 +1,18 @@
 import React, { Fragment } from "react";
 import { ComboBox } from "carbon-components-react";
+
+// custom components
 import Buttons from "../common/Buttons.jsx";
 import StepTitles from "../common/StepTitles.jsx";
 
+const screen = "tank";
+
 const comboProps = (titleText) => ({
   id: titleText,
-  placeholder: "Elegir una opción...",
   titleText,
   light: true,
   size: "sm",
+  placeholder: "Elegir una opción...",
   direction: "bottom",
 });
 
@@ -34,7 +38,7 @@ export default function Tank1({
               itemToString={(item) => (item ? item.text : "")}
               onChange={(event) => {
                 const { id: tank_id } = event.selectedItem;
-                onComboChangeID(event, "tank", "_tank");
+                onComboChangeID(event, screen, "_tank");
                 getStoragesFromTank(tank_id);
               }}
               {...comboProps("Tanque")}
@@ -42,9 +46,8 @@ export default function Tank1({
           </div>
         </div>
       </div>
-
       <Buttons
-        screen="tank"
+        screen={screen}
         left="Anterior"
         right="Siguiente"
         onStep={step}

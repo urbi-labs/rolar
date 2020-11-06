@@ -1,21 +1,25 @@
 import React, { Fragment } from "react";
 import { ComboBox, TextInput } from "carbon-components-react";
+
+// custom components
 import Buttons from "../common/Buttons.jsx";
 import StepTitles from "../common/StepTitles.jsx";
 
+const screen = "tank";
+
 const comboProps = (titleText) => ({
   id: titleText,
-  placeholder: "Elegir una opción...",
   titleText,
   light: true,
   size: "sm",
+  placeholder: "Elegir una opción...",
 });
 
 const inputProps = (labelText) => ({
   id: labelText,
-  size: "sm",
   labelText,
   light: true,
+  size: "sm",
   type: "number",
 });
 
@@ -72,7 +76,7 @@ export default function Tank2({
         </div>
       </div>
       <Buttons
-        screen="tank"
+        screen={screen}
         left="Anterior"
         right="Registrar"
         onStep={step}
