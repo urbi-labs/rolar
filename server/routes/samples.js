@@ -27,6 +27,7 @@ router.put("/", auth, async (req, res) => {
   const { body } = req;
   const { _id } = req.body;
 
+  body.validationDate = new Date();
   const sample = await Sample.findOneAndUpdate(
     { _id },
     { ...body },

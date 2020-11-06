@@ -17,6 +17,8 @@ const Mill1 = ({ step, data, onComboChange, disabled }) => {
   console.log("rendering Mill1...");
   if (!data) return "Cargando...";
   const { batches, prodLine } = data.init;
+  const { productionLine } = data.payload;
+
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
@@ -43,6 +45,9 @@ const Mill1 = ({ step, data, onComboChange, disabled }) => {
                 onComboChange(event, "mill", "productionLine")
               }
               {...comboProps("Linea de Producción")}
+              selectedItem={
+                prodLine[prodLine.findIndex((i) => i.text === productionLine)]
+              }
             />
           </div>
         </div>

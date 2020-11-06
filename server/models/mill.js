@@ -10,39 +10,16 @@ const millSchema = new Schema({
     ref: "Batch",
     required: true,
   },
-  _user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  _supervisor: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
-  productionLine: {
-    type: String,
-  },
-  sieve: {
-    type: String,
-  },
-  microtalcum: {
-    type: Number,
-    default: 0,
-  },
-  enzymes: {
-    type: Number,
-  },
-  validated: {
-    type: Boolean,
-  },
-  validationDate: {
-    type: Date,
-  },
+  _user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  _supervisor: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  productionLine: { type: String },
+  sieve: { type: String },
+  microtalcum: { type: Number, default: 0 },
+  enzymes: { type: Number },
+  validated: { type: Boolean, default: false },
+  validationDate: { type: Date },
 
-  timestamp: {
-    type: Date,
-    default: Date.now,
-  },
+  timestamp: { type: Date, default: Date.now },
 });
 
 const Mill = mongoose.model("Mill", millSchema);

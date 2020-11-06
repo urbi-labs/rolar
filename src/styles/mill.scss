@@ -1,0 +1,17 @@
+@import "carbon-components/scss/globals/scss/vars.scss";
+@import "./overrides.scss";
+
+.center-btn {
+  display: grid;
+  place-items: center;
+}
+
+.custom__row {
+  display: grid;
+  place-items: center;
+  margin-bottom: $spacing-04;
+}
+
+.mill--slider {
+  margin-top: 20px;
+}

@@ -22,6 +22,21 @@ router.post("/", auth, async (req, res) => {
   return res.status(200).send(mill);
 });
 
+router.put("/", auth, async (req, res) => {
+  console.log("put triggered sample update");
+  const { body } = req;
+  const { _id } = req.body;
+
+  body.validationDate = new Date();
+  const sample = await Mill.findOneAndUpdate(
+    { _id },
+    { ...body },
+    { new: true }
+  );
+
+  return res.status(200).send(sample);
+});
+
 router.get("/", auth, async (req, res) => {
   const mills = await Mill.find().sort({
     timestamp: "desc",

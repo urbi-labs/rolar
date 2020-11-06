@@ -1,5 +1,7 @@
 import http from "./httpService";
 
+// batch calls
+
 export function submitBatch(data) {
   return http.post(`/api/batch`, data);
 }
@@ -12,22 +14,7 @@ export function notSampleBatches(tookSample) {
   return http.get(`/api/batch/non_sampled/${tookSample}`);
 }
 
-export function submitCent(data) {
-  return http.post(`/api/cent`, data);
-}
-
-export function getCents(data) {
-  return http.get(`/api/cent`, data);
-}
-
-export function submitMill(data) {
-  return http.post(`/api/mill`, data);
-}
-
-export function getMills(data) {
-  return http.get(`/api/mill`, data);
-}
-
+// samples calls
 export function submitSample(data) {
   return http.post(`/api/samples`, data);
 }
@@ -38,6 +25,27 @@ export function updateSample(data) {
 
 export function getSamples(data) {
   return http.get(`/api/samples`, data);
+}
+
+// mills calls
+
+export function submitMill(data) {
+  return http.post(`/api/mill`, data);
+}
+export function updateMill(data) {
+  return http.put(`/api/mill`, data);
+}
+
+export function getMills(data) {
+  return http.get(`/api/mill`, data);
+}
+
+export function submitCent(data) {
+  return http.post(`/api/cent`, data);
+}
+
+export function getCents(data) {
+  return http.get(`/api/cent`, data);
 }
 
 export function getTanks() {

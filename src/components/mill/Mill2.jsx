@@ -1,22 +1,29 @@
 import React, { Fragment } from "react";
 import Slider from "@material-ui/core/Slider";
-import { ComboBox, TextInput } from "carbon-components-react";
+import { ComboBox, TextInput, Checkbox } from "carbon-components-react";
 import StepTitles from "../common/StepTitles.jsx";
 import Buttons from "../common/Buttons.jsx";
-import "../../styles/batch.scss";
+import "../../styles/mill.scss";
 
-const comboProps = (titleText) => ({
+const items = [
+  { id: "1", text: "Criba 1", value: "1" },
+  { id: "2", text: "Criba 2", value: "2" },
+];
+
+const comboProps = (titleText, helperText) => ({
   id: titleText,
   placeholder: "Cribas",
+  helperText,
   titleText,
   light: true,
   size: "sm",
 });
 
-const inputProps = (labelText) => ({
+const inputProps = (labelText, helperText) => ({
   id: labelText,
   size: "sm",
   labelText,
+  helperText,
   light: true,
   type: "number",
 });
@@ -27,6 +34,7 @@ const Mill2 = ({
   data,
   onComboChange,
   onInputChange,
+  onCheckChange,
   handleMillSlider,
   disabled,
 }) => {
@@ -34,12 +42,9 @@ const Mill2 = ({
 
   if (!data) return "Cargando...";
 
-  const items = [
-    { id: "1", text: "Criba 1", value: "1" },
-    { id: "2", text: "Criba 2", value: "2" },
-  ];
+  const { supervisor } = data;
 
-  const { sieve, microtalcum, enzymes } = data.payload;
+  const { sieve, microtalcum, enzymes, validated } = data.payload;
 
   return (
     <Fragment>
@@ -51,21 +56,21 @@ const Mill2 = ({
               items={items}
               itemToString={(item) => (item ? item.text : "")}
               onChange={(event) => onComboChange(event, "mill", "sieve")}
-              {...comboProps("Nro. Criba")}
+              {...comboProps("Criba", "Elegir nro de criba.")}
               selectedItem={sieve ? items[sieve - 1] : ""}
             />
           </div>
           <div className="bx--col">
             <TextInput
-              //disabled={preset}
               value={microtalcum}
               onChange={(event) => onInputChange(event, "mill", "microtalcum")}
-              {...inputProps("Microtalco")}
+              {...inputProps("Microtalco", "Valor entre cero y uno.")}
             />
           </div>
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
+            <div className="mill--slider"></div>
             <span>Enzimas</span>
             <Slider
               defaultValue={enzymes}
@@ -80,6 +85,18 @@ const Mill2 = ({
             />
           </div>
         </div>
+        {supervisor && (
+          <div className="bx--row custom__row">
+            <div className="bx--col">
+              <Checkbox
+                id="validated"
+                checked={validated}
+                labelText="Validado"
+                onChange={(event) => onCheckChange(event, "mill", "validated")}
+              />
+            </div>
+          </div>
+        )}
         <Buttons
           screen="mill"
           left="Anterior"

@@ -23,7 +23,7 @@ import {
 } from "../services/apiService";
 
 //update functions
-import { updateSample } from "../services/apiService";
+import { updateSample, updateMill } from "../services/apiService";
 
 // Services
 import {
@@ -110,10 +110,10 @@ class Home extends Component {
         payload: {
           _batch: "",
           _user: "",
-          productionLine: "",
+          productionLine: "Linea 1",
           sieve: "",
           microtalcum: "",
-          enzymes: 0,
+          enzymes: 250,
         },
         init: {},
         step: 0,
@@ -152,13 +152,16 @@ class Home extends Component {
   renderScreen = (screen) => {
     const { batch, samples, tank, mill, cent, storage, feedback } = this.state;
     const { label, number } = feedback;
+    const { supervisor } = this.state;
+
+    const submit = supervisor ? this.handleUpdate : this.handleSubmit;
 
     const component = {
       batch: (
         <Batch
           data={batch}
           step={this.handleStep}
-          submit={this.handleSubmit}
+          submit={submit}
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
         />
@@ -170,7 +173,7 @@ class Home extends Component {
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
           onCheckChange={this.handleCheckChange}
-          submit={this.handleSubmit}
+          submit={submit}
           handleToggle={this.handleToggle}
         />
       ),
@@ -180,7 +183,8 @@ class Home extends Component {
           step={this.handleStep}
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
-          submit={this.handleSubmit}
+          onCheckChange={this.handleCheckChange}
+          submit={submit}
           handleMillSlider={this.handleMillSlider}
         />
       ),
@@ -188,7 +192,7 @@ class Home extends Component {
         <Cent
           data={cent}
           step={this.handleStep}
-          submit={this.handleSubmit}
+          submit={submit}
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
           handleCentSlider={this.handleCentSlider}
@@ -198,7 +202,7 @@ class Home extends Component {
         <Storage
           data={storage}
           step={this.handleStep}
-          submit={this.handleSubmit}
+          submit={submit}
           onComboChange={this.handleComboChange}
           onComboChangeID={this.handleComboChangeID}
           onInputChange={this.handleInputChange}
@@ -210,7 +214,7 @@ class Home extends Component {
         <Tank
           data={tank}
           step={this.handleStep}
-          submit={this.handleSubmit}
+          submit={submit}
           onComboChange={this.handleComboChange}
           onComboChangeID={this.handleComboChangeID}
           getStoragesFromTank={this.getStoragesFromTank}
@@ -249,6 +253,16 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
+  initializeBatch = () => {
+    return {
+      clients,
+      parcels: [...Array(15).keys()].map((x) => {
+        return { id: x, text: x + 1 + "", value: x + 1 };
+      }),
+      oliveTypes,
+    };
+  };
+
   initializeSamples = async () => {
     const { supervisor } = this.state;
     const { data } = await notSampleBatches(supervisor);
@@ -263,11 +277,15 @@ class Home extends Component {
       });
     });
 
+    // No podemos chequear facilmente si la muestra esta validada.
+
     return items;
   };
 
   initializeMills = async () => {
-    const batches = await this.getBatchesArray("batch");
+    const { supervisor } = this.state;
+    const status = supervisor ? "mill" : "batch";
+    const batches = await this.getBatchesArray(status);
     return { batches, prodLine };
   };
 
@@ -282,16 +300,6 @@ class Home extends Component {
     return {
       batches,
       tanks,
-    };
-  };
-
-  initializeBatch = () => {
-    return {
-      clients,
-      parcels: [...Array(15).keys()].map((x) => {
-        return { id: x, text: x + 1 + "", value: x + 1 };
-      }),
-      oliveTypes,
     };
   };
 
@@ -355,20 +363,32 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-  handleComboChange = (event, screen, field) => {
+  handleComboChange = async (event, screen, field) => {
     const newState = { ...this.state };
+    const { supervisor } = this.state;
+    const { selectedItem } = event;
 
     console.log(event);
-    const { selectedItem } = event;
-    newState[screen].payload[field] = selectedItem
-      ? selectedItem.value // .text
-      : "";
+    newState[screen].payload[field] = selectedItem ? selectedItem.value : "";
 
     if (field === "chuteName") {
       newState[screen].payload[field] = selectedItem.text;
       newState[screen].payload.chuteWeight = selectedItem
         ? parseInt(selectedItem.value)
         : 0;
+    }
+
+    // lógica para recuperar datos en vista de supervisor
+    if (supervisor && screen !== "batch") {
+      const { payload } = newState[screen];
+      const { _batch } = payload;
+      const { data: doc } = await getByBatchId(screen, _batch);
+      console.log("load from db ", screen, " ", _batch);
+      console.log(doc);
+      if (doc) {
+        newState[screen].payload = doc;
+        newState[screen].supervisor = true;
+      }
     }
 
     this.setState(newState, () => console.log(this.state));
@@ -423,9 +443,11 @@ class Home extends Component {
     // lógica para recuperar datos en vista de supervisor
     if (data.step === 1 && supervisor && screen !== "batch") {
       const { _batch } = payload;
-      const { data } = await getByBatchId(screen, _batch);
-      if (data) {
-        data.payload = data;
+      const { data: doc } = await getByBatchId(screen, _batch);
+      console.log("load from db ", screen, " ", _batch);
+      console.log(doc);
+      if (doc) {
+        data.payload = doc;
         data.supervisor = true;
       }
     }
@@ -436,7 +458,7 @@ class Home extends Component {
 
   handleSubmit = async (screen) => {
     console.log("handleSubmit triggered... ", screen);
-    const { currentUser, supervisor } = this.state;
+    const { currentUser } = this.state;
 
     const newState = { ...this.state };
     const { payload } = newState[screen];
@@ -460,10 +482,7 @@ class Home extends Component {
           break;
 
         case "samples":
-          const response = supervisor
-            ? await updateSample(payload)
-            : await submitSample(payload);
-
+          const response = await submitSample(payload);
           const { data: sample } = response;
           label = "Control de muestra registrado correctamente";
           number = formatID(sample);
@@ -517,6 +536,78 @@ class Home extends Component {
     }
   };
 
+  handleUpdate = async (screen) => {
+    console.log("handleUpdate triggered... ", screen);
+    const { currentUser } = this.state;
+
+    const newState = { ...this.state };
+    const { payload } = newState[screen];
+
+    payload._supervisor = currentUser._id;
+
+    let label;
+    let number;
+
+    try {
+      switch (screen) {
+        case "batch":
+          const { data: batch } = await submitBatch(payload);
+          label = "Lote registrado correctamente";
+          number = formatID(batch);
+
+          break;
+
+        case "samples":
+          const response = await updateSample(payload);
+
+          const { data: sample } = response;
+          label = "Control de muestra actualizado";
+          number = formatID(sample);
+
+          break;
+
+        case "mill":
+          const { data: mill } = await updateMill(payload);
+          label = "Ingreso a molino registrado correctamente";
+          number = formatID(mill);
+
+          break;
+
+        case "cent":
+          const { data: cent } = await submitCent(payload);
+          label = "Ingreso a centrifuga registrado correctamente";
+          number = formatID(cent);
+
+          break;
+        case "storage":
+          delete payload.radius;
+          delete payload.coneValue;
+          const { data: storage } = await submitStorage(payload);
+          label = "Almacenamiento registrado correctamente";
+          number = formatID(storage);
+
+          break;
+
+        case "tank":
+          const { data: tank } = await submitTank(payload);
+          label = "Tanque cerrado correctamente";
+          number = formatID(tank);
+          break;
+
+        default:
+          console.log("No screen recognized");
+      }
+
+      newState.feedback = { label, number };
+      newState.screen = "feedback";
+      this.setState(newState, () => console.log(this.state));
+    } catch (error) {
+      alert(
+        "Error de conexión. Si el error persiste contacte a su administrador."
+      );
+      console.log(error);
+    }
+  };
   render() {
     const { screen } = this.state;
 

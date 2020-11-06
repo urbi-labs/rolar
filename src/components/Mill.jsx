@@ -18,6 +18,7 @@ const Mill = ({
   submit,
   onComboChange,
   onInputChange,
+  onCheckChange,
   handleMillSlider,
 }) => {
   const { step: screen, payload } = data;
@@ -34,6 +35,7 @@ const Mill = ({
       data={data}
       onComboChange={onComboChange}
       onInputChange={onInputChange}
+      onCheckChange={onCheckChange}
       handleMillSlider={handleMillSlider}
       disabled={validateStep2(payload)}
     />,
