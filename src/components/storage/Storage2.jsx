@@ -1,10 +1,14 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { ComboBox, TextInput, Toggle } from "carbon-components-react";
-import { calcs } from "../../util/calcs";
-import { getBatchById } from "../../services/apiService";
+
+// custom components
 import Buttons from "../common/Buttons.jsx";
 import StepTitles from "../common/StepTitles.jsx";
 import Validated from "../common/Validated.jsx";
+
+// services and utility functions
+import { calcs } from "../../util/calcs";
+import { getBatchById } from "../../services/apiService";
 
 const screen = "storage";
 
@@ -45,8 +49,10 @@ export default function Storage2({
     validated,
   } = data.payload;
 
-  const { tanks } = data.init;
-  const { supervisor } = data;
+  const { supervisor, init } = data;
+  const { tanks } = init;
+  const tankIndex = tanks.findIndex((i) => i.value === _tank);
+
   const [batch, setBatch] = useState({});
   useEffect(() => {
     async function initBatch(id) {
@@ -56,7 +62,6 @@ export default function Storage2({
     initBatch(_batch);
   }, []);
 
-  const tankIndex = tanks.findIndex((i) => i.value === _tank);
   const { tot_cm, tot_lt, oilWeight, perf } = calcs(
     initialMeasure,
     finalMeasure,
@@ -65,7 +70,6 @@ export default function Storage2({
     batch.netWeight
   );
 
-  console.log({ screen });
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
@@ -82,29 +86,29 @@ export default function Storage2({
           </div>
           <div className="bx--col">
             <Toggle
+              toggled={cone}
               id="cone-toggle"
               aria-label="cono"
               labelText="¿Cono lleno?"
               onToggle={(event) => handleToggle(event, screen, "cone")}
-              toggled={cone}
             />
           </div>
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
+              value={initialMeasure}
               onChange={(event) =>
                 onInputChange(event, screen, "initialMeasure")
               }
               {...inputProps("Inicio regla nivel")}
-              value={initialMeasure}
             />
           </div>
           <div className="bx--col">
             <TextInput
+              value={finalMeasure}
               onChange={(event) => onInputChange(event, screen, "finalMeasure")}
               {...inputProps("Fin regla nivel")}
-              value={finalMeasure}
             />
           </div>
         </div>

@@ -3,6 +3,8 @@ import { ComboBox } from "carbon-components-react";
 import Buttons from "../common/Buttons.jsx";
 import StepTitles from "../common/StepTitles.jsx";
 
+const screen = "storage";
+
 const comboProps = (titleText) => ({
   id: titleText,
   placeholder: "Elegir una opción...",
@@ -26,14 +28,14 @@ export default function Storage1({ step, data, onComboChange, disabled }) {
             <ComboBox
               items={batches}
               itemToString={(item) => (item ? item.text : "")}
-              onChange={(event) => onComboChange(event, "storage", "_batch")}
+              onChange={(event) => onComboChange(event, screen, "_batch")}
               {...comboProps("Lote")}
             />
           </div>
         </div>
       </div>
       <Buttons
-        screen="storage"
+        screen={screen}
         left="Anterior"
         right="Siguiente"
         onStep={step}
