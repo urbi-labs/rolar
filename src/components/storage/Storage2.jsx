@@ -1,7 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { ComboBox, TextInput, Toggle } from "carbon-components-react";
+import { calcs } from "../../util/calcs";
+import { getBatchById } from "../../services/apiService";
 import Buttons from "../common/Buttons.jsx";
 import StepTitles from "../common/StepTitles.jsx";
+import Validated from "../common/Validated.jsx";
+
+const screen = "storage";
 
 const comboProps = (titleText) => ({
   id: titleText,
@@ -25,33 +30,42 @@ export default function Storage2({
   data,
   onComboChange,
   onInputChange,
-  getPerformance,
+  onCheckChange,
   handleToggle,
   disabled,
 }) {
-  console.log("[DEBUG]");
-  console.log(data);
+  const {
+    _tank,
+    _batch,
+    initialMeasure,
+    finalMeasure,
+    totalCm,
+    totalLitres,
+    cone,
+    validated,
+  } = data.payload;
 
-  let { initialMeasure, finalMeasure, coneValue, radius, cone } = data.payload;
-  if (!cone) {
-    coneValue = 0.5 * coneValue;
-  }
-  console.log(coneValue + " valor del cono " + cone);
-  const totalLitres =
-    coneValue +
-    Math.PI *
-      ((Math.pow(radius / 1000, 2) * (finalMeasure - initialMeasure)) / 1000) *
-      1000;
-  const updateTank = (event) => {
-    console.log(event);
-    if (event !== null && event.selectedItem !== null) {
-      const { cone, _id, radius } = event.selectedItem;
-      //TODO: Refactor code
-      onInputChange({ target: { value: radius } }, "storage", "radius");
-      onInputChange({ target: { value: cone } }, "storage", "coneValue");
-      onComboChange({ selectedItem: { text: _id } }, "storage", "_tank");
+  const { tanks } = data.init;
+  const { supervisor } = data;
+  const [batch, setBatch] = useState({});
+  useEffect(() => {
+    async function initBatch(id) {
+      const { data } = await getBatchById(id);
+      setBatch(data);
     }
-  };
+    initBatch(_batch);
+  }, []);
+
+  const tankIndex = tanks.findIndex((i) => i.value === _tank);
+  const { tot_cm, tot_lt, oilWeight, perf } = calcs(
+    initialMeasure,
+    finalMeasure,
+    cone,
+    tanks[tankIndex],
+    batch.netWeight
+  );
+
+  console.log({ screen });
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
@@ -59,37 +73,38 @@ export default function Storage2({
         <div className="bx--row custom__row">
           <div className="bx--col">
             <ComboBox
-              items={data.init.tanks.data}
-              itemToString={(item) => (!!item ? "Tank " + item.name : "")}
-              onChange={(event) => updateTank(event)}
+              items={tanks}
+              itemToString={(item) => (item ? item.text : "")}
+              onChange={(event) => onComboChange(event, screen, "_tank")}
               {...comboProps("Tanque destino")}
+              selectedItem={tanks[tankIndex]}
             />
           </div>
-          <Toggle
-            aria-label="toggle button"
-            defaultToggled={false}
-            id="toggle-1"
-            labelText="Se lleno el cono?"
-            labelA={true}
-            labelB={false}
-            onToggle={(event) => handleToggle(event, "storage", "cone")}
-          />
+          <div className="bx--col">
+            <Toggle
+              id="cone-toggle"
+              aria-label="cono"
+              labelText="¿Cono lleno?"
+              onToggle={(event) => handleToggle(event, screen, "cone")}
+              toggled={cone}
+            />
+          </div>
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
               onChange={(event) =>
-                onInputChange(event, "storage", "initialMeasure")
+                onInputChange(event, screen, "initialMeasure")
               }
               {...inputProps("Inicio regla nivel")}
+              value={initialMeasure}
             />
           </div>
           <div className="bx--col">
             <TextInput
-              onChange={(event) =>
-                onInputChange(event, "storage", "finalMeasure")
-              }
+              onChange={(event) => onInputChange(event, screen, "finalMeasure")}
               {...inputProps("Fin regla nivel")}
+              value={finalMeasure}
             />
           </div>
         </div>
@@ -97,14 +112,14 @@ export default function Storage2({
           <div className="bx--col">
             <TextInput
               disabled
-              value={finalMeasure - initialMeasure}
+              value={totalCm || tot_cm}
               {...inputProps("Total en cm")}
             />
           </div>
           <div className="bx--col">
             <TextInput
               disabled
-              value={totalLitres}
+              value={totalLitres || tot_lt}
               {...inputProps("Total en litros")}
             />
           </div>
@@ -113,21 +128,23 @@ export default function Storage2({
           <div className="bx--col">
             <TextInput
               disabled
-              value={totalLitres * 0.92}
+              value={oilWeight}
               {...inputProps("Kg aceite")}
             />
           </div>
           <div className="bx--col">
-            <TextInput
-              disabled
-              value={getPerformance(totalLitres * 0.92)}
-              {...inputProps("Rendimiento")}
-            />
+            <TextInput disabled value={perf} {...inputProps("Rendimiento")} />
           </div>
         </div>
+        <Validated
+          mode={supervisor}
+          screen={screen}
+          onCheckChange={onCheckChange}
+          validated={validated}
+        />
       </div>
       <Buttons
-        screen="storage"
+        screen={screen}
         left="Anterior"
         right="Registrar"
         onStep={step}

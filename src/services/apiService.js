@@ -14,6 +14,11 @@ export function notSampleBatches(tookSample) {
   return http.get(`/api/batch/non_sampled/${tookSample}`);
 }
 
+export function getBatchById(id) {
+  if (!id) return;
+  return http.get(`/api/batch/${id}`);
+}
+
 // samples calls
 export function submitSample(data) {
   return http.post(`/api/samples`, data);

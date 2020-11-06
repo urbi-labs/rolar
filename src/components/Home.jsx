@@ -84,11 +84,11 @@ class Home extends Component {
           _batch: "",
           _user: "",
           _tank: "",
-          initialMeasure: 0,
-          finalMeasure: 0,
-          coneValue: 0,
+          initialMeasure: "",
+          finalMeasure: "",
+          coneValue: "",
           cone: false,
-          radius: 0,
+          radius: "",
         },
         init: {},
         step: 0,
@@ -208,7 +208,6 @@ class Home extends Component {
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
           onCheckChange={this.handleCheckChange}
-          getPerformance={this.getPerformance}
           handleToggle={this.handleToggle}
         />
       ),
@@ -245,7 +244,7 @@ class Home extends Component {
       samples: this.initializeSamples,
       mill: this.initializeMills,
       cent: this.initializeCents,
-      storage: this.getStorageBatches,
+      storage: this.initializeStorage,
       tank: this.initializeWithTanks,
     };
 
@@ -299,22 +298,26 @@ class Home extends Component {
     return { batches, prodLine };
   };
 
-  getStorageBatches = async () => {
-    const batches = await this.getBatchesArray("cent");
-    const tanks = await getAllTanks();
+  initializeStorage = async () => {
+    const { supervisor } = this.state;
+    const status = supervisor ? "storage" : "cent";
+    const batches = await this.getBatchesArray(status);
+    const { data: tanksDB } = await getAllTanks();
+
+    const tanks = [];
+    tanksDB.forEach((doc, ind) => {
+      const { _id, name } = doc;
+      tanks.push({
+        id: ind + "",
+        text: `Tanque ${name}`,
+        value: _id,
+        doc,
+      });
+    });
     return {
       batches,
       tanks,
     };
-  };
-
-  getPerformance = async () => {
-    //Traer netWeight del batch
-    const { _batch } = this.state.storage.payload;
-    if (_batch !== "") {
-      //const response = await getBatchById(_batch);
-      //TODO: Refactor or reimagine this
-    }
   };
 
   getBatchesArray = async (status) => {
@@ -372,29 +375,31 @@ class Home extends Component {
     const newState = { ...this.state };
     const { supervisor } = this.state;
     const { selectedItem } = event;
-
+    const data = newState[screen];
     console.log(event);
-    newState[screen].payload[field] = selectedItem ? selectedItem.value : "";
+    data.payload[field] = selectedItem ? selectedItem.value : "";
 
     if (field === "chuteName") {
-      newState[screen].payload[field] = selectedItem.text;
-      newState[screen].payload.chuteWeight = selectedItem
+      data.payload[field] = selectedItem.text;
+      data.payload.chuteWeight = selectedItem
         ? parseInt(selectedItem.value)
         : 0;
     }
 
     // lógica para recuperar datos en vista de supervisor
-    if (supervisor && screen !== "batch") {
-      const { payload } = newState[screen];
+    if (data.step === 0 && supervisor && screen !== "batch") {
+      const { payload } = data;
       const { _batch } = payload;
       const { data: doc } = await getByBatchId(screen, _batch);
       console.log("load from db ", screen, " ", _batch);
       console.log(doc);
       if (doc) {
-        newState[screen].payload = doc;
-        newState[screen].supervisor = true;
+        data.payload = doc;
+        data.supervisor = true;
       }
     }
+
+    newState[screen] = data;
 
     this.setState(newState, () => console.log(this.state));
   };
