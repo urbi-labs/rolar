@@ -343,11 +343,11 @@ class Home extends Component {
     const { data } = await getTanks();
     const items = [];
     data.forEach((doc, ind) => {
-      console.log(doc);
+      const { _id, name } = doc;
       items.push({
-        /*...doc,*/
-        id: doc._id,
-        text: "Tanque " + doc.name,
+        id: ind + "",
+        text: `Tanque ${name}`,
+        value: _id,
       });
     });
     console.log(items);
@@ -381,7 +381,7 @@ class Home extends Component {
     const { supervisor } = this.state;
     const { selectedItem } = event;
     const data = newState[screen];
-    console.log(event);
+
     data.payload[field] = selectedItem ? selectedItem.value : "";
 
     if (field === "chuteName") {
@@ -396,8 +396,7 @@ class Home extends Component {
       const { payload } = data;
       const { _batch } = payload;
       const { data: doc } = await getByBatchId(screen, _batch);
-      console.log("load from db ", screen, " ", _batch);
-      console.log(doc);
+
       if (doc) {
         data.payload = doc;
         data.supervisor = true;
@@ -459,8 +458,6 @@ class Home extends Component {
     if (data.step === 1 && supervisor && screen !== "batch") {
       const { _batch } = payload;
       const { data: doc } = await getByBatchId(screen, _batch);
-      console.log("load from db ", screen, " ", _batch);
-      console.log(doc);
       if (doc) {
         data.payload = doc;
         data.supervisor = true;
