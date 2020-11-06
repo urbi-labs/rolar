@@ -84,8 +84,8 @@ export function getTanks() {
   return http.get(`/api/tank`);
 }
 
-export function getAllTanks() {
-  return http.get(`/api/tank/all`);
+export function getActiveTanks() {
+  return http.get(`/api/tank/active`);
 }
 
 export function submitTank(data) {

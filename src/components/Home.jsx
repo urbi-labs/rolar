@@ -1,45 +1,46 @@
 import React, { Component } from "react";
 
 // custom components
-import Batch from "./Batch";
-import Feedback from "./Feedback";
 import Template from "./common/Template";
+import Batch from "./Batch";
 import Sample from "./Sample";
-import Storage from "./Storage";
 import Mill from "./Mill";
 import Cent from "./Cent";
+import Storage from "./Storage";
 import Tank from "./Tank";
+import Feedback from "./Feedback";
 
 // fixed settings
 import { clients, oliveTypes } from "../config.json";
 import { sections, prodLine } from "../config.json";
 
-// submit functions
+// submit operations
 import {
   submitBatch,
-  submitCent,
+  submitSample,
   submitMill,
+  submitCent,
   submitStorage,
   submitTank,
-  submitSample,
 } from "../services/apiService";
 
-// update functions
+// update operations (only supervisor mode)
 import {
   updateSample,
   updateMill,
   updateCent,
   updateStorage,
+  updateTank,
 } from "../services/apiService";
 
-// get data from db related functions
+// DB related operations
 import {
   notSampleBatches,
   getByBatchId,
   getBatchesByStatus,
-  // getStoragesFromTank,
   getTanks,
-  getAllTanks,
+  getActiveTanks,
+  // getStoragesFromTank,
   // tookSampleBatch,
   // updateStatus,
 } from "../services/apiService";
@@ -76,54 +77,6 @@ class Home extends Component {
         init: {},
         step: 0,
       },
-      tank: {
-        payload: {
-          _user: "",
-          _tank: "",
-          batchArray: [],
-        },
-        init: {},
-        step: 0,
-      },
-      storage: {
-        payload: {
-          _batch: "",
-          _user: "",
-          _tank: "",
-          initialMeasure: "",
-          finalMeasure: "",
-          coneValue: "",
-          cone: false,
-          radius: "",
-        },
-        init: {},
-        step: 0,
-      },
-      cent: {
-        payload: {
-          _batch: "",
-          _user: "",
-          productionLine: "Linea 1",
-          initialTemp: "",
-          finalTemp: "",
-          kneadingTime: "",
-          pumpSpeed: "",
-        },
-        init: {},
-        step: 0,
-      },
-      mill: {
-        payload: {
-          _batch: "",
-          _user: "",
-          productionLine: "Linea 1",
-          sieve: "",
-          microtalcum: "",
-          enzymes: 250,
-        },
-        init: {},
-        step: 0,
-      },
       samples: {
         payload: {
           _batch: "",
@@ -146,6 +99,54 @@ class Home extends Component {
         step: 0,
         init: {},
       },
+      mill: {
+        payload: {
+          _batch: "",
+          _user: "",
+          productionLine: "Linea 1",
+          sieve: "",
+          microtalcum: "",
+          enzymes: 250,
+        },
+        init: {},
+        step: 0,
+      },
+      cent: {
+        payload: {
+          _batch: "",
+          _user: "",
+          productionLine: "Linea 1",
+          initialTemp: "",
+          finalTemp: "",
+          kneadingTime: "",
+          pumpSpeed: "",
+        },
+        init: {},
+        step: 0,
+      },
+      storage: {
+        payload: {
+          _batch: "",
+          _user: "",
+          _tank: "",
+          initialMeasure: "",
+          finalMeasure: "",
+          coneValue: "",
+          cone: false,
+          radius: "",
+        },
+        init: {},
+        step: 0,
+      },
+      tank: {
+        payload: {
+          _user: "",
+          _tank: "",
+          batchArray: [],
+        },
+        init: {},
+        step: 0,
+      },
       feedback: { label: "", number: "" },
       screen: "",
     };
@@ -154,8 +155,8 @@ class Home extends Component {
 
   renderScreen = (screen) => {
     const { batch, samples, tank, mill, cent, storage, feedback } = this.state;
-    const { label, number } = feedback;
     const { supervisor } = this.state;
+    const { label, number } = feedback;
 
     const submit = supervisor ? this.handleUpdate : this.handleSubmit;
 
@@ -174,8 +175,8 @@ class Home extends Component {
           data={samples}
           step={this.handleStep}
           submit={submit}
-          onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
+          onComboChange={this.handleComboChange}
           onCheckChange={this.handleCheckChange}
           handleToggle={this.handleToggle}
         />
@@ -185,8 +186,8 @@ class Home extends Component {
           data={mill}
           step={this.handleStep}
           submit={submit}
-          onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
+          onComboChange={this.handleComboChange}
           onCheckChange={this.handleCheckChange}
           handleMillSlider={this.handleMillSlider}
         />
@@ -196,8 +197,8 @@ class Home extends Component {
           data={cent}
           step={this.handleStep}
           submit={submit}
-          onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
+          onComboChange={this.handleComboChange}
           onCheckChange={this.handleCheckChange}
           handleCentSlider={this.handleCentSlider}
         />
@@ -207,8 +208,8 @@ class Home extends Component {
           data={storage}
           step={this.handleStep}
           submit={submit}
-          onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
+          onComboChange={this.handleComboChange}
           onCheckChange={this.handleCheckChange}
           handleToggle={this.handleToggle}
         />
@@ -218,8 +219,8 @@ class Home extends Component {
           data={tank}
           step={this.handleStep}
           submit={submit}
-          onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
+          onComboChange={this.handleComboChange}
           onCheckChange={this.handleCheckChange}
         />
       ),
@@ -302,7 +303,7 @@ class Home extends Component {
     const { supervisor } = this.state;
     const status = supervisor ? "storage" : "cent";
     const batches = await this.getBatchesArray(status);
-    const { data: tanksDB } = await getAllTanks();
+    const { data: tanksDB } = await getTanks();
 
     const tanks = [];
     tanksDB.forEach((doc, ind) => {
@@ -335,7 +336,7 @@ class Home extends Component {
   };
 
   initializeTanks = async () => {
-    const { data } = await getTanks();
+    const { data } = await getActiveTanks();
     const items = [];
     data.forEach((doc, ind) => {
       const { _id, name } = doc;
@@ -348,15 +349,15 @@ class Home extends Component {
     return items;
   };
 
-  handleComboChangeID = (event, screen, field) => {
-    const newState = { ...this.state };
+  // handleComboChangeID = (event, screen, field) => {
+  //   const newState = { ...this.state };
 
-    newState[screen].payload[field] = event.selectedItem
-      ? event.selectedItem.id
-      : "";
+  //   newState[screen].payload[field] = event.selectedItem
+  //     ? event.selectedItem.id
+  //     : "";
 
-    this.setState(newState, () => console.log(this.state));
-  };
+  //   this.setState(newState, () => console.log(this.state));
+  // };
 
   handleComboChange = async (event, screen, field) => {
     const newState = { ...this.state };
@@ -375,12 +376,9 @@ class Home extends Component {
     }
 
     // lógica para recuperar datos en vista de supervisor
-    if (
-      data.step === 0 &&
-      supervisor &&
-      screen !== "batch" &&
-      screen !== "tank"
-    ) {
+    // solo para el step1 de sample/mill/cent/storage ["samples","mill","cent","storage"]
+
+    if (supervisor && data.step === 0 && !["batch", "tank"].includes(screen)) {
       const { payload } = data;
       const { _batch } = payload;
       const { data: doc } = await getByBatchId(screen, _batch);
@@ -427,6 +425,7 @@ class Home extends Component {
   handleStep = async (screen, next = true) => {
     const newState = { ...this.state };
     const { supervisor } = this.state;
+
     const data = newState[screen];
     const { step, payload } = data;
 
@@ -438,19 +437,15 @@ class Home extends Component {
       newState.screen = "";
     }
 
-    // lógica para recuperar datos en vista de supervisor
-    if (
-      data.step === 1 &&
-      supervisor &&
-      screen !== "batch" &&
-      screen !== "tank"
-    ) {
+    //si estoy en modo supervisor lo inyecto en el payload
+    if (supervisor) data.supervisor = true;
+
+    // lógica para recuperar datos en vista de supervisor en step2
+    // y para pantallas sample, mill, cent y storage.
+    if (data.step === 1 && supervisor && !["batch", "tank"].includes(screen)) {
       const { _batch } = payload;
       const { data: doc } = await getByBatchId(screen, _batch);
-      if (doc) {
-        data.payload = doc;
-        data.supervisor = true;
-      }
+      if (doc) data.payload = doc;
     }
 
     newState[screen] = data;
@@ -583,9 +578,9 @@ class Home extends Component {
           break;
 
         case "tank":
-          // const { data: tank } = await submitTank(payload);
+          const { data: clousure } = await updateTank(payload);
           label = "Tanque cerrado correctamente";
-          // number = formatID(tank);
+          number = formatID(clousure);
           break;
 
         default:

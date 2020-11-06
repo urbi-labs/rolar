@@ -15,14 +15,14 @@ router.post("/", auth, async (req, res) => {
   return res.status(200).send(tank);
 });
 
-router.get("/", auth, async (req, res) => {
+router.get("/active", auth, async (req, res) => {
   const tanks = await Tank.find({ active: true }).sort({
     timestamp: "asc",
   });
   res.send(tanks);
 });
 
-router.get("/all", auth, async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const tanks = await Tank.find().sort({
     timestamp: "asc",
   });
