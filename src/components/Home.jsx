@@ -558,6 +558,7 @@ class Home extends Component {
         case "mill":
           const { data: mill } = await updateMill(payload);
           label = "Ingreso a molino actualizado";
+          console.log({ mill });
           number = formatID(mill);
 
           break;

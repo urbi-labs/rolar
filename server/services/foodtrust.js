@@ -5,6 +5,10 @@ const config = require("config");
 const axios = require("axios");
 
 const { Token } = require("../models/token");
+
+const { epcisCommission, epcisTransformation } = require("../services/xmlMsgs");
+const { epcisObservation, epcisAggregation } = require("../services/xmlMsgs");
+
 // IAM auth data
 const iam_url = config.get("IAM_URL");
 const grant_type = config.get("IAM_GRANT_TYPE");
@@ -12,6 +16,13 @@ const apikey = config.get("IAM_APIKEY");
 
 // IFT auth data
 const ft_url = `${config.get("FT_AUTH_URL")}${config.get("FT_ORGID")}`;
+
+const foodtrust = {
+  commission: (values) => epcisCommission(values),
+  transformation: (values) => epcisTransformation(values),
+  observation: (values) => epcisObservation(values),
+  aggregation: (values) => epcisAggregation(values),
+};
 
 const auth = async () => {
   let iamToken = await Token.findOne({ type: "IAM" }).exec();
@@ -85,5 +96,13 @@ const srvAssets = async (xml) => {
   }
 };
 
-exports.auth = auth;
-exports.srvAssets = srvAssets;
+const submitToFoodtrust = async (query, body) => {
+  const xml = await foodtrust[query](body);
+  const { data } = await srvAssets(xml);
+  return data;
+};
+
+exports.submitToFoodtrust = submitToFoodtrust;
+
+// exports.auth = auth;
+// exports.srvAssets = srvAssets;

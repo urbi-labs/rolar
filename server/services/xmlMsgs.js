@@ -35,7 +35,7 @@ const epcisCommission = async (values) => {
     epcis_destinationList: dl,
   } = require("../XMLMessages/XML_Tags.json");
 
-  const { item_ref, item_lot, item_qty } = values;
+  const { item_ref, item_lot, item_qty, eventTime } = values;
   const { biz_loc, src_loc, dest_loc } = values;
   const { date_exp, date_sellby, date_best } = values;
 
@@ -51,7 +51,7 @@ const epcisCommission = async (values) => {
   log("epcClass: " + epcClass);
   log(`location: ${FTLI}:${PREFIX}.${biz_loc}`);
 
-  xml[r][b][0][el][0][oe][0].eventTime[0] = new Date().toISOString();
+  xml[r][b][0][el][0][oe][0].eventTime[0] = eventTime; // new Date().toISOString();
   xml[r][b][0][el][0][oe][0].baseExtension[0].eventID = `${UUID}:${uuidv1()}`;
   xml[r][b][0][el][0][oe][0].bizLocation[0].id = location;
   xml[r][b][0][el][0][oe][0][e][0][ql][0][qe][0].epcClass = epcClass;

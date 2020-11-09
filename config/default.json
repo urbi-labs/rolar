@@ -12,5 +12,8 @@
   "FT_ASSETS_URL": "https://food.ibm.com/ift/api/connector/fs/connector/v1/assets",
   "FT_TRACE_URL_BASE": "https://sandbox.food.ibm.com/ift/api/outbound/v2",
   "APPID_URL": "https://us-south.appid.cloud.ibm.com/oauth/v4/c71939b1-f1a7-409b-9e45-9b15541e70cf",
-  "IAM_URL": "https://iam.ng.bluemix.net/oidc/token"
+  "IAM_URL": "https://iam.ng.bluemix.net/oidc/token",
+  "BIZ_LOC": "rf0001",
+  "ITEM_REF1": "rp0001",
+  "ITEM_REF2": "rp0002"
 }
