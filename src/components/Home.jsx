@@ -170,7 +170,7 @@ class Home extends Component {
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
           supervisor={supervisor}
-          batches={this.getBatchesArray}
+          //batches={this.getBatchesArray}
         />
       ),
       samples: (
@@ -259,8 +259,10 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-  initializeBatch = () => {
-    return {
+  initializeBatch = async () => {
+    const { supervisor } = this.state;
+    return { 
+      batches: (supervisor) ? await this.getBatchesArray() : "",
       clients,
       parcels: [...Array(15).keys()].map((x) => {
         return { id: x, text: x + 1 + "", value: x + 1 };
@@ -392,6 +394,16 @@ class Home extends Component {
       if (doc) data.payload = doc;
     }
 
+    
+    console.log(screen, data.step)
+    if (data.step === 0 && supervisor && screen === "batch") {
+      const { payload } = data;
+      const { _id } = payload;
+      const { data: doc } = await getByBatchId(screen, _id);
+      console.log(doc)
+      if (doc) data.payload = doc;
+    }
+
     newState[screen] = data;
 
     this.setState(newState, () => console.log(this.state));
@@ -453,6 +465,7 @@ class Home extends Component {
       const { data: doc } = await getByBatchId(screen, _batch);
       if (doc) data.payload = doc;
     }
+
 
     newState[screen] = data;
     this.setState(newState, () => console.log(this.state));

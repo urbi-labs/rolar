@@ -31,7 +31,7 @@ const Batch = ({
   onComboChange,
   onInputChange,
   supervisor,
-  batches,
+  //batches,
 }) => {
   const { step: screen, payload } = data;
   const section = [
@@ -41,7 +41,7 @@ const Batch = ({
       onComboChange={onComboChange}
       disabled={validateStep1(payload)}
       supervisor={supervisor}
-      batches={batches}
+    //  batches={batches}
     />,
     <Batch2
       step={step}

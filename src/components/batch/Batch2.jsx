@@ -39,8 +39,9 @@ const Batch2 = ({
   if (!data) return "Cargando...";
   let items = [];
 
-  const { client, chuteWeight, grossWeight } = data.payload;
+  const { client, chuteWeight, grossWeight, receiptNumber, deliveryNumber, chuteName} = data.payload;
   const { clients } = data.init;
+
 
   const preset = ["rolar", "acequion"].includes(client);
   if (preset) {
@@ -61,20 +62,26 @@ const Batch2 = ({
                 itemToString={(item) => (item ? item.text : "")}
                 onChange={(event) => onComboChange(event, "batch", "chuteName")}
                 {...comboProps("Nro. Tolva")}
+                selectedItem={
+                  items[items.findIndex((i) => i.text === chuteName)]
+                }   
               />
             ) : (
               <TextInput
                 onChange={(event) => onInputChange(event, "batch", "chuteName")}
                 {...inputProps("Nro. Tolva")}
+                value={chuteName}
               />
             )}
           </div>
           <div className="bx--col">
             <TextInput
               disabled={preset}
+      
               value={chuteWeight || 0}
               onChange={(event) => onInputChange(event, "batch", "chuteWeight")}
               {...inputProps("Tara")}
+              value={chuteWeight}
             />
           </div>
         </div>
@@ -83,6 +90,7 @@ const Batch2 = ({
             <TextInput
               onChange={(event) => onInputChange(event, "batch", "grossWeight")}
               {...inputProps("KG Bruto")}
+              value={grossWeight}
             />
           </div>
           <div className="bx--col">
@@ -101,6 +109,7 @@ const Batch2 = ({
                 onInputChange(event, "batch", "deliveryNumber")
               }
               {...inputProps("Nro. Remito")}
+              value={deliveryNumber}
             />
           </div>
           <div className="bx--col">
@@ -109,6 +118,7 @@ const Batch2 = ({
                 onInputChange(event, "batch", "receiptNumber")
               }
               {...inputProps("Nro. Recibo")}
+              value={receiptNumber}
             />
           </div>
         </div>

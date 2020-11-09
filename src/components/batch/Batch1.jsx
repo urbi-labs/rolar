@@ -19,19 +19,27 @@ const comboProps = (titleText) => ({
   direction: "bottom",
 });
 
+
+
 const Batch1 = ({
   step,
   data,
   onComboChange,
   disabled,
   supervisor,
-  batches,
+ // batches,
 }) => {
   console.log("rendering Batch1...");
   console.log(data);
   if (!data) return "Cargando...";
-  const { clients, parcels, oliveTypes } = data.init;
+  const { clients, parcels, oliveTypes, batches } = data.init;
+  const {
+    oliveType,
+    client,
+    parcel,
+  } = data.payload;
   console.log({ batches });
+  console.log(data.payload)
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
@@ -47,7 +55,7 @@ const Batch1 = ({
               <ComboBox
                 items={batches}
                 itemToString={(item) => (item ? item.text : "")}
-                onChange={(event) => onComboChange(event, "batches", "_id")}
+                onChange={(event) => onComboChange(event, "batch", "_id")}
                 {...comboProps("Lote")}
               />
             </div>
@@ -58,6 +66,9 @@ const Batch1 = ({
           <div className="bx--col">
             <ComboBox
               items={clients}
+              selectedItem={
+                clients[clients.findIndex((i) => i.value === client)]
+              }
               itemToString={(item) => (item ? item.text : "")}
               onChange={(event) => onComboChange(event, "batch", "client")}
               {...comboProps("Cliente")}
@@ -71,6 +82,9 @@ const Batch1 = ({
               itemToString={(item) => (item ? item.text : "")}
               onChange={(event) => onComboChange(event, "batch", "parcel")}
               {...comboProps("Cuadro")}
+              selectedItem={
+                parcels[parcels.findIndex((i) => i.value === parcel)]
+              }
             />
           </div>
         </div>
@@ -81,6 +95,9 @@ const Batch1 = ({
               itemToString={(item) => (item ? item.text : "")}
               onChange={(event) => onComboChange(event, "batch", "oliveType")}
               {...comboProps("Variedad")}
+              selectedItem={
+                oliveTypes[oliveTypes.findIndex((i) => i.value === oliveType)]
+              }
             />
           </div>
         </div>

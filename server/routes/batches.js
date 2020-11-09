@@ -32,7 +32,6 @@ router.get("/", auth, async (req, res) => {
 });
 
 router.get("/status/:status", auth, async (req, res) => {
-  console.log("/api/batches/status/:status");
   const { params } = req;
   const { status: lastStatus } = params;
 
@@ -46,13 +45,12 @@ router.get("/status/:status", auth, async (req, res) => {
 router.get("/non_sampled/:id", auth, async (req, res) => {
   const { id: tookSample } = req.params;
 
-  console.log("api/batches/non_sampled", tookSample);
   const batch = await Batch.find({ tookSample }).sort({ timestamp: -1 });
 
   res.status(200).send(batch);
 });
 
-router.get("/:id", auth, async (req, res) => {
+router.get("/batch/:id", auth, async (req, res) => {
   const { id } = req.params;
   const batch = await Batch.findById(id);
   res.status(200).send(batch);
