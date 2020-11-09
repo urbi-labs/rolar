@@ -38,6 +38,7 @@ import {
   notSampleBatches,
   getByBatchId,
   getBatchesByStatus,
+  getBatches,
   getTanks,
   getActiveTanks,
   // getStoragesFromTank,
@@ -168,6 +169,8 @@ class Home extends Component {
           submit={submit}
           onComboChange={this.handleComboChange}
           onInputChange={this.handleInputChange}
+          supervisor={supervisor}
+          batches={this.getBatchesArray}
         />
       ),
       samples: (
@@ -322,7 +325,10 @@ class Home extends Component {
   };
 
   getBatchesArray = async (status) => {
-    const { data } = await getBatchesByStatus(status);
+    const { data } = status
+      ? await getBatchesByStatus(status)
+      : await getBatches();
+
     const items = [];
     data.forEach((doc, ind) => {
       const { _id } = doc;

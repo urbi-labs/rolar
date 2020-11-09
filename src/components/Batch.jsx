@@ -24,7 +24,15 @@ function validateStep2(payload) {
   );
 }
 
-const Batch = ({ data, step, submit, onComboChange, onInputChange }) => {
+const Batch = ({
+  data,
+  step,
+  submit,
+  onComboChange,
+  onInputChange,
+  supervisor,
+  batches,
+}) => {
   const { step: screen, payload } = data;
   const section = [
     <Batch1
@@ -32,6 +40,8 @@ const Batch = ({ data, step, submit, onComboChange, onInputChange }) => {
       data={data}
       onComboChange={onComboChange}
       disabled={validateStep1(payload)}
+      supervisor={supervisor}
+      batches={batches}
     />,
     <Batch2
       step={step}

@@ -14,24 +14,46 @@ const comboProps = (titleText) => ({
   titleText,
   // helperText: "Optional helper text here",
   light: true,
-  disabled: false,
-  invalid: false,
   invalidText: "Requerido.",
   size: "sm",
   direction: "bottom",
-  onToggleClick: () => console.log("onClick"),
 });
 
-const Batch1 = ({ step, data, onComboChange, disabled }) => {
+const Batch1 = ({
+  step,
+  data,
+  onComboChange,
+  disabled,
+  supervisor,
+  batches,
+}) => {
   console.log("rendering Batch1...");
-  if (!data) return "Cargando...";
   console.log(data);
+  if (!data) return "Cargando...";
   const { clients, parcels, oliveTypes } = data.init;
-
+  console.log({ batches });
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width">
-        <StepTitles title="Ingresar nuevo lote" />
+        <StepTitles
+          title={
+            supervisor ? "Seleccione un lote a validar" : "Ingresar nuevo lote"
+          }
+        />
+
+        {supervisor && (
+          <div className="bx--row custom__row">
+            <div className="bx--col">
+              <ComboBox
+                items={batches}
+                itemToString={(item) => (item ? item.text : "")}
+                onChange={(event) => onComboChange(event, "batches", "_id")}
+                {...comboProps("Lote")}
+              />
+            </div>
+          </div>
+        )}
+
         <div className="bx--row custom__row">
           <div className="bx--col">
             <ComboBox
