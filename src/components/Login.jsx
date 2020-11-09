@@ -72,8 +72,7 @@ class Login extends Component {
                 <div className="bx--row login__row">
                   <div className="bx--col">
                     <div className="login__helper">
-                      Ingresá tu mail y tu contraseña para acceder y conocer tus
-                      datos
+                      Ingresá tus datos para acceder.
                     </div>
                   </div>
                 </div>
