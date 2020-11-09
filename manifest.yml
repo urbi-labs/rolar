@@ -1,0 +1,8 @@
+applications:
+  - name: rolar-foodtrust
+    buildpacks:
+      - sdk-for-nodejs
+    command: npm start
+    path: .
+    memory: 1024M
+    instances: 1

@@ -48,7 +48,7 @@ router.put("/", auth, async (req, res) => {
   const ftBody = {
     item_ref,
     item_lot,
-    item_qty: 5,
+    item_qty: 5, // definir la cantidad del lote chuteweith+??
     biz_loc,
     src_loc: biz_loc,
     dest_loc: biz_loc,
