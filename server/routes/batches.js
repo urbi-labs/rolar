@@ -1,5 +1,16 @@
+const chalk = require("chalk");
+const config = require("config");
+const log = (text) => console.log(chalk.magenta("[r/foodtrust]", text));
+
+// middleware
 const auth = require("../middleware/auth");
+
+// models
 const { Batch, validate } = require("../models/batch");
+
+// services
+const { submitToFoodtrust } = require("../services/foodtrust");
+
 const express = require("express");
 const router = express.Router();
 
@@ -54,6 +65,43 @@ router.get("/batch/:id", auth, async (req, res) => {
   const { id } = req.params;
   const batch = await Batch.findById(id);
   res.status(200).send(batch);
+});
+
+router.put("/", auth, async (req, res) => {
+  console.log("put triggered mill update");
+  const { body } = req;
+  const { _id, timestamp: eventTime, grossWeight, validated } = req.body;
+
+  log("updating batch on db...");
+  body.validationDate = new Date();
+  const batches = await Batch.findOneAndUpdate(
+    { _id },
+    { ...body },
+    { new: true }
+  );
+
+  if (!validated) return res.status(200).send(batches);
+
+  log("registering commision in foodtrust");
+  const biz_loc = config.get("BIZ_LOC");
+  const item_ref = config.get("ITEM_REF1");
+  const ftBody = {
+    item_ref,
+    item_lot: _id,
+    item_qty: grossWeight, // definir la cantidad del lote chuteweith+??
+    biz_loc,
+    src_loc: biz_loc,
+    dest_loc: biz_loc,
+    eventTime,
+    date_exp: new Date().toISOString(),
+    date_sellby: new Date().toISOString(),
+    date_best: new Date().toISOString(),
+  };
+
+  const FT = await submitToFoodtrust("commission", ftBody);
+  batches.FT = FT;
+
+  return res.status(200).send(batches);
 });
 
 module.exports = router;

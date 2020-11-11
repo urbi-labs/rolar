@@ -1,6 +1,8 @@
 import React, { Fragment } from "react";
 import { ComboBox, TextInput } from "carbon-components-react";
 
+// custom components
+import Validated from "../common/Validated.jsx";
 import Buttons from "../common/Buttons.jsx";
 import StepTitles from "../common/StepTitles.jsx";
 
@@ -9,13 +11,14 @@ import "../../styles/batch.scss";
 // Docs ComboBox: https://react.carbondesignsystem.com/?path=/story/combobox--default
 // Docs TextInput: https://react.carbondesignsystem.com/?path=/story/textinput--default
 
+const screen = "batch";
+
 const comboProps = (titleText) => ({
   id: titleText,
   placeholder: "Elegir una opción...",
   titleText,
   light: true,
   size: "sm",
-  onToggleClick: () => console.log("onClick"),
 });
 
 const inputProps = (labelText) => ({
@@ -24,7 +27,6 @@ const inputProps = (labelText) => ({
   labelText,
   light: true,
   type: "number",
-  onClick: () => console.log("onClick"),
 });
 
 const Batch2 = ({
@@ -33,15 +35,23 @@ const Batch2 = ({
   data,
   onComboChange,
   onInputChange,
+  onCheckChange,
   disabled,
 }) => {
   console.log("rendering Batch2...");
   if (!data) return "Cargando...";
   let items = [];
-
-  const { client, chuteWeight, grossWeight, receiptNumber, deliveryNumber, chuteName} = data.payload;
+  const { supervisor } = data;
+  const {
+    client,
+    chuteWeight,
+    grossWeight,
+    receiptNumber,
+    deliveryNumber,
+    chuteName,
+    validated,
+  } = data.payload;
   const { clients } = data.init;
-
 
   const preset = ["rolar", "acequion"].includes(client);
   if (preset) {
@@ -60,15 +70,15 @@ const Batch2 = ({
               <ComboBox
                 items={items}
                 itemToString={(item) => (item ? item.text : "")}
-                onChange={(event) => onComboChange(event, "batch", "chuteName")}
+                onChange={(event) => onComboChange(event, screen, "chuteName")}
                 {...comboProps("Nro. Tolva")}
                 selectedItem={
                   items[items.findIndex((i) => i.text === chuteName)]
-                }   
+                }
               />
             ) : (
               <TextInput
-                onChange={(event) => onInputChange(event, "batch", "chuteName")}
+                onChange={(event) => onInputChange(event, screen, "chuteName")}
                 {...inputProps("Nro. Tolva")}
                 value={chuteName}
               />
@@ -77,9 +87,7 @@ const Batch2 = ({
           <div className="bx--col">
             <TextInput
               disabled={preset}
-      
-              value={chuteWeight || 0}
-              onChange={(event) => onInputChange(event, "batch", "chuteWeight")}
+              onChange={(event) => onInputChange(event, screen, "chuteWeight")}
               {...inputProps("Tara")}
               value={chuteWeight}
             />
@@ -88,7 +96,7 @@ const Batch2 = ({
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, "batch", "grossWeight")}
+              onChange={(event) => onInputChange(event, screen, "grossWeight")}
               {...inputProps("KG Bruto")}
               value={grossWeight}
             />
@@ -96,7 +104,6 @@ const Batch2 = ({
           <div className="bx--col">
             <TextInput
               disabled={true}
-              // onChange={(event) => onInputChange(event, "batch", "netWeight")}
               value={grossWeight - chuteWeight}
               {...inputProps("KG Neto")}
             />
@@ -106,7 +113,7 @@ const Batch2 = ({
           <div className="bx--col">
             <TextInput
               onChange={(event) =>
-                onInputChange(event, "batch", "deliveryNumber")
+                onInputChange(event, screen, "deliveryNumber")
               }
               {...inputProps("Nro. Remito")}
               value={deliveryNumber}
@@ -115,16 +122,22 @@ const Batch2 = ({
           <div className="bx--col">
             <TextInput
               onChange={(event) =>
-                onInputChange(event, "batch", "receiptNumber")
+                onInputChange(event, screen, "receiptNumber")
               }
               {...inputProps("Nro. Recibo")}
               value={receiptNumber}
             />
           </div>
         </div>
+        <Validated
+          mode={supervisor}
+          screen={screen}
+          onCheckChange={onCheckChange}
+          validated={validated}
+        />
       </div>
       <Buttons
-        screen="batch"
+        screen={screen}
         left="Anterior"
         right="Registrar"
         onStep={step}
