@@ -99,6 +99,8 @@ router.put("/", auth, async (req, res) => {
   };
 
   const FT = await submitToFoodtrust("commission", ftBody);
+  console.log(FT);
+  console.log(FT.data);
   batches.FT = FT;
 
   return res.status(200).send(batches);

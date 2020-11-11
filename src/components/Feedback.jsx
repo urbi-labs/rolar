@@ -5,7 +5,7 @@ import "../styles/feedback.scss";
 import confir from "../images/confir.png";
 
 const Feedback = ({ label, number, restart }) => {
-  console.log("Feedback llaalalala");
+  console.log("Rendering Feedback");
   return (
     <Fragment>
       <div className="bx--grid bx--grid--full-width feeback__container">

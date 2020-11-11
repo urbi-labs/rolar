@@ -68,6 +68,27 @@
     { "id": "4", "text": "Changlot", "value": "changlot" },
     { "id": "5", "text": "Picual", "value": "picual" }
   ],
+  "feedbackLabels": {
+    "submit": {
+      "batch": "Lote registrado correctamente",
+      "samples": "Control de muestra registrado correctamente",
+      "mill": "Ingreso a molino registrado correctamente",
+      "cent": "Ingreso a centrifuga registrado correctamente",
+      "storage": "Almacenamiento registrado correctamente",
+      "tank": "Tanque cerrado correctamente"
+    },
+    "update": {
+      "batch": "Lote actualizado correctamente",
+      "samples": "Control de muestra actualizado",
+      "mill": "Ingreso a molino actualizado",
+      "cent": "Ingreso a centrifuga actualizado",
+      "storage": "Almacenamiento actualizado",
+      "tank": "Tanque cerrado correctamente"
+    }
+  },
+  "errorMessages": {
+    "general": "Error de conexión. Si el error persiste contacte a su administrador."
+  },
   "baseURL": "https://rolar.mybluemix.net",
   "tokenKey": "rolar-token"
 }

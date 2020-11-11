@@ -6,6 +6,10 @@ export function submitBatch(data) {
   return http.post(`/api/batch`, data);
 }
 
+export function updateBatch(data) {
+  return http.put(`/api/batch`, data);
+}
+
 export function getBatches() {
   return http.get(`/api/batch`);
 }

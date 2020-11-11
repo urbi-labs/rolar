@@ -13,6 +13,7 @@ import Feedback from "./Feedback";
 // fixed settings
 import { clients, oliveTypes } from "../config.json";
 import { sections, prodLine } from "../config.json";
+import { feedbackLabels, errorMessages } from "../config.json";
 
 // submit operations
 import {
@@ -26,6 +27,7 @@ import {
 
 // update operations (only supervisor mode)
 import {
+  updateBatch,
   updateSample,
   updateMill,
   updateCent,
@@ -50,6 +52,7 @@ import { getCurrentUser } from "../services/authService";
 import { formatID } from "../util/formats";
 
 import "../styles/home.scss";
+
 class Home extends Component {
   state = {};
 
@@ -472,74 +475,32 @@ class Home extends Component {
   handleSubmit = async (screen) => {
     console.log("handleSubmit triggered... ", screen);
     const { currentUser } = this.state;
-
     const newState = { ...this.state };
-    const { payload } = newState[screen];
 
+    const { payload } = newState[screen];
     payload._user = currentUser._id;
-    let label;
-    let number;
+
+    const { submit: labels } = feedbackLabels;
+
+    const submitDB = {
+      batch: (screen) => submitBatch(screen),
+      samples: (screen) => submitSample(screen),
+      mill: (screen) => submitMill(screen),
+      cent: (screen) => submitCent(screen),
+      storage: (screen) => submitStorage(screen),
+      tank: (screen) => submitTank(screen),
+    };
 
     try {
-      switch (screen) {
-        case "batch":
-          const { data: batch } = await submitBatch(payload);
-          label = "Lote registrado correctamente";
-          number = formatID(batch);
-
-          break;
-
-        case "samples":
-          const response = await submitSample(payload);
-          const { data: sample } = response;
-          label = "Control de muestra registrado correctamente";
-          number = formatID(sample);
-
-          // await tookSampleBatch(_batch);
-          break;
-
-        case "mill":
-          const { data: mill } = await submitMill(payload);
-          label = "Ingreso a molino registrado correctamente";
-          number = formatID(mill);
-
-          // const resp = await updateStatus(_batch, status);
-          break;
-
-        case "cent":
-          const { data: cent } = await submitCent(payload);
-          label = "Ingreso a centrifuga registrado correctamente";
-          number = formatID(cent);
-          // await updateStatus(_batch, status);
-          break;
-        case "storage":
-          // delete payload.radius;
-          // delete payload.coneValue;
-          const { data: storage } = await submitStorage(payload);
-          label = "Almacenamiento registrado correctamente";
-          number = formatID(storage);
-
-          // await updateStatus(_batch, status);
-          // actualizar active del tanque
-          break;
-
-        case "tank":
-          const { data: tank } = await submitTank(payload);
-          label = "Tanque cerrado correctamente";
-          number = formatID(tank);
-          break;
-
-        default:
-          console.log("No screen recognized");
-      }
-
-      newState.feedback = { label, number };
+      const response = await submitDB[screen](payload);
+      const { data } = response;
+      newState[screen].payload = data;
+      newState.feedback = { label: labels[screen], number: formatID(data) };
       newState.screen = "feedback";
       this.setState(newState, () => console.log(this.state));
     } catch (error) {
-      alert(
-        "Error de conexión. Si el error persiste contacte a su administrador."
-      );
+      const { general } = errorMessages;
+      alert(general);
       console.log(error);
     }
   };
@@ -548,70 +509,31 @@ class Home extends Component {
     console.log("handleUpdate triggered... ", screen);
     const { currentUser } = this.state;
     const newState = { ...this.state };
+
     const { payload } = newState[screen];
     payload._supervisor = currentUser._id;
 
-    let label;
-    let number;
+    const { update: labels } = feedbackLabels;
+
+    const updateDB = {
+      batch: (screen) => updateBatch(screen),
+      samples: (screen) => updateSample(screen),
+      mill: (screen) => updateMill(screen),
+      cent: (screen) => updateCent(screen),
+      storage: (screen) => updateStorage(screen),
+      tank: (screen) => updateTank(screen),
+    };
 
     try {
-      switch (screen) {
-        case "batch":
-          const { data: batch } = await submitBatch(payload);
-          label = "Lote registrado correctamente";
-          number = formatID(batch);
-
-          break;
-
-        case "samples":
-          const response = await updateSample(payload);
-
-          const { data: sample } = response;
-          label = "Control de muestra actualizado";
-          number = formatID(sample);
-
-          break;
-
-        case "mill":
-          const { data: mill } = await updateMill(payload);
-          label = "Ingreso a molino actualizado";
-          console.log({ mill });
-          number = formatID(mill);
-
-          break;
-
-        case "cent":
-          const { data: cent } = await updateCent(payload);
-          label = "Ingreso a centrifuga actualizado";
-          number = formatID(cent);
-
-          break;
-        case "storage":
-          // delete payload.radius;
-          // delete payload.coneValue;
-          const { data: storage } = await updateStorage(payload);
-          label = "Almacenamiento actualizado";
-          number = formatID(storage);
-
-          break;
-
-        case "tank":
-          const { data: clousure } = await updateTank(payload);
-          label = "Tanque cerrado correctamente";
-          number = formatID(clousure);
-          break;
-
-        default:
-          console.log("No screen recognized");
-      }
-
-      newState.feedback = { label, number };
+      const response = await updateDB[screen](payload);
+      const { data } = response;
+      newState[screen].payload = data;
+      newState.feedback = { label: labels[screen], number: formatID(data) };
       newState.screen = "feedback";
       this.setState(newState, () => console.log(this.state));
     } catch (error) {
-      alert(
-        "Error de conexión. Si el error persiste contacte a su administrador."
-      );
+      const { general } = errorMessages;
+      alert(general);
       console.log(error);
     }
   };
