@@ -360,16 +360,6 @@ class Home extends Component {
     return items;
   };
 
-  // handleComboChangeID = (event, screen, field) => {
-  //   const newState = { ...this.state };
-
-  //   newState[screen].payload[field] = event.selectedItem
-  //     ? event.selectedItem.id
-  //     : "";
-
-  //   this.setState(newState, () => console.log(this.state));
-  // };
-
   handleComboChange = async (event, screen, field) => {
     const newState = { ...this.state };
     const { supervisor } = this.state;
@@ -537,6 +527,7 @@ class Home extends Component {
       console.log(error);
     }
   };
+
   render() {
     const { screen } = this.state;
 

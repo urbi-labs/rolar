@@ -86,7 +86,7 @@
               <quantity>10</quantity>
               <!--MANDATORY for quantityElement.-->
               <!--Meaning: 10 cases of LGTIN '0614141.107346' belonging to lot '101'-->
-              <uom>CS</uom>
+              <uom>KGM</uom>
               <!--MANDATORY for quantityElement. Item quantity unit of measurement. "CS" = Case.-->
               <!--Two or three-charater codes from UN/CEFACT Recommendation 20.-->
               <!--Other examples: EA (each), LBR (pound), KGM (kilogram).-->

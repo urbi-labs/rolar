@@ -83,7 +83,13 @@ const epcisTransformation = async (values) => {
     epcis_baseExtension: be,
   } = require("../XMLMessages/XML_Tags.json");
 
-  const { item_ref_in, item_lot_in, item_ref_out, item_lot_out } = values;
+  const {
+    item_ref_in,
+    item_lot_in,
+    item_ref_out,
+    item_lot_out,
+    eventTime,
+  } = values;
   const { item_qty_in, item_qty_out } = values;
   const { biz_loc } = values;
   const { date_exp, date_sellby, date_best } = values;
@@ -100,7 +106,7 @@ const epcisTransformation = async (values) => {
   log("epcClassOut: " + epcClassOut);
   log(`location: ${FTLI}:${PREFIX}.${biz_loc}`);
 
-  xml[r][b][0][el][0][e][0][te][0].eventTime[0] = new Date().toISOString();
+  xml[r][b][0][el][0][e][0][te][0].eventTime[0] = eventTime;
   xml[r][b][0][el][0][e][0][te][0][be][0].eventID = `${UUID}:${uuidv1()}`;
   xml[r][b][0][el][0][e][0][te][0][iql][0][qe][0].epcClass = epcClassIn;
   xml[r][b][0][el][0][e][0][te][0][iql][0][qe][0].quantity = item_qty_in;

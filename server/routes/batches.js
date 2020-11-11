@@ -70,13 +70,20 @@ router.get("/batch/:id", auth, async (req, res) => {
 router.put("/", auth, async (req, res) => {
   console.log("put triggered mill update");
   const { body } = req;
-  const { _id, timestamp: eventTime, grossWeight, validated } = req.body;
+  const { _id, timestamp: eventTime, netWeight, validated } = req.body;
 
   log("updating batch on db...");
   body.validationDate = new Date();
+
+  const updateBatch = {
+    ...body,
+  };
+
+  await Batch.calcNetWeight(updateBatch);
+
   const batches = await Batch.findOneAndUpdate(
     { _id },
-    { ...body },
+    { ...updateBatch },
     { new: true }
   );
 
@@ -85,10 +92,11 @@ router.put("/", auth, async (req, res) => {
   log("registering commision in foodtrust");
   const biz_loc = config.get("BIZ_LOC");
   const item_ref = config.get("ITEM_REF1");
+
   const ftBody = {
     item_ref,
     item_lot: _id,
-    item_qty: grossWeight, // definir la cantidad del lote chuteweith+??
+    item_qty: netWeight, // definir la cantidad del lote chuteweith+??
     biz_loc,
     src_loc: biz_loc,
     dest_loc: biz_loc,
@@ -99,8 +107,6 @@ router.put("/", auth, async (req, res) => {
   };
 
   const FT = await submitToFoodtrust("commission", ftBody);
-  console.log(FT);
-  console.log(FT.data);
   batches.FT = FT;
 
   return res.status(200).send(batches);
