@@ -44,6 +44,9 @@ router.put("/", auth, async (req, res) => {
 
   if (!validated) return res.status(200).send(mill);
 
+  const batch = Batch.findById(item_lot);
+  const { netWeight } = batch;
+
   log("registering commision in foodtrust");
   const biz_loc = config.get("BIZ_LOC");
   const item_ref_in = config.get("ITEM_REF1");
@@ -51,10 +54,10 @@ router.put("/", auth, async (req, res) => {
   const ftBody = {
     item_ref_in,
     item_lot_in: item_lot,
-    item_qty_in: 456,
+    item_qty_in: netWeight,
     item_ref_out,
     item_lot_out: item_lot,
-    item_qty_out: 456,
+    item_qty_out: netWeight,
     biz_loc,
     eventTime,
     date_exp: new Date().toISOString(),
