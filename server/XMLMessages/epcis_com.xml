@@ -9,7 +9,7 @@
         <eventTime></eventTime>
         <!--WHEN-->
         <!--MANDATORY. UTC time (ISO 8601) when event occurred.-->
-        <eventTimeZoneOffset>-0r:00</eventTimeZoneOffset>
+        <eventTimeZoneOffset>-03:00</eventTimeZoneOffset>
         <!--MANDATORY. Time-zone of location, as an offset from UTC.-->
         <baseExtension>
           <eventID></eventID>
@@ -17,7 +17,8 @@
           <!--RECOMMENDED. Supply a unique eventID (UUID) for disambiguation.-->
         </baseExtension>
         <epcList>
-          <epc>urn:ibm:ift:lpn:obj:4828262811938.pallet-00000000</epc>
+          <!-- Este es el número de pallet-->
+          <epc>urn:ibm:ift:lpn:obj:4828262811938.00000000</epc>
           <!--Additional entries go here-->
         </epcList>
         <!--WHAT-->
