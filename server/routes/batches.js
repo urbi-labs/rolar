@@ -101,11 +101,6 @@ router.put("/", auth, async (req, res) => {
     item_qty: netWeight, // definir la cantidad del lote chuteweith+??
     biz_loc,
     eventTime,
-    // src_loc: biz_loc,
-    // dest_loc: biz_loc,
-    // date_exp: new Date().toISOString(),
-    // date_sellby: new Date().toISOString(),
-    // date_best: new Date().toISOString(),
   };
 
   const FT = await submitToFoodtrust("commission", ftBody);

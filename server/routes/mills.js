@@ -64,9 +64,6 @@ router.put("/", auth, async (req, res) => {
     item_qty_out: netWeight,
     biz_loc,
     eventTime,
-    // date_exp: new Date().toISOString(),
-    // date_sellby: new Date().toISOString(),
-    // date_best: new Date().toISOString(),
   };
   const FT = await submitToFoodtrust("transformation", ftBody);
   mill.FT = FT;
