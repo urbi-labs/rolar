@@ -7,24 +7,24 @@
     <EventList>
       <extension>
         <TransformationEvent>
-          <eventTime>2013-06-08T14:58:56.591Z</eventTime>
+          <eventTime></eventTime>
           <!--WHEN-->
           <!--MANDATORY. UTC time (ISO 8601) when event occurred.-->
-          <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
+          <eventTimeZoneOffset>-03:00</eventTimeZoneOffset>
           <!--MANDATORY. Time-zone of location, as an offset from UTC.-->
           <baseExtension>
-            <eventID>urn:uuid:6926712e-599f-4c4e-b6e9-8dd888c906bd</eventID>
+            <eventID></eventID>
             <!--OPTIONAL. A unique ID (UUID) for the event. If not specified, the system generates an event ID.-->
             <!--RECOMMENDED. Supply a unique eventID (UUID) for disambiguation.-->
           </baseExtension>
-          <transformationID>urn:uuid:d0dccd98-ffb7-43ed-aaa2-8b47e465b833</transformationID>
+          <!-- <transformationID></transformationID> -->
           <!--OPTIONAL. Unique ID to identify ongoing transformation.-->
           <!--All inputs in all transformation events with same transformationID contribute to-->
           <!--all outputs in all transformation events with that transformationID.-->
-          <inputEPCList>
-            <epc>urn:epc:id:sgtin:0614141.107346.2017</epc>
-            <!--Additional entries go here-->
-          </inputEPCList>
+          <!-- <inputEPCList> -->
+          <!-- <epc></epc> -->
+          <!--Additional entries go here-->
+          <!-- </inputEPCList> -->
           <!--WHAT-->
           <!--MANDATORY that either inputEPCList or inputQuantityList (see below) be present.-->
           <!--List of instance-level objects (SSCC, SGTIN) which are input to transformation.-->
@@ -45,9 +45,9 @@
           <!--IBM Food Trust Logistic Unit: urn:ibm:ift:lpn:obj:<Company Prefix>.<Serial Reference>-->
           <inputQuantityList>
             <quantityElement>
-              <epcClass>urn:epc:class:lgtin:0614141.107346.101</epcClass>
+              <epcClass></epcClass>
               <!--MANDATORY for quantityElement. Class-level EPCs like LGTINs. See note below for description.-->
-              <quantity>10</quantity>
+              <quantity>0</quantity>
               <!--MANDATORY for quantityElement.-->
               <!--Meaning: 10 cases of LGTIN '0614141.107346' belonging to lot '101'-->
               <uom>KGM</uom>
@@ -75,15 +75,15 @@
           <!--IBM Food Trust IDs-->
           <!--IBM Food Trust Product with Lot #: urn:ibm:ift:product:lot:class:<Company Prefix>.<Item Reference>.<Lot Number>-->
           <!--IBM Food Trust Product without Lot/Serial: urn:ibm:ift:product:class:<Company Prefix>.<Item Reference>-->
-          <outputEPCList>
-            <epc>urn:epc:id:sgtin:0614141.107346.2018</epc>
-            <!--Additional entries go here-->
-          </outputEPCList>
+          <!-- <outputEPCList> -->
+          <!-- <epc></epc> -->
+          <!--Additional entries go here-->
+          <!-- </outputEPCList> -->
           <outputQuantityList>
             <quantityElement>
-              <epcClass>urn:epc:class:lgtin:0614141.107346.102</epcClass>
+              <epcClass></epcClass>
               <!--MANDATORY for quantityElement. Class-level EPCs like LGTINs. See note below for description.-->
-              <quantity>10</quantity>
+              <quantity>0</quantity>
               <!--MANDATORY for quantityElement.-->
               <!--Meaning: 10 cases of LGTIN '0614141.107346' belonging to lot '101'-->
               <uom>KGM</uom>
@@ -98,7 +98,7 @@
           <!--WHAT-->
           <!--MANDATORY that either outputEPCList or outputQuantityList be present.-->
           <!--Lists of instance-level or class-level outputs of transformation.-->
-          <bizStep>urn:epcglobal:cbv:bizstep:commissioning</bizStep>
+          <bizStep>urn:epcglobal:cbv:bizstep:transforming</bizStep>
           <!--OPTIONAL. From Section 7.1.3 of https://www.gs1.org/sites/default/files/docs/epc/CBV-Standard-1-2-r-2016-09-29.pdf-->
           <!--The business step that this event was a part of.-->
           <!--Custom bizSteps are supported, in the format http://<client-controlled-domain-name/path/biz_step_name>-->
@@ -106,9 +106,9 @@
           <disposition>urn:epcglobal:cbv:disp:active</disposition>
           <!--OPTIONAL. From Section 7.2.3 of https://www.gs1.org/sites/default/files/docs/epc/CBV-Standard-1-2-r-2016-09-29.pdf-->
           <!--The condition of the objects after this event.-->
-          <readPoint>
+          <!-- <readPoint>
             <id>urn:epc:id:sgln:0614141.00777.0</id>
-          </readPoint>
+          </readPoint> -->
           <!--OPTIONAL: SGLN, FTLI, SFTLI, or geo location where the read occurred. Used to indicate an event location other than the mandatory bizLocation.-->
           <!--General syntax of SGLN: urn:epc:id:sgln:CompanyPrefix.LocationReference.Extension-->
           <!--CompanyPrefix.LocationReference are the first 12 digits of GLN (13th check digit is not included).-->
@@ -116,17 +116,16 @@
           <!--IBM Food Trust Location with Extension ID: urn:ibm:ift:location:extension:loc:<Company Prefix>.<Location Reference>.<Extension>-->
           <!--Geo location points are floating point numbers which define the latitude and longitude of the location, with an optional altitude.-->
           <!--Geo location example: <geo>30.2672,-97.7431</geo> for latitude and longitude or <geo>30.2672,-97.7431,532.67</geo>for latitude, longitude, and altitude.-->
-
           <bizLocation>
-            <id>urn:epc:id:sgln:0614141.00888.0</id>
+            <id>4828262811938.rf0001</id>
           </bizLocation>
           <!--WHERE-->
           <!--MANDATORY: SGLN (extensible global location number), FTLI, or SFTLI for the business location where the event occurred.-->
           <!--See above for SGLN and IBM Food Trust location formats-->
-          <bizTransactionList>
-            <bizTransaction type="urn:epcglobal:cbv:btt:desadv">urn:epcglobal:cbv:bt:5412345000037:3352-349875</bizTransaction>
-            <!--Additional entries go here-->
-          </bizTransactionList>
+          <!-- <bizTransactionList> -->
+          <!-- <bizTransaction type="urn:epcglobal:cbv:btt:desadv"></bizTransaction> -->
+          <!--Additional entries go here-->
+          <!-- </bizTransactionList> -->
           <!--WHY-->
           <!--OPTIONAL. From Page 28 of https://www.gs1.org/sites/default/files/docs/epc/CBV-Standard-1-2-1-r-2017-05-05.pdf -->
           <!--List of business transactions associated with this event.-->
@@ -134,33 +133,33 @@
           <!--General EPCIS transaction id format: urn:epcglobal:cbv:bt:GLN:TransactionID-->
           <!--See transaction XMLs for TransactionID format.-->
           <!--IBM Food Trust transaction id format: urn:ibm:ift:bt:<Company Prefix>.<Location Reference>.<Transaction Id>-->
-          <extension>
-            <sourceList>
-              <source type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:sgln:0614141.00001.0</source>
-              <!--Additional source entries go here.-->
-              <!--OPTIONAL: SGLN of the facility or facilities that inputs are in at the beginning of this step.-->
-              <!--MANDATORY if this event involves a transfer of goods.-->
-            </sourceList>
-            <destinationList>
-              <destination type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:sgln:5012345.00001.0</destination>
-              <!--Additional destination entries go here.-->
-              <!--OPTIONAL: SGLN of the facility or facilities that outputs are in at the end of this step.-->
-              <!--MANDATORY if this event involves a transfer of goods. -->
-            </destinationList>
-            <ilmd>
-              <cbvmda:itemExpirationDate>2015-03-15</cbvmda:itemExpirationDate>
-              <cbvmda:sellByDate>2015-03-15</cbvmda:sellByDate>
-              <cbvmda:bestBeforeDate>2015-03-15</cbvmda:bestBeforeDate>
-            </ilmd>
-            <!--OPTIONAL in general: Master data associated with the created item instances or lots.-->
-            <!--Expiration/sell-by/best-before dates are especially important from a query perspective, and should be included wherever applicable.-->
-            <!--Dates must follow ISO 8601 format yyyy-mm-dd and dates with times must follow ISO 8601 format in UTC time.-->
-            <!--ILMD applies to all objects in outputEPCList and outputQuantityList (SGTIN/LGTIN/SSCC/...)-->
-            <!--ILMD should include one or more elements from Section 9.2 in:-->
-            <!--https://www.gs1.org/sites/default/files/docs/epc/CBV-Standard-1-2-1-r-2017-05-05.pdf-->
-            <!--Elements from Section 9.2 (e.g. expiration date) are allowed to be directly specified for both item instances and lots.-->
-            <!--countryOfOrigin should use ISO 3166-1 alpha-2 (per CBV 1.2) or numeric-3 (for script-independence) code.-->
-          </extension>
+          <!-- <extension> -->
+          <!-- <sourceList> -->
+          <!-- <source type="urn:epcglobal:cbv:sdt:owning_party">4828262811938.rf0001</source> -->
+          <!--Additional source entries go here.-->
+          <!--OPTIONAL: SGLN of the facility or facilities that inputs are in at the beginning of this step.-->
+          <!--MANDATORY if this event involves a transfer of goods.-->
+          <!-- </sourceList> -->
+          <!-- <destinationList> -->
+          <!-- <destination type="urn:epcglobal:cbv:sdt:owning_party"></destination> -->
+          <!--Additional destination entries go here.-->
+          <!--OPTIONAL: SGLN of the facility or facilities that outputs are in at the end of this step.-->
+          <!--MANDATORY if this event involves a transfer of goods. -->
+          <!-- </destinationList> -->
+          <!-- <ilmd>
+              <cbvmda:itemExpirationDate></cbvmda:itemExpirationDate>
+              <cbvmda:sellByDate></cbvmda:sellByDate>
+              <cbvmda:bestBeforeDate></cbvmda:bestBeforeDate>
+            </ilmd> -->
+          <!--OPTIONAL in general: Master data associated with the created item instances or lots.-->
+          <!--Expiration/sell-by/best-before dates are especially important from a query perspective, and should be included wherever applicable.-->
+          <!--Dates must follow ISO 8601 format yyyy-mm-dd and dates with times must follow ISO 8601 format in UTC time.-->
+          <!--ILMD applies to all objects in outputEPCList and outputQuantityList (SGTIN/LGTIN/SSCC/...)-->
+          <!--ILMD should include one or more elements from Section 9.2 in:-->
+          <!--https://www.gs1.org/sites/default/files/docs/epc/CBV-Standard-1-2-1-r-2017-05-05.pdf-->
+          <!--Elements from Section 9.2 (e.g. expiration date) are allowed to be directly specified for both item instances and lots.-->
+          <!--countryOfOrigin should use ISO 3166-1 alpha-2 (per CBV 1.2) or numeric-3 (for script-independence) code.-->
+          <!-- </extension> -->
           <!--NOTE: if sourceList, destinationList and ilmd are all omitted, remove the inner extension and /extension tags.-->
         </TransformationEvent>
       </extension>

@@ -70,7 +70,7 @@ router.get("/batch/:id", auth, async (req, res) => {
 router.put("/", auth, async (req, res) => {
   console.log("put triggered mill update");
   const { body } = req;
-  const { _id, timestamp: eventTime, netWeight, validated } = req.body;
+  const { _id, timestamp: eventTime, validated } = req.body;
 
   log("updating batch on db...");
   body.validationDate = new Date();
@@ -89,21 +89,23 @@ router.put("/", auth, async (req, res) => {
 
   if (!validated) return res.status(200).send(batches);
 
+  const { netWeight } = updateBatch;
+
   log("registering commision in foodtrust");
   const biz_loc = config.get("BIZ_LOC");
   const item_ref = config.get("ITEM_REF1");
-
+  console.log({ netWeight });
   const ftBody = {
     item_ref,
     item_lot: _id,
     item_qty: netWeight, // definir la cantidad del lote chuteweith+??
     biz_loc,
-    src_loc: biz_loc,
-    dest_loc: biz_loc,
     eventTime,
-    date_exp: new Date().toISOString(),
-    date_sellby: new Date().toISOString(),
-    date_best: new Date().toISOString(),
+    // src_loc: biz_loc,
+    // dest_loc: biz_loc,
+    // date_exp: new Date().toISOString(),
+    // date_sellby: new Date().toISOString(),
+    // date_best: new Date().toISOString(),
   };
 
   const FT = await submitToFoodtrust("commission", ftBody);

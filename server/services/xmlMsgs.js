@@ -11,12 +11,12 @@ const uuidv1 = require("uuid/v1");
 const xml2js = require("xml2js");
 const parseString = util.promisify(xml2js.parseString);
 
-const { exp, sellBy, best, lot } = require("../XMLMessages/XML_Tags.json");
-const {
-  farmId: fid,
-  farmList: fl,
-  farm: f,
-} = require("../XMLMessages/XML_Tags.json");
+// const { exp, sellBy, best, lot } = require("../XMLMessages/XML_Tags.json");
+// const {
+//   farmId: fid,
+//   farmList: fl,
+//   farm: f,
+// } = require("../XMLMessages/XML_Tags.json");
 
 const { LFTPI, FTLI } = require("../XMLMessages/GS1_Patterns.json");
 const { UUID, DISP, SSCC } = require("../XMLMessages/GS1_Patterns.json");
@@ -36,8 +36,8 @@ const epcisCommission = async (values) => {
   } = require("../XMLMessages/XML_Tags.json");
 
   const { item_ref, item_lot, item_qty, eventTime } = values;
-  const { biz_loc, src_loc, dest_loc } = values;
-  const { date_exp, date_sellby, date_best } = values;
+  const { biz_loc } = values; //src_loc, dest_loc
+  // const { date_exp, date_sellby, date_best } = values;
 
   const xmlFilePath = path.join(cwd, "server/XMLMessages", "epcis_com.xml");
   const xmlFile = await fs.readFile(xmlFilePath);
@@ -56,17 +56,18 @@ const epcisCommission = async (values) => {
   xml[r][b][0][el][0][oe][0].bizLocation[0].id = location;
   xml[r][b][0][el][0][oe][0][e][0][ql][0][qe][0].epcClass = epcClass;
   xml[r][b][0][el][0][oe][0][e][0][ql][0][qe][0].quantity = item_qty;
-  xml[r][b][0][el][0][oe][0][e][0].sourceList[0]._ = src_loc;
-  xml[r][b][0][el][0][oe][0][e][0][dl][0]._ = dest_loc;
-  xml[r][b][0][el][0][oe][0][e][0].ilmd[0][exp] = date_exp;
-  xml[r][b][0][el][0][oe][0][e][0].ilmd[0][sellBy] = date_sellby;
-  xml[r][b][0][el][0][oe][0][e][0].ilmd[0][best] = date_best;
-  xml[r][b][0][el][0][oe][0][e][0].ilmd[0][fl][0][f][0][fid][0] = location;
-  xml[r][b][0][el][0][oe][0][e][0].ilmd[0][lot][0] = item_lot;
+  // xml[r][b][0][el][0][oe][0][e][0].sourceList[0]._ = src_loc;
+  // xml[r][b][0][el][0][oe][0][e][0][dl][0]._ = dest_loc;
+  // xml[r][b][0][el][0][oe][0][e][0].ilmd[0][exp] = date_exp;
+  // xml[r][b][0][el][0][oe][0][e][0].ilmd[0][sellBy] = date_sellby;
+  // xml[r][b][0][el][0][oe][0][e][0].ilmd[0][best] = date_best;
+  // xml[r][b][0][el][0][oe][0][e][0].ilmd[0][fl][0][f][0][fid][0] = location;
+  // xml[r][b][0][el][0][oe][0][e][0].ilmd[0][lot][0] = item_lot;
 
   const builder = new xml2js.Builder();
   const outputXml = builder.buildObject(xml);
 
+  console.log(outputXml);
   return outputXml;
 };
 
@@ -90,9 +91,10 @@ const epcisTransformation = async (values) => {
     item_lot_out,
     eventTime,
   } = values;
+
   const { item_qty_in, item_qty_out } = values;
   const { biz_loc } = values;
-  const { date_exp, date_sellby, date_best } = values;
+  // const { date_exp, date_sellby, date_best } = values;
 
   const xmlFilePath = path.join(cwd, "server/XMLMessages", "epcis_trn.xml");
   const xmlFile = await fs.readFile(xmlFilePath);
@@ -103,26 +105,27 @@ const epcisTransformation = async (values) => {
   const epcClassOut = `${LFTPI}:${PREFIX}.${item_ref_out}.${item_lot_out}`;
 
   log("epcClassIn: " + epcClassIn);
+  log("item_qty_in: " + item_qty_in);
   log("epcClassOut: " + epcClassOut);
+  log("item_qty_out: " + item_qty_out);
   log(`location: ${FTLI}:${PREFIX}.${biz_loc}`);
 
   xml[r][b][0][el][0][e][0][te][0].eventTime[0] = eventTime;
   xml[r][b][0][el][0][e][0][te][0][be][0].eventID = `${UUID}:${uuidv1()}`;
   xml[r][b][0][el][0][e][0][te][0][iql][0][qe][0].epcClass = epcClassIn;
   xml[r][b][0][el][0][e][0][te][0][iql][0][qe][0].quantity = item_qty_in;
-
   xml[r][b][0][el][0][e][0][te][0][oql][0][qe][0].epcClass = epcClassOut;
   xml[r][b][0][el][0][e][0][te][0][oql][0][qe][0].quantity = item_qty_out;
-
   xml[r][b][0][el][0][e][0][te][0].bizLocation[0].id = location;
 
-  xml[r][b][0][el][0][e][0][te][0][e][0].ilmd[0][exp] = date_exp;
-  xml[r][b][0][el][0][e][0][te][0][e][0].ilmd[0][sellBy] = date_sellby;
-  xml[r][b][0][el][0][e][0][te][0][e][0].ilmd[0][best] = date_best;
+  // xml[r][b][0][el][0][e][0][te][0][e][0].ilmd[0][exp] = date_exp;
+  // xml[r][b][0][el][0][e][0][te][0][e][0].ilmd[0][sellBy] = date_sellby;
+  // xml[r][b][0][el][0][e][0][te][0][e][0].ilmd[0][best] = date_best;
 
   const builder = new xml2js.Builder();
   const outputXml = builder.buildObject(xml);
 
+  console.log(outputXml);
   return outputXml;
 };
 
@@ -155,7 +158,6 @@ const epcisObservation = async (values) => {
   xml[r][b][0][el][0][oe][0].baseExtension[0].eventID = `${UUID}:${uuidv1()}`;
   xml[r][b][0][el][0][oe][0].disposition = `${DISP}:${item_disp}`;
   xml[r][b][0][el][0][oe][0].bizLocation[0].id = location;
-
   xml[r][b][0][el][0][oe][0][e][0][ql][0][qe][0].epcClass = epcClass;
   xml[r][b][0][el][0][oe][0][e][0][ql][0][qe][0].quantity = item_qty;
 

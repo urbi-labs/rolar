@@ -83,9 +83,10 @@ const srvAssets = async (xml) => {
       headers,
       data: xml,
     });
-
+    log("Foodtrust record created OK.");
     return data;
   } catch (error) {
+    log("Foodtrust record creation ERROR!!");
     if (error.response) {
       const response = error.response;
       const { data } = response;

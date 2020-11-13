@@ -40,13 +40,17 @@ router.put("/", auth, async (req, res) => {
 
   log("updating mill on db...");
   body.validationDate = new Date();
+
+  console.log({ ...body });
   const mill = await Mill.findOneAndUpdate({ _id }, { ...body }, { new: true });
 
   if (!validated) return res.status(200).send(mill);
 
-  const batch = Batch.findById(item_lot);
+  console.log({ item_lot });
+  const batch = await Batch.findById(item_lot).exec();
   const { netWeight } = batch;
 
+  console.log({ netWeight });
   log("registering commision in foodtrust");
   const biz_loc = config.get("BIZ_LOC");
   const item_ref_in = config.get("ITEM_REF1");
@@ -60,9 +64,9 @@ router.put("/", auth, async (req, res) => {
     item_qty_out: netWeight,
     biz_loc,
     eventTime,
-    date_exp: new Date().toISOString(),
-    date_sellby: new Date().toISOString(),
-    date_best: new Date().toISOString(),
+    // date_exp: new Date().toISOString(),
+    // date_sellby: new Date().toISOString(),
+    // date_best: new Date().toISOString(),
   };
   const FT = await submitToFoodtrust("transformation", ftBody);
   mill.FT = FT;
