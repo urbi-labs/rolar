@@ -32,7 +32,7 @@ const epcisCommission = async (values) => {
     epcis_quantityList: ql,
     epcis_extension: e,
     epcis_quantityElement: qe,
-    epcis_destinationList: dl,
+    // epcis_destinationList: dl,
   } = require("../XMLMessages/XML_Tags.json");
 
   const { item_ref, item_lot, item_qty, eventTime } = values;
@@ -164,6 +164,7 @@ const epcisObservation = async (values) => {
   const builder = new xml2js.Builder();
   const outputXml = builder.buildObject(xml);
 
+  console.log(outputXml);
   return outputXml;
 };
 
@@ -203,6 +204,7 @@ const epcisAggregation = async (values) => {
   const builder = new xml2js.Builder();
   const outputXml = builder.buildObject(xml);
 
+  console.log(outputXml);
   return outputXml;
 };
 
