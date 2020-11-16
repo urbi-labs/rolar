@@ -180,7 +180,7 @@ const epcisAggregation = async (values) => {
   } = require("../XMLMessages/XML_Tags.json");
 
   const { item_ref, item_lot, item_qty } = values;
-  const { pallet, biz_loc } = values;
+  const { pallet, biz_loc, eventTime, batchArray } = values;
 
   const xmlFilePath = path.join(cwd, "server/XMLMessages", "epcis_agg.xml");
   const xmlFile = await fs.readFile(xmlFilePath);
@@ -194,12 +194,14 @@ const epcisAggregation = async (values) => {
   log(`location: ${FTLI}:${PREFIX}.${biz_loc}`);
   log("palletId: " + palletId);
 
-  xml[r][b][0][el][0][ea][0].eventTime[0] = new Date().toISOString();
+  xml[r][b][0][el][0][ea][0].eventTime[0] = eventTime;
   xml[r][b][0][el][0][ea][0].baseExtension[0].eventID = `${UUID}:${uuidv1()}`;
   xml[r][b][0][el][0][ea][0].parentID = palletId;
   xml[r][b][0][el][0][ea][0].bizLocation[0].id = location;
-  xml[r][b][0][el][0][ea][0][e][0][ql][0][qe][0].epcClass = epcClass;
-  xml[r][b][0][el][0][ea][0][e][0][ql][0][qe][0].quantity = item_qty;
+
+  console.log(batchArray);
+  // xml[r][b][0][el][0][ea][0][e][0][ql][0][qe][0].epcClass = epcClass;
+  // xml[r][b][0][el][0][ea][0][e][0][ql][0][qe][0].quantity = item_qty;
 
   const builder = new xml2js.Builder();
   const outputXml = builder.buildObject(xml);

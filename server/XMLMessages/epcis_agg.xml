@@ -10,17 +10,17 @@
   <EPCISBody>
     <EventList>
       <AggregationEvent>
-        <eventTime>2013-06-08T14:58:56.591Z</eventTime>
+        <eventTime></eventTime>
         <!--WHEN-->
         <!--MANDATORY. UTC time (ISO 8601) when event occurred.-->
-        <eventTimeZoneOffset>+02:00</eventTimeZoneOffset>
+        <eventTimeZoneOffset>-03:00</eventTimeZoneOffset>
         <!--MANDATORY. Time-zone of location, as an offset from UTC.-->
         <baseExtension>
-          <eventID>urn:uuid:6926712e-599f-4c4e-b6e9-8dd888c906bd</eventID>
+          <eventID></eventID>
           <!--OPTIONAL. A unique ID (UUID) for the event. If not specified, the system generates an event ID.-->
           <!--RECOMMENDED. Supply a unique eventID (UUID) for disambiguation.-->
         </baseExtension>
-        <parentID>urn:epc:id:sscc:5012345.0678901234</parentID>
+        <parentID></parentID>
         <!--WHAT-->
         <!--MANDATORY: single parent object into which child objects have been aggregated (may be SSCC or internal license plate numbers)-->
         <!--Guidance for clients-->
@@ -73,18 +73,18 @@
         <!--Geo location points are floating point numbers which define the latitude and longitude of the location, with an optional altitude.-->
         <!--Geo location example: <geo>30.2672,-97.7431</geo> for latitude and longitude or <geo>30.2672,-97.7431,532.67</geo>for latitude, longitude, and altitude.-->
         <bizLocation>
-          <id>urn:epc:id:sgln:0614141.00888.0</id>
+          <id></id>
         </bizLocation>
         <!--WHERE-->
         <!--MANDATORY: SGLN (extensible global location number), FTLI, or SFTLI for the business location where the event occurred.-->
         <!--See above for SGLN and IBM Food Trust location formats-->
-        <bizTransactionList>
-          <bizTransaction type="urn:epcglobal:cbv:btt:desadv">urn:epcglobal:cbv:bt:5412345000037:3352</bizTransaction>
-          <!-- <bizTransaction type="urn:epcglobal:cbv:btt:desadv">urn:epcglobal:cbv:bt:5412345000037:3352-349875</bizTransaction> -->
-          <!-- Two types of business transaction examples: -->
-          <!--  1. Use "urn:epcglobal:cbv:btt:po" above to indicate the identifier for a PURCHASE ORDER (send from retailer to supplier) -->
-          <!--  2. Use "urn:epcglobal:cbv:btt:desadv" above to indicate the identifier for a DESPATCH ADVICE (send from supplier to retailer) -->
-        </bizTransactionList>
+        <!-- <bizTransactionList> -->
+        <!-- <bizTransaction type="urn:epcglobal:cbv:btt:desadv">urn:epcglobal:cbv:bt:5412345000037:3352</bizTransaction> -->
+        <!-- <bizTransaction type="urn:epcglobal:cbv:btt:desadv">urn:epcglobal:cbv:bt:5412345000037:3352-349875</bizTransaction> -->
+        <!-- Two types of business transaction examples: -->
+        <!--  1. Use "urn:epcglobal:cbv:btt:po" above to indicate the identifier for a PURCHASE ORDER (send from retailer to supplier) -->
+        <!--  2. Use "urn:epcglobal:cbv:btt:desadv" above to indicate the identifier for a DESPATCH ADVICE (send from supplier to retailer) -->
+        <!-- </bizTransactionList> -->
         <!--WHY-->
         <!--List of business transactions associated with this event.-->
         <!--The example above shows a purchase order (PO), a despatch advice (ASN), and a production order-->
@@ -97,9 +97,9 @@
         <extension>
           <childQuantityList>
             <quantityElement>
-              <epcClass>urn:epc:class:lgtin:0614141.107346.101</epcClass>
+              <epcClass></epcClass>
               <!--MANDATORY for quantityElement. Class-level EPCs like LGTINs. See note below for description.-->
-              <quantity>10</quantity>
+              <quantity></quantity>
               <!--MANDATORY for quantityElement.-->
               <!--Meaning: 10 cases of LGTIN '0614141.107346' belonging to lot '101'-->
               <uom>KGM</uom>
@@ -127,18 +127,18 @@
           <!--IBM Food Trust IDs-->
           <!--IBM Food Trust Product with Lot #: urn:ibm:ift:product:lot:class:<Company Prefix>.<Item Reference>.<Lot Number>-->
           <!--IBM Food Trust Product without Lot/Serial: urn:ibm:ift:product:class:<Company Prefix>.<Item Reference>-->
-          <sourceList>
-            <source type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:sgln:0614141.00001.0</source>
-            <!--Additional source entries go here.-->
-            <!--OPTIONAL: SGLN of the facility or facilities that goods are being sent from.-->
-            <!--MANDATORY if this event involves a transfer of goods, such as a shipment from supplier to retailer.-->
-          </sourceList>
-          <destinationList>
-            <destination type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:sgln:5012345.00001.0</destination>
-            <!--Additional destination entries go here.-->
-            <!--OPTIONAL: SGLN of the receiving facility or facilities.-->
-            <!--MANDATORY if this event involves a transfer of goods, such as a shipment from suppler to retailer. -->
-          </destinationList>
+          <!-- <sourceList> -->
+          <!-- <source type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:sgln:0614141.00001.0</source> -->
+          <!--Additional source entries go here.-->
+          <!--OPTIONAL: SGLN of the facility or facilities that goods are being sent from.-->
+          <!--MANDATORY if this event involves a transfer of goods, such as a shipment from supplier to retailer.-->
+          <!-- </sourceList> -->
+          <!-- <destinationList> -->
+          <!-- <destination type="urn:epcglobal:cbv:sdt:owning_party">urn:epc:id:sgln:5012345.00001.0</destination> -->
+          <!--Additional destination entries go here.-->
+          <!--OPTIONAL: SGLN of the receiving facility or facilities.-->
+          <!--MANDATORY if this event involves a transfer of goods, such as a shipment from suppler to retailer. -->
+          <!-- </destinationList> -->
         </extension>
       </AggregationEvent>
     </EventList>

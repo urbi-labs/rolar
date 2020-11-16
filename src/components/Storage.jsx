@@ -8,8 +8,8 @@ function validateStep1(payload) {
 }
 
 function validateStep2(payload) {
-  const { _tank, initialMeasure, finalMeasure, cone } = payload;
-  return !(_tank && initialMeasure && finalMeasure && cone);
+  const { _tank, initialMeasure, finalMeasure } = payload;
+  return !(_tank && initialMeasure && finalMeasure);
 }
 
 const Storage = ({

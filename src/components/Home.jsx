@@ -482,6 +482,7 @@ class Home extends Component {
     };
 
     try {
+      console.log(payload);
       const response = await submitDB[screen](payload);
       const { data } = response;
       newState[screen].payload = data;
