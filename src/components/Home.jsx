@@ -294,9 +294,9 @@ class Home extends Component {
   };
 
   initializeMills = async () => {
-    // const { supervisor } = this.state;
-    // const status = supervisor ? "mill" : "batch";
-    const batches = await this.getBatchesArray();
+    const { supervisor } = this.state;
+    const status = supervisor ? "mill" : "batch";
+    const batches = await this.getBatchesArray(status);
     return { batches, prodLine };
   };
 

@@ -65,7 +65,7 @@ const Cent2 = ({
             <Slider
               //ARREGLAR
               aria-labelledby="range-slider"
-              value={[initialTemp, finalTemp]}
+              value={[initialTemp || 20, finalTemp || 40]}
               valueLabelDisplay="on"
               onChange={(event, value) => handleCentSlider(event, value)}
               min={20}

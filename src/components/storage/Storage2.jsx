@@ -51,7 +51,7 @@ export default function Storage2({
 
   const { supervisor, init } = data;
   const { tanks } = init;
-  const tankIndex = tanks.findIndex((i) => i.value === _tank);
+  const tankIndex = _tank ? tanks.findIndex((i) => i.value === _tank) : 0;
 
   const [batch, setBatch] = useState({});
   useEffect(() => {
