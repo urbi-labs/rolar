@@ -1,4 +1,4 @@
-export async function calcs(
+export function calcs(
   initialMeasure = 0,
   finalMeasure = 0,
   cone,
@@ -7,7 +7,7 @@ export async function calcs(
 ) {
   const { doc } = tank;
   const { radius } = doc;
-  console.log({ doc });
+  console.log({ netWeight });
 
   const tot_cm = finalMeasure - initialMeasure;
   const tot_lt =
@@ -15,6 +15,7 @@ export async function calcs(
   const oilWeight = tot_lt * 0.92;
 
   const perf = oilWeight / netWeight;
+
   return {
     tot_cm,
     tot_lt,

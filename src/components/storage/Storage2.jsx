@@ -62,6 +62,8 @@ export default function Storage2({
     initBatch(_batch);
   }, []);
 
+  console.log(batch);
+
   const { tot_cm, tot_lt, oilWeight, perf } = calcs(
     initialMeasure,
     finalMeasure,
@@ -69,6 +71,8 @@ export default function Storage2({
     tanks[tankIndex],
     batch.netWeight
   );
+
+  console.log({ tot_cm, tot_lt, oilWeight, perf });
 
   return (
     <Fragment>

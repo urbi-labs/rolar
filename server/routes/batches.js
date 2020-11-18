@@ -61,7 +61,7 @@ router.get("/non_sampled/:id", auth, async (req, res) => {
   res.status(200).send(batch);
 });
 
-router.get("/batch/:id", auth, async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   const { id } = req.params;
   const batch = await Batch.findById(id);
   res.status(200).send(batch);
