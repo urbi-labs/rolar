@@ -1,6 +1,7 @@
 const auth = require("../middleware/auth");
 const { Storage, validate } = require("../models/storage");
 const { TankClosure } = require("../models/tankClosure");
+const { Tank } = require("../models/tank");
 const { Batch } = require("../models/batch");
 
 const express = require("express");
@@ -23,6 +24,10 @@ router.post("/", auth, async (req, res) => {
   // Actualizo el flag de ultimo status en el lote
   const { _batch: _id } = body;
   await Batch.findByIdAndUpdate({ _id }, { lastStatus: "storage" });
+
+  // Actualizo el estado del tanque "active" para luego poder cerrarlo
+  const { _tank } = body;
+  await Tank.findByIdAndUpdate({ _id: _tank }, { active: true });
 
   return res.status(200).send(storage);
 });
@@ -52,20 +57,23 @@ router.get("/tank/:tank_id", auth, async (req, res) => {
   });
   console.log(lastTankClosure);
 
-  if (lastTankClosure === null) {
-    res.status(400).send("No existen registros para este tanque");
-    return;
-  }
+  // if (lastTankClosure === null) {
+  //   res.status(400).send("No existen registros para este tanque");
+  //   return;
+  // }
 
-  const { timestamp } = lastTankClosure;
-  const batches = await Storage.find({
+  const filter = lastTankClosure
+    ? lastTankClosure.timestamp
+    : new Date("1900/01/01");
+
+  const batchesArray = await Storage.find({
     _tank: tank_id,
     timestamp: {
-      $gt: timestamp,
+      $gt: filter,
     },
   });
 
-  res.status(200).send(batches);
+  res.status(200).send(batchesArray);
 });
 
 router.get("/batch/:id", auth, async (req, res) => {
