@@ -8,7 +8,7 @@ export function calcs(
   const { doc } = tank;
   const { radius, cone: coneCapacity } = doc;
 
-  const conevalue = cone ? 0.5 * coneCapacity : 0;
+  const conevalue = cone ? coneCapacity : 0.5 * coneCapacity;
   const tot_cm = finalMeasure - initialMeasure;
   const tot_lt =
     conevalue + Math.PI * ((Math.pow(radius / 1000, 2) * tot_cm) / 1000) * 1000;
