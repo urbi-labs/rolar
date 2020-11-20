@@ -1,5 +1,5 @@
-const auth = require("../middleware/auth");
-const valID = require("../middleware/valID");
+const auth = require("../../middleware/auth");
+const valID = require("../../middleware/valID");
 const { Donation, validate } = require("../models/donation");
 const { Draw } = require("../models/draw");
 const { bcAuth, bcRegTX, bcGetBlock } = require("../services/blockchain");

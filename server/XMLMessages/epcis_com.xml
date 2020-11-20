@@ -41,7 +41,7 @@
         <!--IBM Food Trust Logistic Unit: urn:ibm:ift:lpn:obj:<Company Prefix>.<Serial Reference>-->
         <action>ADD</action>
         <!--MANDATORY. EPCIS action. Don't change-->
-        <bizStep>urn:epcglobal:cbv:bizstep:creating_class_instance</bizStep>
+        <!-- <bizStep>urn:epcglobal:cbv:bizstep:creating_class_instance</bizStep> -->
         <!--OPTIONAL. From Section 7.1.3 of https://www.gs1.org/sites/default/files/docs/epc/CBV-Standard-1-2-r-2016-09-29.pdf-->
         <!--The business step that this event was a part of.-->
         <!--The business step should be "creating_class_instance" for commissioning lots, and "commissioning" for commissioning serials-->

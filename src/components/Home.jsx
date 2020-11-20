@@ -43,6 +43,7 @@ import {
   getBatches,
   getTanks,
   getActiveTanks,
+  getBatchById,
   // getStoragesFromTank,
   // tookSampleBatch,
   // updateStatus,
@@ -293,8 +294,11 @@ class Home extends Component {
 
   initializeMills = async () => {
     const { supervisor } = this.state;
-    const status = supervisor ? "mill" : "batch";
-    const batches = await this.getBatchesArray(status);
+    // const status = supervisor ? "mill" : "batch";
+    const batches = supervisor
+      ? await this.getBatchesArray(["mill", "cent", "storage"])
+      : await this.getBatchesArray("batch");
+
     return { batches, prodLine };
   };
 
@@ -389,7 +393,7 @@ class Home extends Component {
     if (data.step === 0 && supervisor && screen === "batch") {
       const { payload } = data;
       const { _id } = payload;
-      const { data: doc } = await getByBatchId(screen, _id);
+      const { data: doc } = await getBatchById(_id);
       console.log(doc);
       if (doc) data.payload = doc;
     }

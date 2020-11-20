@@ -44,12 +44,21 @@ router.get("/", auth, async (req, res) => {
 
 router.get("/status/:status", auth, async (req, res) => {
   const { params } = req;
-  const { status: lastStatus } = params;
+  const { status } = params;
 
-  const batch = await Batch.find({ lastStatus }).sort({
+  const statusArray = status.split(",");
+
+  const filter = {
+    lastStatus: {
+      $in: statusArray,
+    },
+  };
+
+  const batch = await Batch.find(filter).sort({
     timestamp: -1,
   });
 
+  console.log(batch);
   res.status(200).send(batch);
 });
 
