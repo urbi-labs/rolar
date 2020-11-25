@@ -18,12 +18,17 @@ module.exports = function (app) {
   app.use(
     expressCspHeader({
       directives: {
-        "default-src": [SELF],
+        "default-src": [SELF, "https://rolar-foodtrust.mybluemix.net"],
         "script-src": [SELF, INLINE, "https://rolar-foodtrust.mybluemix.net"],
+        "font-src": [
+          SELF,
+          "https://fonts.gstatic.com/s/ibmplexmono/v4/-F6sfjptAgt5VM-kVkqdyU8n1ioSflV1gMoW.woff",
+        ],
+        "connect-src": [SELF, "https://rolar-foodtrust.mybluemix.net/api/auth"],
         "style-src": [SELF, "https://rolar-foodtrust.mybluemix.net"],
         "img-src": ["data:", "https://rolar-foodtrust.mybluemix.net"],
         "worker-src": [NONE],
-        "block-all-mixed-content": true,
+        "block-all-mixed-content": false,
       },
     })
   );

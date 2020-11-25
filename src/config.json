@@ -89,6 +89,6 @@
   "errorMessages": {
     "general": "Error de conexión. Si el error persiste contacte a su administrador."
   },
-  "baseURL": "https://rolar.mybluemix.net",
+  "baseURL": "https://rolar-foodtrust.mybluemix.net",
   "tokenKey": "rolar-token"
 }
