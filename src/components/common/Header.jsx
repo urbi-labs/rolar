@@ -12,8 +12,29 @@ function Header() {
 
   return (
     <div className="header__container">
-      <div className="header__title">Rolar De Cuyo</div>
-      <div className="header__role">{currentUser ? currentUser.role : ""}</div>
+      <div className="bx--grid">
+        <div className="bx--row">
+          <div className="bx--col">
+            <div className="header__title">Rolar De Cuyo</div>
+            <div className="header__role">
+              {currentUser ? currentUser.role : ""}
+            </div>
+          </div>
+          <div className="bx--col">
+            <div
+              className="header__logout"
+              onClick={() => {
+                if (window.confirm("¿Desea cerrar sesión?")) {
+                  localStorage.removeItem("rolar-token");
+                  window.location.reload();
+                }
+              }}
+            >
+              Salir
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
