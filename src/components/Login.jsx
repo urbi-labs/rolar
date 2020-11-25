@@ -19,8 +19,7 @@ const invalidPasswordProps = {
   id: "password",
   labelText: "Contraseña",
   placeholder: "Ingresá tu contraseña",
-  invalidText:
-    "Su contraseña debe contener al menos una letra minúscula, una mayúscula, un número y no menos de 5 caracteres.",
+  invalidText: "Contraseña inválida.",
 };
 
 class Login extends Component {
@@ -93,7 +92,7 @@ class Login extends Component {
                     <TextInput
                       type="password"
                       required
-                      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{5,12}$"
+                      pattern="^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{5,12}$"
                       invalid={error ? true : false}
                       {...invalidPasswordProps}
                       onChange={(event) => {
