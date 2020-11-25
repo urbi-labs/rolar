@@ -21,7 +21,7 @@ const userSchema = new Schema({
     required: true,
     trim: true,
   },
-  role: { type: String, default: "operator" },
+  role: { type: String, default: "operator", trim: true },
   timestamp: { type: Date, default: Date.now },
 });
 
@@ -43,6 +43,7 @@ function validateUserSchema(user) {
   const schema = Joi.object({
     name: Joi.string().required(),
     password: Joi.string().min(5).max(16).required(),
+    role: Joi.string(),
   });
 
   return schema.validate(user);

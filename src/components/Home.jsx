@@ -304,15 +304,21 @@ class Home extends Component {
 
   initializeCents = async () => {
     const { supervisor } = this.state;
-    const status = supervisor ? "cent" : "mill";
-    const batches = await this.getBatchesArray(status);
+    // const status = supervisor ? "cent" : "mill";
+    const batches = supervisor
+      ? await this.getBatchesArray(["cent", "storage"])
+      : await this.getBatchesArray("batch");
+
     return { batches, prodLine };
   };
 
   initializeStorage = async () => {
     const { supervisor } = this.state;
-    const status = supervisor ? "storage" : "cent";
-    const batches = await this.getBatchesArray(status);
+    // const status = supervisor ? "storage" : "cent";
+    const batches = supervisor
+      ? await this.getBatchesArray("storage")
+      : await this.getBatchesArray("batch");
+
     const { data: tanksDB } = await getTanks();
 
     const tanks = [];
