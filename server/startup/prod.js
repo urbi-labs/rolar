@@ -7,11 +7,26 @@ const cwd = process.cwd();
 const chalk = require("chalk");
 const log = (text) => console.log(chalk.cyanBright(`[prod] ${text}`));
 
+const { expressCspHeader, INLINE, NONE, SELF } = require("express-csp-header");
+
 module.exports = function (app) {
   // Added express middleware/options for prod
   app.use(helmet());
   app.use(compression());
   app.enable("trust proxy");
+
+  app.use(
+    expressCspHeader({
+      directives: {
+        "default-src": [SELF],
+        "script-src": [SELF, INLINE, "https://rolar-foodtrust.mybluemix.net"],
+        "style-src": [SELF, "https://rolar-foodtrust.mybluemix.net"],
+        "img-src": ["data:", "https://rolar-foodtrust.mybluemix.net"],
+        "worker-src": [NONE],
+        "block-all-mixed-content": true,
+      },
+    })
+  );
 
   log("P R O D U C T I O N mode");
   log("serving static content: ", path.join(cwd, "build"));

@@ -19,6 +19,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
+    "express-csp-header": "^4.0.0",
     "helmet": "^4.2.0",
     "joi": "^17.2.1",
     "joi-objectid": "^3.0.1",
