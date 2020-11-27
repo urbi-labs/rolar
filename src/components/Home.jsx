@@ -307,7 +307,7 @@ class Home extends Component {
     // const status = supervisor ? "cent" : "mill";
     const batches = supervisor
       ? await this.getBatchesArray(["cent", "storage"])
-      : await this.getBatchesArray("batch");
+      : await this.getBatchesArray("mill");
 
     return { batches, prodLine };
   };
@@ -317,7 +317,7 @@ class Home extends Component {
     // const status = supervisor ? "storage" : "cent";
     const batches = supervisor
       ? await this.getBatchesArray("storage")
-      : await this.getBatchesArray("batch");
+      : await this.getBatchesArray("cent");
 
     const { data: tanksDB } = await getTanks();
 
