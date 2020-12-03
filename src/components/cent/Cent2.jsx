@@ -63,10 +63,9 @@ const Cent2 = ({
           <div className="bx--col">
             <span> Temperatura de Amasado (en C)</span>
             <Slider
-              //ARREGLAR
               aria-labelledby="range-slider"
               value={[initialTemp || 20, finalTemp || 40]}
-              valueLabelDisplay="on"
+              valueLabelDisplay="auto"
               onChange={(event, value) => handleCentSlider(event, value)}
               min={20}
               max={40}

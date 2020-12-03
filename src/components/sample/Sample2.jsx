@@ -37,7 +37,8 @@ const inputProps = (labelText) => ({
   size: "sm",
   labelText,
   light: true,
-  type: "number",
+  type: "text",
+  onKeyPress: (event) => console.log(event.target.value),
 });
 
 const Sample2 = ({
