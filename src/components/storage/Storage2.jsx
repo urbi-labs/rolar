@@ -79,7 +79,7 @@ export default function Storage2({
       <div className="bx--grid bx--grid--full-width">
         <StepTitles title="Ingreso almacenamiento" step="2" />
         <div className="bx--row custom__row">
-          <div className="bx--col">
+          <div className="bx--col-sm-3">
             <ComboBox
               items={tanks}
               itemToString={(item) => (item ? item.text : "")}
@@ -88,7 +88,7 @@ export default function Storage2({
               selectedItem={tanks[tankIndex]}
             />
           </div>
-          <div className="bx--col">
+          <div className="bx--col-sm-1">
             <Toggle
               toggled={cone}
               id="cone-toggle"
