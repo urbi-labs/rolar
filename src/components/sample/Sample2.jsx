@@ -38,7 +38,6 @@ const inputProps = (labelText) => ({
   labelText,
   light: true,
   type: "number",
-  onClick: () => console.log("onClick"),
 });
 
 const Sample2 = ({

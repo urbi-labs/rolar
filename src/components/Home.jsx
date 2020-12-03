@@ -412,9 +412,7 @@ class Home extends Component {
   handleInputChange = (event, screen, field) => {
     const newState = { ...this.state };
     const value = event.target.value || "";
-    newState[screen].payload[field] =
-      value > 100 ? newState[screen].payload[field] : value;
-
+    newState[screen].payload[field] = value;
     this.setState(newState, () => console.log(this.state));
   };
 
