@@ -16,22 +16,21 @@ const items = [
   { id: "2", text: "Criba 2", value: "2" },
 ];
 
-const comboProps = (titleText, helperText) => ({
+const comboProps = (titleText) => ({
   id: titleText,
   placeholder: "Cribas",
-  helperText,
   titleText,
   light: true,
   size: "sm",
 });
 
-const inputProps = (labelText, helperText) => ({
+const inputProps = (labelText) => ({
   id: labelText,
   size: "sm",
   labelText,
-  helperText,
   light: true,
   type: "number",
+  step: 0.1,
 });
 
 const Mill2 = ({
@@ -60,7 +59,7 @@ const Mill2 = ({
               items={items}
               itemToString={(item) => (item ? item.text : "")}
               onChange={(event) => onComboChange(event, screen, "sieve")}
-              {...comboProps("Criba", "Elegir nro de criba.")}
+              {...comboProps("Criba")}
               selectedItem={sieve ? items[sieve - 1] : ""}
             />
           </div>
@@ -68,7 +67,7 @@ const Mill2 = ({
             <TextInput
               value={microtalcum}
               onChange={(event) => onInputChange(event, screen, "microtalcum")}
-              {...inputProps("Microtalco", "Valor entre cero y uno.")}
+              {...inputProps("Microtalco")}
             />
           </div>
         </div>

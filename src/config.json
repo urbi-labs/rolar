@@ -63,10 +63,11 @@
   ],
   "oliveTypes": [
     { "id": "1", "text": "Arbequina", "value": "arbequina" },
-    { "id": "2", "text": "Barnea", "value": "barnea" },
-    { "id": "3", "text": "Coratina", "value": "coratina" },
-    { "id": "4", "text": "Changlot", "value": "changlot" },
-    { "id": "5", "text": "Picual", "value": "picual" }
+    { "id": "2", "text": "Arbosana", "value": "arbosana" },
+    { "id": "3", "text": "Barnea", "value": "barnea" },
+    { "id": "4", "text": "Coratina", "value": "coratina" },
+    { "id": "5", "text": "Changlot", "value": "changlot" },
+    { "id": "6", "text": "Picual", "value": "picual" }
   ],
   "feedbackLabels": {
     "submit": {
