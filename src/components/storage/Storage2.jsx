@@ -107,14 +107,14 @@ export default function Storage2({
               onChange={(event) =>
                 onInputChange(event, screen, "initialMeasure")
               }
-              {...inputProps("Inicio regla nivel")}
+              {...inputProps("Inicio regla nivel (en cm)")}
             />
           </div>
           <div className="bx--col">
             <TextInput
               value={finalMeasure}
               onChange={(event) => onInputChange(event, screen, "finalMeasure")}
-              {...inputProps("Fin regla nivel")}
+              {...inputProps("Fin regla nivel (en cm)")}
             />
           </div>
         </div>
