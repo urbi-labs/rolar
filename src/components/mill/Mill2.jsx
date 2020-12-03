@@ -7,14 +7,11 @@ import Validated from "../common/Validated.jsx";
 import StepTitles from "../common/StepTitles.jsx";
 import Buttons from "../common/Buttons.jsx";
 
+import { sieves } from "../../config.json";
+
 import "../../styles/mill.scss";
 
 const screen = "mill";
-
-const items = [
-  { id: "1", text: "Criba 1", value: "1" },
-  { id: "2", text: "Criba 2", value: "2" },
-];
 
 const comboProps = (titleText) => ({
   id: titleText,
@@ -58,14 +55,14 @@ const Mill2 = ({
         <div className="bx--row custom__row">
           <div className="bx--col">
             <ComboBox
-              items={items}
+              items={sieves}
               itemToString={(item) => (item ? item.text : "")}
               onChange={(event) => onComboChange(event, screen, "sieve")}
               {...comboProps("Criba")}
-              selectedItem={sieve ? items[sieve - 1] : ""}
+              selectedItem={sieve ? sieves[sieve - 1] : ""}
             />
           </div>
-          <div className="bx--col">
+          <div className="bx--col-sm-1">
             <TextInput
               value={microtalcum}
               onChange={(event) => onInputChange(event, screen, "microtalcum")}
@@ -80,7 +77,7 @@ const Mill2 = ({
             <Slider
               defaultValue={enzymes}
               aria-labelledby="discrete-slider"
-              valueLabelDisplay="on"
+              valueLabelDisplay="auto"
               step={50}
               min={0}
               max={500}

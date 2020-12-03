@@ -109,7 +109,7 @@ class Home extends Component {
           _batch: "",
           _user: "",
           productionLine: "Linea 1",
-          sieve: "",
+          sieve: "5",
           microtalcum: "",
           enzymes: 250,
         },
