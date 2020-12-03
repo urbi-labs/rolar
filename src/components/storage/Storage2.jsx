@@ -94,6 +94,8 @@ export default function Storage2({
               id="cone-toggle"
               aria-label="cono"
               labelText="¿Cono lleno?"
+              labelA={"No"}
+              labelB={"Sí"}
               onToggle={(event) => handleToggle(event, screen, "cone")}
             />
           </div>
