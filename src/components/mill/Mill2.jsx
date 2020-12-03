@@ -27,9 +27,9 @@ const inputProps = (labelText) => ({
   labelText,
   light: true,
   type: "number",
-  step: 0.1,
+  step: 1,
   min: 0,
-  max: 1,
+  max: 10,
 });
 
 const Mill2 = ({

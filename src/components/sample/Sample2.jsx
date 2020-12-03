@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { ComboBox, TextInput, Toggle } from "carbon-components-react";
+import { TextInput, Toggle } from "carbon-components-react";
 
 // custom components
 import Validated from "../common/Validated.jsx";
@@ -14,30 +14,32 @@ import "../../styles/sample.scss";
 
 const screen = "samples";
 
-const items = [
-  { id: "1", text: "1", value: "1" },
-  { id: "2", text: "2", value: "2" },
-  { id: "3", text: "3", value: "3" },
-  { id: "4", text: "4", value: "4" },
-  { id: "5", text: "5", value: "5" },
-  { id: "6", text: "6", value: "6" },
-  { id: "7", text: "7", value: "7" },
-];
+// const items = [
+//   { id: "1", text: "1", value: "1" },
+//   { id: "2", text: "2", value: "2" },
+//   { id: "3", text: "3", value: "3" },
+//   { id: "4", text: "4", value: "4" },
+//   { id: "5", text: "5", value: "5" },
+//   { id: "6", text: "6", value: "6" },
+//   { id: "7", text: "7", value: "7" },
+// ];
 
-const comboProps = (titleText) => ({
-  id: titleText,
-  placeholder: "Elegir una opción...",
-  titleText,
-  light: true,
-  size: "sm",
-});
+// const comboProps = (titleText) => ({
+//   id: titleText,
+//   placeholder: "Elegir una opción...",
+//   titleText,
+//   light: true,
+//   size: "sm",
+// });
 
 const inputProps = (labelText) => ({
   id: labelText,
   size: "sm",
   labelText,
   light: true,
-  type: "text",
+  type: "number",
+  min: 0,
+  step: 1,
   onKeyPress: (event) => console.log(event.target.value),
 });
 
@@ -150,7 +152,7 @@ const Sample2 = ({
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
-            <ComboBox
+            {/* <ComboBox
               items={items}
               itemToString={(item) => (item ? item.text : "")}
               onChange={(event) =>
@@ -158,6 +160,13 @@ const Sample2 = ({
               }
               {...comboProps("Indice de Madurez")}
               selectedItem={items[maturityIndex - 1]}
+            /> */}
+            <TextInput
+              onChange={(event) =>
+                onInputChange(event, screen, "maturityIndex")
+              }
+              {...inputProps("Indice de Madurez")}
+              value={maturityIndex}
             />
           </div>
           <div className="bx--col">
