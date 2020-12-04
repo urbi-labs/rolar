@@ -11,7 +11,7 @@ export function calcs(
   const conevalue = cone ? coneCapacity : 0.5 * coneCapacity;
   const tot_cm = finalMeasure - initialMeasure;
   const tot_lt =
-    conevalue + Math.PI * ((Math.pow(radius / 1000, 2) * tot_cm) / 1000) * 1000;
+    conevalue + Math.PI * ((Math.pow(radius, 2) * (tot_cm/100))) * 1000;
   const oilWeight = tot_lt * 0.92;
 
   const perf = oilWeight / netWeight;
