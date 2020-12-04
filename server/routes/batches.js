@@ -7,6 +7,15 @@ const auth = require("../middleware/auth");
 
 // models
 const { Batch, validate } = require("../models/batch");
+const { Mill } = require("../models/mill");
+const { Centrifuge } = require("../models/centrifuge");
+const { Storage } = require("../models/storage");
+
+const MODEL = {
+  mill: Mill.find({ validated: true }).select("_batch"),
+  cent: Centrifuge.find({ validated: true }).select("_batch"),
+  storage: Storage.find({ validated: true }).select("_batch"),
+};
 
 // services
 const { submitToFoodtrust } = require("../services/foodtrust");
@@ -48,9 +57,25 @@ router.get("/status/:status", auth, async (req, res) => {
 
   const statusArray = status.split(",");
 
+  log(`Verificando lotes ya validaddos...${JSON.stringify(statusArray)}`);
+
+  let validated = [];
+  for (let item of statusArray) {
+    const docs = await MODEL[item];
+    for (let doc of docs) {
+      const { _batch } = doc;
+      validated.push(_batch);
+    }
+  }
+
+  log(`ID de lote que serán filtrados...${JSON.stringify(validated)}`);
+
   const filter = {
     lastStatus: {
       $in: statusArray,
+    },
+    _id: {
+      $nin: validated,
     },
   };
 
@@ -58,7 +83,6 @@ router.get("/status/:status", auth, async (req, res) => {
     timestamp: -1,
   });
 
-  console.log(batch);
   res.status(200).send(batch);
 });
 
