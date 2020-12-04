@@ -65,8 +65,8 @@ const Mill2 = ({
           <div className="bx--col-sm-1">
             <TextInput
               value={microtalcum}
-              onChange={(event) => onInputChange(event, screen, "microtalcum")}
-              {...inputProps("Microtalco")}
+              onChange={(event) => onInputChange(event, screen, "microtalcum",1)}
+              {...inputProps("Microtalco (kg/ton)")}
             />
           </div>
         </div>

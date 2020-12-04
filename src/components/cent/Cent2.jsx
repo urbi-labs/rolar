@@ -88,8 +88,8 @@ const Cent2 = ({
         <div className="bx--row custom__row">
           <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, screen, "pumpSpeed")}
-              {...inputProps("Velocidad de bombeo")}
+              onChange={(event) => onInputChange(event, screen, "pumpSpeed",6000)}
+              {...inputProps("Velocidad de bombeo (kg/h)")}
               value={pumpSpeed}
             />
           </div>
