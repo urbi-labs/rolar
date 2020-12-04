@@ -62,9 +62,11 @@ router.get("/status/:status", auth, async (req, res) => {
   let validated = [];
   for (let item of statusArray) {
     const docs = await MODEL[item];
-    for (let doc of docs) {
-      const { _batch } = doc;
-      validated.push(_batch);
+    if (docs) {
+      for (let doc of docs) {
+        const { _batch } = doc;
+        validated.push(_batch);
+      }
     }
   }
 
