@@ -44,6 +44,7 @@ import {
   getTanks,
   getActiveTanks,
   getBatchById,
+  getCentByTankId,
   // getStoragesFromTank,
   // tookSampleBatch,
   // updateStatus,
@@ -120,6 +121,7 @@ class Home extends Component {
         payload: {
           _batch: "",
           _user: "",
+          _tank: "",
           productionLine: "Linea 1",
           initialTemp: "",
           finalTemp: "",
@@ -309,7 +311,9 @@ class Home extends Component {
       ? await this.getBatchesArray(["cent", "storage"])
       : await this.getBatchesArray("mill");
 
-    return { batches, prodLine };
+    const tanks = await this.getTanks();
+
+    return { batches, prodLine, tanks };
   };
 
   initializeStorage = async () => {
@@ -319,6 +323,15 @@ class Home extends Component {
       ? await this.getBatchesArray("storage")
       : await this.getBatchesArray("cent");
 
+    const tanks = await this.getTanks();
+
+    return {
+      batches,
+      tanks,
+    };
+  };
+
+  getTanks = async () => {
     const { data: tanksDB } = await getTanks();
 
     const tanks = [];
@@ -331,10 +344,7 @@ class Home extends Component {
         doc,
       });
     });
-    return {
-      batches,
-      tanks,
-    };
+    return tanks;
   };
 
   getBatchesArray = async (status) => {
@@ -384,6 +394,8 @@ class Home extends Component {
         : 0;
     }
 
+    console.log(supervisor, data.step, screen);
+
     // lógica para recuperar datos en vista de supervisor
     // solo para el step1 de sample/mill/cent/storage ["samples","mill","cent","storage"]
 
@@ -391,17 +403,25 @@ class Home extends Component {
       const { payload } = data;
       const { _batch } = payload;
       const { data: doc } = await getByBatchId(screen, _batch);
-
       if (doc) data.payload = doc;
     }
 
     console.log(screen, data.step);
-    if (data.step === 0 && supervisor && screen === "batch") {
+    if (supervisor && data.step === 0 && screen === "batch") {
       const { payload } = data;
       const { _id } = payload;
       const { data: doc } = await getBatchById(_id);
       console.log(doc);
       if (doc) data.payload = doc;
+    }
+
+    // fix por pedido del usuario final, solo para pantalla storage
+    if (data.step === 0 && screen === "storage") {
+      const { payload } = data;
+      const { _batch } = payload;
+      const { data: doc } = await getCentByTankId(_batch);
+      console.log(doc);
+      if (doc) data.payload._tank = doc._tank;
     }
 
     newState[screen] = data;
@@ -412,8 +432,12 @@ class Home extends Component {
   handleInputChange = (event, screen, field, max) => {
     const newState = { ...this.state };
     const value = event.target.value || "";
-    newState[screen].payload[field] =  max? (value > max ? newState[screen].payload[field] : value) : value;
-    
+    newState[screen].payload[field] = max
+      ? value > max
+        ? newState[screen].payload[field]
+        : value
+      : value;
+
     this.setState(newState, () => console.log(this.state));
   };
 

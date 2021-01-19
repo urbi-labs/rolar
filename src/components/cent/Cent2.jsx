@@ -46,14 +46,18 @@ const Cent2 = ({
   console.log("rendering Cent2...");
   if (!data) return "Cargando...";
 
-  const { supervisor } = data;
   const {
+    _tank,
     pumpSpeed,
     initialTemp,
     finalTemp,
     kneadingTime,
     validated,
   } = data.payload;
+
+  const { supervisor, init } = data;
+  const { tanks } = init;
+  const tankIndex = _tank ? tanks.findIndex((i) => i.value === _tank) : 0;
 
   return (
     <Fragment>
@@ -87,19 +91,35 @@ const Cent2 = ({
         </div>
         <div className="bx--row custom__row">
           <div className="bx--col">
+            <ComboBox
+              items={tanks}
+              itemToString={(item) => (item ? item.text : "")}
+              onChange={(event) => onComboChange(event, screen, "_tank")}
+              {...comboProps("Tanque destino")}
+              selectedItem={tanks[tankIndex]}
+            />
+          </div>
+        </div>
+        <div className="bx--row custom__row">
+          <div className="bx--col">
             <TextInput
-              onChange={(event) => onInputChange(event, screen, "pumpSpeed",6000)}
-              {...inputProps("Velocidad de bombeo (kg/h)")}
+              onChange={(event) =>
+                onInputChange(event, screen, "pumpSpeed", 6000)
+              }
+              {...inputProps("Bombeo (kg/h)")}
               value={pumpSpeed}
             />
           </div>
-          <Validated
-            mode={supervisor}
-            screen={screen}
-            onCheckChange={onCheckChange}
-            validated={validated}
-          />
+          <div className="bx--col">
+            <Validated
+              mode={supervisor}
+              screen={screen}
+              onCheckChange={onCheckChange}
+              validated={validated}
+            />
+          </div>
         </div>
+
         <Buttons
           screen={screen}
           left="Anterior"

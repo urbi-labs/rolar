@@ -8,8 +8,8 @@ function validateStep1(payload) {
 }
 
 function validateStep2(payload) {
-  const { initialTemp, finalTemp, kneadingTime, pumpSpeed } = payload;
-  return !(initialTemp && finalTemp && kneadingTime && pumpSpeed);
+  const { _tank, initialTemp, finalTemp, kneadingTime, pumpSpeed } = payload;
+  return !(_tank && initialTemp && finalTemp && kneadingTime && pumpSpeed);
 }
 
 const Cent = ({

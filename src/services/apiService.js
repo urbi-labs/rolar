@@ -68,6 +68,11 @@ export function getCents(data) {
   return http.get(`/api/cent`, data);
 }
 
+export function getCentByTankId(id) {
+  if (!id) return;
+  return http.get(`/api/cent/batch/${id}`);
+}
+
 // storage calls
 export function submitStorage(data) {
   return http.post(`/api/storage`, data);
