@@ -84,7 +84,7 @@ export default function Storage2({
               items={tanks}
               itemToString={(item) => (item ? item.text : "")}
               onChange={(event) => onComboChange(event, screen, "_tank")}
-              {...comboProps("Tanque destino")}
+              {...comboProps("Tanque")}
               selectedItem={tanks[tankIndex]}
             />
           </div>
