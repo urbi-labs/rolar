@@ -118,3 +118,7 @@ export function getByBatchId(route, id) {
 // export function tookSampleBatch(_id) {
 //   return http.post(`/api/batch/tookSample/${_id}`);
 // }
+
+export function getExcelExport() {
+  return http.get(`/api/export`);
+}

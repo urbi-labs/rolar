@@ -18,7 +18,7 @@ const sheets = {
   Tanques: () => Tank.find().sort({ timestamp: -1 }).lean(),
 };
 
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const wb = new xls.Workbook();
 
   for (let sheet of Object.keys(sheets)) {
@@ -43,9 +43,7 @@ router.get("/", async (req, res) => {
     today.getMonth() + 1
   }-${today.getDate()}`;
 
-  wb.write(`export-${fecha}.xls`);
-
-  res.send("ok");
+  wb.write(`export-${fecha}.xls`, res);
 });
 
 module.exports = router;

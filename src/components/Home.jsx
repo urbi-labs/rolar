@@ -45,6 +45,7 @@ import {
   getActiveTanks,
   getBatchById,
   getCentByTankId,
+  getExcelExport,
   // getStoragesFromTank,
   // tookSampleBatch,
   // updateStatus,
@@ -587,6 +588,7 @@ class Home extends Component {
             );
           })}
         </div>
+        <button onClick={() => getExcelExport()}>test excel</button>
       </div>
     );
   }
