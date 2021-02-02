@@ -588,7 +588,14 @@ class Home extends Component {
             );
           })}
         </div>
-        <button onClick={() => getExcelExport()}>test excel</button>
+        <button
+          onClick={async () => {
+            const { data } = await getExcelExport();
+            console.log(data);
+          }}
+        >
+          text xls
+        </button>
       </div>
     );
   }
