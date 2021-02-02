@@ -7,6 +7,7 @@ const tanksClosure = require("../routes/tanksClosure");
 const samples = require("../routes/samples");
 const centrifuges = require("../routes/centrifuges");
 const mills = require("../routes/mills");
+const xls = require("../routes/xls");
 
 const error = require("../middleware/error");
 
@@ -20,6 +21,7 @@ module.exports = function (app) {
   app.use("/api/tank", tanks);
   app.use("/api/storage", storages);
   app.use("/api/closures", tanksClosure);
+  app.use("/api/export", xls);
 
   app.use(error);
 };
