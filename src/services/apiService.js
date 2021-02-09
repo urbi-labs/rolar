@@ -120,9 +120,5 @@ export function getByBatchId(route, id) {
 // }
 
 export function getExcelExport() {
-  return http({
-    method: "get",
-    url: "/api/export",
-    responseType: "arraybuffer",
-  });
+  return http.post("/api/export");
 }

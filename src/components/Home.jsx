@@ -59,12 +59,18 @@ import "../styles/home.scss";
 class Home extends Component {
   state = {};
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     const currentUser = getCurrentUser();
     const { role } = currentUser;
     const supervisor = role === "supervisor" ? true : false;
+
     this.setState({ currentUser, supervisor });
     this.handleRestart();
+  };
+
+  componentDidUpdate = async () => {
+    const { data } = await getExcelExport();
+    console.log(data);
   };
 
   handleRestart = () => {
@@ -156,7 +162,9 @@ class Home extends Component {
       feedback: { label: "", number: "" },
       screen: "",
     };
-    this.setState(newState, () => console.log("handleRestart", this.state));
+    this.setState(newState, () => {
+      console.log("handleRestart", this.state);
+    });
   };
 
   renderScreen = (screen) => {
@@ -565,8 +573,7 @@ class Home extends Component {
   };
 
   render() {
-    const { screen } = this.state;
-
+    const { screen, supervisor } = this.state;
     if (screen) return this.renderScreen(screen);
 
     return (
@@ -588,14 +595,11 @@ class Home extends Component {
             );
           })}
         </div>
-        <button
-          onClick={async () => {
-            const { data } = await getExcelExport();
-            console.log(data);
-          }}
-        >
-          text xls
-        </button>
+        {supervisor && (
+          <a href="export.xlsx" download>
+            descargar datos (xls)
+          </a>
+        )}
       </div>
     );
   }

@@ -9,6 +9,9 @@ const xls = require("excel4node");
 const express = require("express");
 const router = express.Router();
 
+const path = require("path");
+const cwd = process.cwd();
+
 const sheets = {
   Lotes: () => Batch.find().sort({ timestamp: -1 }).lean(),
   Muestras: () => Sample.find().sort({ timestamp: -1 }).lean(),
@@ -18,7 +21,7 @@ const sheets = {
   Tanques: () => Tank.find().sort({ timestamp: -1 }).lean(),
 };
 
-router.get("/", auth, async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const wb = new xls.Workbook();
 
   for (let sheet of Object.keys(sheets)) {
@@ -38,12 +41,10 @@ router.get("/", auth, async (req, res) => {
     });
   }
 
-  const today = new Date();
-  const fecha = `${today.getFullYear()}-${
-    today.getMonth() + 1
-  }-${today.getDate()}`;
+  const xlsPath = path.join(cwd, `public/export.xlsx`);
+  await wb.write(xlsPath);
 
-  wb.write(`export-${fecha}.xls`, res);
+  res.status(200).send("OK");
 });
 
 module.exports = router;
