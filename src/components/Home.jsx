@@ -69,8 +69,11 @@ class Home extends Component {
   };
 
   componentDidUpdate = async () => {
-    const { data } = await getExcelExport();
-    console.log(data);
+    const { supervisor } = this.state;
+    if (supervisor) {
+      const { data } = await getExcelExport();
+      console.log(data);
+    }
   };
 
   handleRestart = () => {
