@@ -28,20 +28,24 @@ router.post("/", auth, async (req, res) => {
     const ws = wb.addWorksheet(sheet);
     const docs = await sheets[sheet]();
 
-    // Headers
-    Object.entries(docs[0]).forEach(([key, value], col) =>
-      ws.cell(1, col + 1).string(`${key}`)
-    );
-
-    // Rows
-    docs.forEach((doc, row) => {
-      Object.entries(doc).forEach(([key, value], col) =>
-        ws.cell(row + 2, col + 1).string(`${value}`)
+    if (docs.length > 0) {
+      // Headers
+      Object.entries(docs[0]).forEach(([key, value], col) =>
+        ws.cell(1, col + 1).string(`${key}`)
       );
-    });
+
+      // Rows
+      docs.forEach((doc, row) => {
+        Object.entries(doc).forEach(([key, value], col) =>
+          ws.cell(row + 2, col + 1).string(`${value}`)
+        );
+      });
+    }
   }
 
-  const xlsPath = path.join(cwd, `public/export.xlsx`);
+  const xlsPath = path.join(cwd, `build/export.xlsx`);
+  console.log("exporting xlsx...");
+  console.log(xlsPath);
   await wb.write(xlsPath);
 
   res.status(200).send("OK");
