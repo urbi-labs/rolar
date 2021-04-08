@@ -20,12 +20,11 @@ module.exports = async (env) => {
   };
 
   // Detecting if should conect to local mongo server
-  const local = env === "test";
-  log(`connecting to ${local ? "local" : "remote"} server ... `);
+  // force connection to prod
+  const local = false; // env === "test";
+  log(`connecting to remote server ... `);
 
-  const dbName = !local
-    ? config.get(`DB_${config.get("NODE_ENV")}`)
-    : config.get("dbName");
+  const dbName = config.get(`DB_PROD`);
 
   const dbHost = !local ? config.get("DB_HOST") : config.get("dbHost");
   const dbUser = !local ? config.get("DB_USER") : "";
