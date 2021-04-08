@@ -27,7 +27,7 @@ const protocol = config.get("protocol");
 const host = process.env.docker || config.get("host");
 const port = process.env.PORT || config.get("port");
 
-if (env !== "production") {
+if (env !== "PROD") {
   const morgan = require("morgan");
   app.use(morgan("tiny"));
   log("morgan enabled");
