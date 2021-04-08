@@ -24,7 +24,7 @@ module.exports = async (env) => {
   log(`connecting to ${local ? "local" : "remote"} server ... `);
 
   const dbName = !local
-    ? config.get(`DB_${env === "production" ? "PROD" : "DEV"}`)
+    ? config.get(`DB_${config.get("NODE_ENV")}`)
     : config.get("dbName");
 
   const dbHost = !local ? config.get("DB_HOST") : config.get("dbHost");

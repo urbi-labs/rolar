@@ -12,6 +12,8 @@ Dockerfile
 DS_STORE
 .DS_Store
 .env
+.xlsx
+env.zip
 
 #wildcards
 *.log

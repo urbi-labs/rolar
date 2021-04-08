@@ -10,6 +10,7 @@ const express = require("express");
 const router = express.Router();
 
 const path = require("path");
+const { type } = require("os");
 const cwd = process.cwd();
 
 const sheets = {
@@ -22,7 +23,9 @@ const sheets = {
 };
 
 router.post("/", auth, async (req, res) => {
-  const wb = new xls.Workbook();
+  const wb = new xls.Workbook({
+    dateFormat: "d/m/yy hh:mm:ss",
+  });
 
   for (let sheet of Object.keys(sheets)) {
     const ws = wb.addWorksheet(sheet);
@@ -36,9 +39,25 @@ router.post("/", auth, async (req, res) => {
 
       // Rows
       docs.forEach((doc, row) => {
-        Object.entries(doc).forEach(([key, value], col) =>
-          ws.cell(row + 2, col + 1).string(`${value}`)
-        );
+        Object.entries(doc).forEach(([key, value], col) => {
+          // console.log(`${typeof value}, ${value}, ${value instanceof Date}`);
+          // ws.cell(row + 2, col + 1).string(`${value}`)
+
+          switch (typeof value) {
+            case "number":
+              ws.cell(row + 2, col + 1).number(value);
+              break;
+
+            default:
+              if (value instanceof Date) {
+                ws.cell(row + 2, col + 1).date(new Date(value));
+                break;
+              }
+
+              ws.cell(row + 2, col + 1).string(`${value}`);
+              break;
+          }
+        });
       });
     }
   }

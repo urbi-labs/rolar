@@ -6,5 +6,6 @@
   "DB_PROD": "DB_PROD",
   "DB_DEV": "DB_DEV",
   "DB_CERT": "DB_CERT",
-  "IAM_APIKEY": "IAM_APIKEY"
+  "IAM_APIKEY": "IAM_APIKEY",
+  "NODE_ENV": "NODE_ENV"
 }
