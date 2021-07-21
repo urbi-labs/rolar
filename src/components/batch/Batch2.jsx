@@ -98,13 +98,14 @@ const Batch2 = ({
             <TextInput
               onChange={(event) => onInputChange(event, screen, "grossWeight")}
               {...inputProps("KG Bruto")}
-              value={grossWeight}
+              value={ grossWeight ? grossWeight : chuteWeight }
+              min={ chuteWeight ? chuteWeight : 0 }
             />
           </div>
           <div className="bx--col">
             <TextInput
               disabled={true}
-              value={grossWeight - chuteWeight}
+              value={ grossWeight - chuteWeight > 0 ? grossWeight - chuteWeight : 0 }
               {...inputProps("KG Neto")}
             />
           </div>
