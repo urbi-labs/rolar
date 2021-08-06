@@ -65,7 +65,7 @@ const Mill2 = ({
           <div className="bx--col-sm-1">
             <TextInput
               value={microtalcum}
-              onChange={(event) => onInputChange(event, screen, "microtalcum",1)}
+              onChange={(event) => onInputChange(event, screen, "microtalcum", 1)}
               {...inputProps("Microtalco (kg/ton)")}
             />
           </div>
@@ -98,8 +98,16 @@ const Mill2 = ({
           left="Anterior"
           right="Registrar"
           onStep={step}
-          onSubmit={submit}
-          disabled={disabled}
+          onSubmit={
+            (e) => {
+              // If button is disabled then show confirmation message before submitting
+              if (disabled) {
+                console.log('disabled')
+              } else {
+                submit(e)
+              }
+            }
+          }
         />
       </div>
     </Fragment>
