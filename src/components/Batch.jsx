@@ -43,7 +43,6 @@ const comboProps1 = (titleText) => ({
   direction: "bottom",
 });
 
-
 const comboProps2 = (titleText) => ({
   id: titleText,
   placeholder: "Elegir una opción...",
@@ -70,34 +69,30 @@ const Batch = ({
   supervisor,
 }) => {
   const { step: screen, payload } = data;
-  const section = [
-    <Batch1
-      step={step}
-      data={data}
-      onComboChange={onComboChange}
-      disabled={validateStep1(payload)}
-      supervisor={supervisor}
-    />,
-    <Batch2
-      step={step}
-      submit={submit}
-      data={data}
-      onComboChange={onComboChange}
-      onInputChange={onInputChange}
-      onCheckChange={onCheckChange}
-      disabled={validateStep2(payload)}
-    />,
-  ];
+ 
+  // const section = [
+  //   <Batch1
+  //     step={step}
+  //     data={data}
+  //     onComboChange={onComboChange}
+  //     disabled={validateStep1(payload)}
+  //     supervisor={supervisor}
+  //   />,
+  //   <Batch2
+  //     step={step}
+  //     submit={submit}
+  //     data={data}
+  //     onComboChange={onComboChange}
+  //     onInputChange={onInputChange}
+  //     onCheckChange={onCheckChange}
+  //     disabled={validateStep2(payload)}
+  //   />,
+  // ];
 
-  console.log("rendering Batch1...");
-  console.log(data);
   if (!data) return "Cargando...";
+  console.log("batch data: ", data);
   const { clients, parcels, oliveTypes, batches } = data.init;
-  console.log({ batches });
-  console.log(data.payload)
 
-  console.log("rendering Batch2...");
-  if (!data) return "Cargando...";
   let items = [];
   const { supervisorData } = data;
   const {
@@ -113,6 +108,7 @@ const Batch = ({
   } = data.payload;
 
   const preset = ["rolar", "acequion"].includes(client);
+
   if (preset) {
     // para el caso de rolar o acequión, presento valores de tara predefinidas
     const filter = clients.filter((c) => (c.value === client ? c.chutes : ""));
@@ -192,7 +188,7 @@ const Batch = ({
                 <ComboBox
                   items={items}
                   itemToString={(item) => (item ? item.text : "")}
-                  onChange={(event) => onComboChange(event, screen, "chuteName")}
+                  onChange={(event) => onComboChange(event, "batch", "chuteName")}
                   {...comboProps2("Nro. Tolva")}
                   selectedItem={
                     items[items.findIndex((i) => i.text === chuteName)]
@@ -200,7 +196,7 @@ const Batch = ({
                 />
               ) : (
                 <TextInput
-                  onChange={(event) => onInputChange(event, screen, "chuteName")}
+                  onChange={(event) => onInputChange(event, "batch", "chuteName")}
                   {...inputProps("Nro. Tolva")}
                   value={chuteName}
                 />
@@ -209,7 +205,7 @@ const Batch = ({
             <div className="bx--col">
               <TextInput
                 disabled={preset}
-                onChange={(event) => onInputChange(event, screen, "chuteWeight")}
+                onChange={(event) => onInputChange(event, "batch", "chuteWeight")}
                 {...inputProps("Tara")}
                 value={chuteWeight}
               />
@@ -218,7 +214,7 @@ const Batch = ({
           <div className="bx--row custom__row">
             <div className="bx--col">
               <TextInput
-                onChange={(event) => onInputChange(event, screen, "grossWeight")}
+                onChange={(event) => onInputChange(event, "batch", "grossWeight")}
                 {...inputProps("KG Bruto")}
                 value={ grossWeight ? grossWeight : chuteWeight }
                 min={ chuteWeight ? chuteWeight : 0 }
@@ -236,7 +232,7 @@ const Batch = ({
            <div className="bx--col">
              <TextInput
                onChange={(event) =>
-                 onInputChange(event, screen, "deliveryNumber")
+                 onInputChange(event, "batch", "deliveryNumber")
                }
                {...inputProps("Nro. Remito")}
                value={deliveryNumber}
@@ -245,7 +241,7 @@ const Batch = ({
            <div className="bx--col">
              <TextInput
                onChange={(event) =>
-                 onInputChange(event, screen, "receiptNumber")
+                 onInputChange(event, "batch", "receiptNumber")
                }
                {...inputProps("Nro. Recibo")}
                value={receiptNumber}
@@ -260,7 +256,8 @@ const Batch = ({
         screen="batch"
         left="Cancelar"
         right={supervisor ? "Validar":"Ingresar"}
-        onStep={step}
+        onSubmit={submit}
+        onStep={2}
         disabled={validateStep2(payload)}
       />
     </section>

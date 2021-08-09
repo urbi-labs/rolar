@@ -391,6 +391,7 @@ class Home extends Component {
   };
 
   handleComboChange = async (event, screen, field) => {
+    console.log("handleComboChange params: ",event,screen,field);
     const newState = { ...this.state };
     const { supervisor } = this.state;
     const { selectedItem } = event;
@@ -405,8 +406,6 @@ class Home extends Component {
         ? parseInt(selectedItem.value)
         : 0;
     }
-
-    console.log(supervisor, data.step, screen);
 
     // lógica para recuperar datos en vista de supervisor
     // solo para el step1 de sample/mill/cent/storage ["samples","mill","cent","storage"]
