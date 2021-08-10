@@ -391,7 +391,6 @@ class Home extends Component {
   };
 
   handleComboChange = async (event, screen, field) => {
-    console.log("handleComboChange params: ",event,screen,field);
     const newState = { ...this.state };
     const { supervisor } = this.state;
     const { selectedItem } = event;

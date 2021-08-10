@@ -1,6 +1,4 @@
 import React from "react";
-import Batch1 from "./batch/Batch1";
-import Batch2 from "./batch/Batch2";
 import Buttons from "./common/Buttons.jsx";
 import StepTitles from "./common/StepTitles.jsx";
 import { ComboBox, TextInput } from "carbon-components-react";
@@ -68,26 +66,7 @@ const Batch = ({
   onCheckChange,
   supervisor,
 }) => {
-  const { step: screen, payload } = data;
- 
-  // const section = [
-  //   <Batch1
-  //     step={step}
-  //     data={data}
-  //     onComboChange={onComboChange}
-  //     disabled={validateStep1(payload)}
-  //     supervisor={supervisor}
-  //   />,
-  //   <Batch2
-  //     step={step}
-  //     submit={submit}
-  //     data={data}
-  //     onComboChange={onComboChange}
-  //     onInputChange={onInputChange}
-  //     onCheckChange={onCheckChange}
-  //     disabled={validateStep2(payload)}
-  //   />,
-  // ];
+  const { payload } = data;
 
   if (!data) return "Cargando...";
   console.log("batch data: ", data);
