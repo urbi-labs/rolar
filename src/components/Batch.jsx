@@ -230,13 +230,18 @@ const Batch = ({
         </>
         }
       </div>
-
+      <Validated
+        mode={supervisor}
+        screen={"batch"}
+        onCheckChange={onCheckChange}
+        validated={validated}
+      />
       <Buttons
         screen="batch"
         left="Cancelar"
         right={supervisor ? "Validar":"Ingresar"}
         onSubmit={submit}
-        onStep={2}
+        onStep={step}
         disabled={validateStep2(payload)}
       />
     </section>
