@@ -209,6 +209,7 @@ class Home extends Component {
           onComboChange={this.handleComboChange}
           onCheckChange={this.handleCheckChange}
           handleMillSlider={this.handleMillSlider}
+          supervisor={supervisor}
         />
       ),
       cent: (
