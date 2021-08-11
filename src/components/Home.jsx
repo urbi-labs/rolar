@@ -393,10 +393,11 @@ class Home extends Component {
 
   handleComboChange = async (event, screen, field) => {
     const newState = { ...this.state };
+    console.log("newState: ",newState);
     const { supervisor } = this.state;
     const { selectedItem } = event;
     const data = newState[screen];
-
+    console.log("data:", data);
     data.payload[field] = selectedItem ? selectedItem.value : "";
     if (supervisor) data.supervisor = true;
 

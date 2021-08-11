@@ -60,7 +60,7 @@ const Mill = ({
   supervisor
 }) => {
   if (!data) return "Cargando...";
-  const { step: screen, payload } = data;
+  const { payload } = data;
   const { batches, prodLine } = data.init;
   const { productionLine, sieve, microtalcum, enzymes, validated } = payload;
 
