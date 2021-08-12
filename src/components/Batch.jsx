@@ -73,7 +73,6 @@ const Batch = ({
   const { clients, parcels, oliveTypes, batches } = data.init;
 
   let items = [];
-  const { supervisorData } = data;
   const {
     oliveType,
     client,
