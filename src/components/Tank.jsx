@@ -51,7 +51,8 @@ const Tank = ({
   onInputChange,
   onCheckChange,
 }) => {
-  const { step: screen, payload } = data;
+
+  const { payload } = data;
   const { init: tanks } = data;
   const { _tank, validated } = data.payload;
   const { supervisor } = data;
@@ -62,10 +63,11 @@ const Tank = ({
     async function initBatches(_tank) {
       const { data } = await getStoragesByTank(_tank);
       setBatches(data);
-      console.log(data);
     }
-    initBatches(_tank);
-  }, []);
+    if (_tank) {
+      initBatches(_tank);
+    }
+  }, [_tank]);
 
   return (<>
     <div className="bx--grid bx--grid--full-width">
@@ -127,6 +129,7 @@ const Tank = ({
       left="Anterior"
       right="Siguiente"
       onStep={step}
+      onSubmit={submit}
       disabled={validateStep1(payload)}
     />
   </>);

@@ -270,8 +270,7 @@ class Home extends Component {
     // lógica de inicio para sección desde Home
     newState[screen].init = await initSection[screen]();
     newState.screen = screen;
-
-    this.setState(newState, () => console.log(this.state));
+    this.setState(newState);
   };
 
   initializeBatch = async () => {
