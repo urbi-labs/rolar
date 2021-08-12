@@ -77,11 +77,13 @@ const Storage = async ({
     async function initBatch(id) {
       const batch_obj = await getBatchById(id);
       console.log("batch_obj  ",batch_obj);
-      // const { data } = batch_obj;
-      // setBatch(data);
+      const { data } = batch_obj;
+      setBatch(data);
     }
-    // initBatch(_batch);
-  }, []);
+    if (_batch){
+      initBatch(_batch);
+    }
+  }, [_batch]);
 
   const { tot_cm, tot_lt, oilWeight, perf } = calcs(
     initialMeasure,
@@ -191,8 +193,8 @@ const Storage = async ({
     </div>
     <Buttons
       screen={screen}
-      left="Anterior"
-      right="Siguiente"
+      left="Cancelar"
+      right={supervisor ? "Validar":"Registrar"}
       onStep={step}
       disabled={validateStep2(payload)}
     />
