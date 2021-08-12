@@ -80,6 +80,8 @@ const Cent = ({
   const { tanks } = init;
   const tankIndex = _tank ? tanks.findIndex((i) => i.value === _tank) : 0;
 
+  console.log("payload: ",payload);
+
   return (<>
     <div className="bx--grid bx--grid--full-width">
       <StepTitles
@@ -182,14 +184,6 @@ const Cent = ({
         disabled={validateStep2(payload)}
         onSubmit={submit}
       />
-        {/* <Buttons
-          screen={screen}
-          left="Anterior"
-          right="Registrar"
-          onStep={step}
-          disabled={disabled}
-          onSubmit={submit}
-        /> */}
     </div>
   </>);
 };

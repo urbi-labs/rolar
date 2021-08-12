@@ -165,9 +165,7 @@ class Home extends Component {
       feedback: { label: "", number: "" },
       screen: "",
     };
-    this.setState(newState, () => {
-      console.log("handleRestart", this.state);
-    });
+    this.setState(newState);
   };
 
   renderScreen = (screen) => {
@@ -393,11 +391,9 @@ class Home extends Component {
 
   handleComboChange = async (event, screen, field) => {
     const newState = { ...this.state };
-    console.log("newState: ",newState);
     const { supervisor } = this.state;
     const { selectedItem } = event;
     const data = newState[screen];
-    console.log("data:", data);
     data.payload[field] = selectedItem ? selectedItem.value : "";
     if (supervisor) data.supervisor = true;
 
