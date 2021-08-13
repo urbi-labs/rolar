@@ -231,6 +231,7 @@ class Home extends Component {
           onCheckChange={this.handleCheckChange}
           handleToggle={this.handleToggle}
         />
+      // <pre>{JSON.stringify(storage)}</pre>
       ),
       tank: (
         <Tank

@@ -18,8 +18,6 @@ function validateStep2(payload) {
   return !(_tank && initialMeasure && finalMeasure);
 }
 
-const screen = "storage";
-
 const comboProps1 = (titleText) => ({
   id: titleText,
   placeholder: "Elegir una opción...",
@@ -104,7 +102,7 @@ const Storage = async ({
           <ComboBox
             items={batches}
             itemToString={(item) => (item ? item.text : "")}
-            onChange={(event) => onComboChange(event, screen, "_batch")}
+            onChange={(event) => onComboChange(event, "storage", "_batch")}
             {...comboProps1("Lote")}
           />
         </div>
@@ -117,7 +115,7 @@ const Storage = async ({
               <ComboBox
                 items={tanks}
                 itemToString={(item) => (item ? item.text : "")}
-                onChange={(event) => onComboChange(event, screen, "_tank")}
+                onChange={(event) => onComboChange(event, "storage", "_tank")}
                 {...comboProps2("Tanque")}
                 selectedItem={tanks[tankIndex]}
               />
@@ -130,7 +128,7 @@ const Storage = async ({
                 labelText="¿Cono lleno?"
                 labelA={"No"}
                 labelB={"Sí"}
-                onToggle={(event) => handleToggle(event, screen, "cone")}
+                onToggle={(event) => handleToggle(event, "storage", "cone")}
               />
             </div>
           </div>
@@ -139,7 +137,7 @@ const Storage = async ({
               <TextInput
                 value={initialMeasure}
                 onChange={(event) =>
-                  onInputChange(event, screen, "initialMeasure")
+                  onInputChange(event, "storage", "initialMeasure")
                 }
                 {...inputProps2("Inicio regla nivel (en cm)")}
               />
@@ -147,7 +145,7 @@ const Storage = async ({
             <div className="bx--col">
               <TextInput
                 value={finalMeasure}
-                onChange={(event) => onInputChange(event, screen, "finalMeasure")}
+                onChange={(event) => onInputChange(event, "storage", "finalMeasure")}
                 {...inputProps2("Fin regla nivel (en cm)")}
               />
             </div>
@@ -182,7 +180,7 @@ const Storage = async ({
           </div>
           <Validated
             mode={supervisor}
-            screen={screen}
+            screen={"storage"}
             onCheckChange={onCheckChange}
             validated={validated}
           />
@@ -192,12 +190,13 @@ const Storage = async ({
 
     </div>
     <Buttons
-      screen={screen}
+      screen={"storage"}
       left="Cancelar"
       right={supervisor ? "Validar":"Registrar"}
       onStep={step}
       disabled={validateStep2(payload)}
     />
+    <span>holi ando</span>
   </>);
 };
 
