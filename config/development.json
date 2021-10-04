@@ -1,3 +1,8 @@
 {
-  "dbHost": ""
+  "dbHost": "127.0.0.1",
+  "DB_PROD": "rolar",
+  "DB_DEV": "rolar",
+  "DB_CERT": "",
+  "IAM_APIKEY": "",
+  "requiresAuth": false
 }
