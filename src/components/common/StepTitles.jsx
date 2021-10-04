@@ -4,17 +4,20 @@ import React, { Fragment } from "react";
 import paso1 from "../../images/paso1.png";
 import paso2 from "../../images/paso2.png";
 
-const StepTitles = ({ title, helper, step }) => {
+const StepTitles = ({ title, helper, step, showSteps }) => {
   return (
     <Fragment>
       <div className="bx--row custom__row">
         <div className="bx--col subtitle">{title}</div>
       </div>
+      {showSteps != false ? 
       <div className="bx--row custom__row">
         <div className="bx--col subtitle">
           <img src={!step ? paso1 : paso2} alt="step" />
         </div>
       </div>
+      : 
+      "" }
       {/* {step && (
         <div className="bx--row custom__row">
           <div className="bx--col">

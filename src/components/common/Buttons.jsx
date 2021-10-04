@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "carbon-components-react";
+import ReactTooltip from "react-tooltip";
 
 const Buttons = ({ left, right, onStep, onSubmit, screen, disabled }) => {
   return (
@@ -19,10 +20,17 @@ const Buttons = ({ left, right, onStep, onSubmit, screen, disabled }) => {
             disabled={disabled}
             kind="tertiary"
             size="small"
+            data-tip="Revisar los valores seleccionados"
             onClick={() => (onSubmit ? onSubmit(screen) : onStep(screen))}
           >
             {right}
           </Button>
+          <ReactTooltip
+            effect="solid"
+            place="top"
+            html={true}
+            clickable={true}
+          />
         </div>
       </div>
     </div>

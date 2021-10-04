@@ -16,12 +16,12 @@ module.exports = async (env) => {
     keepAlive: 1,
     connectTimeoutMS: 30000,
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology: true
   };
 
   // Detecting if should conect to local mongo server
   // force connection to prod
-  const local = false; // env === "test";
+  const local = env === "development";
   log(`connecting to remote server ... `);
 
   const dbName = config.get(`DB_PROD`);

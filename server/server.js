@@ -35,7 +35,7 @@ if (env !== "PROD") {
   require("./startup/prod")(app);
 }
 
-log(`environment: ${env}`);
+log(`**** environment: ${env} ****`);
 
 const server = app.listen(port, () => {
   winston.info(

@@ -165,9 +165,7 @@ class Home extends Component {
       feedback: { label: "", number: "" },
       screen: "",
     };
-    this.setState(newState, () => {
-      console.log("handleRestart", this.state);
-    });
+    this.setState(newState);
   };
 
   renderScreen = (screen) => {
@@ -209,6 +207,7 @@ class Home extends Component {
           onComboChange={this.handleComboChange}
           onCheckChange={this.handleCheckChange}
           handleMillSlider={this.handleMillSlider}
+          supervisor={supervisor}
         />
       ),
       cent: (
@@ -232,6 +231,7 @@ class Home extends Component {
           onCheckChange={this.handleCheckChange}
           handleToggle={this.handleToggle}
         />
+      // <pre>{JSON.stringify(storage)}</pre>
       ),
       tank: (
         <Tank
@@ -271,8 +271,8 @@ class Home extends Component {
     // lógica de inicio para sección desde Home
     newState[screen].init = await initSection[screen]();
     newState.screen = screen;
-
-    this.setState(newState, () => console.log(this.state));
+    console.log("newState in init: ", screen, newState);
+    this.setState(newState);
   };
 
   initializeBatch = async () => {
@@ -395,7 +395,6 @@ class Home extends Component {
     const { supervisor } = this.state;
     const { selectedItem } = event;
     const data = newState[screen];
-
     data.payload[field] = selectedItem ? selectedItem.value : "";
     if (supervisor) data.supervisor = true;
 
@@ -405,8 +404,6 @@ class Home extends Component {
         ? parseInt(selectedItem.value)
         : 0;
     }
-
-    console.log(supervisor, data.step, screen);
 
     // lógica para recuperar datos en vista de supervisor
     // solo para el step1 de sample/mill/cent/storage ["samples","mill","cent","storage"]
