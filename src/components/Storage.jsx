@@ -44,7 +44,7 @@ const inputProps2 = (labelText) => ({
   type: "number",
 });
 
-const Storage = async ({
+const Storage = ({
   data,
   step,
   submit,
@@ -196,7 +196,6 @@ const Storage = async ({
       onStep={step}
       disabled={validateStep2(payload)}
     />
-    <span>holi ando</span>
   </>);
 };
 

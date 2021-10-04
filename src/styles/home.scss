@@ -9,7 +9,6 @@
   display: flex;
   flex-direction: column;
   // width: 100%;
-  height: 100%;
   // border: 1px dashed green;6px
   justify-content: space-evenly;
   padding-top: 20px;
@@ -23,7 +22,6 @@
     justify-content: space-evenly;
     padding: 0 auto;
     // border: 1px pink solid;
-    height: 100%;
 
     .home__tile {
       // border: 1px cyan border;
@@ -58,7 +56,6 @@
 @media screen and (min-width: 600px) {
   .home__container {
     display: flex;
-    height: 100%;
     // border: 1px dashed blue;
     padding-top: 20px;
     // display: grid;

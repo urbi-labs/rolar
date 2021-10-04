@@ -150,7 +150,7 @@ const Cent = ({
                 itemToString={(item) => (item ? item.text : "")}
                 onChange={(event) => onComboChange(event, screen, "_tank")}
                 {...comboProps2("Tanque destino")}
-                selectedItem={tanks[tankIndex]}
+                // selectedItem={tanks[tankIndex]}
               />
             </div>
           </div>
