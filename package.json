@@ -39,7 +39,7 @@
     "xml2js": "^0.4.23"
   },
   "scripts": {
-    "dev": "concurrently --kill-others \"npm run server\" \"npm run start-react\"",
+    "dev": "concurrently --kill-others \"npm run server\" \"npm run start-react\" \"--max_old_space_size=8128\"",
     "server": "nodemon server/server.js",
     "start": "node server/server.js",
     "start-react": "react-scripts start",

@@ -13,7 +13,7 @@ function validateStep1(payload) {
 }
 
 function validateStep2(payload) {
-  const { _tank, initialTemp, finalTemp, kneadingTime, pumpSpeed } = payload;
+  const { _tank, initialTemp, finalTemp, kneadingTime, pumpSpeed } = payload; console.log('TANK SELECTED =?',_tank);
   return !(_tank && initialTemp && finalTemp && kneadingTime && pumpSpeed);
 }
 

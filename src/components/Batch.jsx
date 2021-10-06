@@ -96,7 +96,7 @@ const Batch = ({
   return (
     <section>
 
-       <div className="bx--grid bx--grid--full-width">
+      <div className="bx--grid bx--grid--full-width">
         <StepTitles
           title={
             supervisor ? "Seleccione un lote a validar" : "Ingresar nuevo lote"
@@ -156,89 +156,91 @@ const Batch = ({
             />
           </div>
         </div>
-      
+
         {/* ex step 2, show only if step 1 is completed */}
-        { !validateStep1(payload) &&
-        <>
-          <div className="bx--row custom__row">
-            <div className="bx--col">
-              {preset ? (
-                <ComboBox
-                  items={items}
-                  itemToString={(item) => (item ? item.text : "")}
-                  onChange={(event) => onComboChange(event, "batch", "chuteName")}
-                  {...comboProps2("Nro. Tolva")}
-                  selectedItem={
-                    items[items.findIndex((i) => i.text === chuteName)]
-                  }
-                />
-              ) : (
+        {!validateStep1(payload) &&
+          <>
+            <div className="bx--row custom__row">
+              <div className="bx--col">
+                {preset ? (
+                  <ComboBox
+                    items={items}
+                    itemToString={(item) => (item ? item.text : "")}
+                    onChange={(event) => onComboChange(event, "batch", "chuteName")}
+                    {...comboProps2("Nro. Tolva")}
+                    selectedItem={
+                      items[items.findIndex((i) => i.text === chuteName)]
+                    }
+                  />
+                ) : (
+                    <TextInput
+                      onChange={(event) => onInputChange(event, "batch", "chuteName")}
+                      {...inputProps("Nro. Tolva")}
+                      value={chuteName}
+                    />
+                  )}
+              </div>
+              <div className="bx--col">
                 <TextInput
-                  onChange={(event) => onInputChange(event, "batch", "chuteName")}
-                  {...inputProps("Nro. Tolva")}
-                  value={chuteName}
+                  disabled={preset}
+                  onChange={(event) => onInputChange(event, "batch", "chuteWeight")}
+                  {...inputProps("Tara")}
+                  value={chuteWeight}
                 />
-              )}
+              </div>
             </div>
-            <div className="bx--col">
-              <TextInput
-                disabled={preset}
-                onChange={(event) => onInputChange(event, "batch", "chuteWeight")}
-                {...inputProps("Tara")}
-                value={chuteWeight}
-              />
+            <div className="bx--row custom__row">
+              <div className="bx--col">
+                <TextInput
+                  onChange={(event) => onInputChange(event, "batch", "grossWeight")}
+                  {...inputProps("KG Bruto")}
+                  value={grossWeight ? grossWeight : chuteWeight}
+                  min={chuteWeight ? chuteWeight : 0}
+                />
+              </div>
+              <div className="bx--col">
+                <TextInput
+                  disabled={true}
+                  value={grossWeight - chuteWeight > 0 ? grossWeight - chuteWeight : 0}
+                  {...inputProps("KG Neto")}
+                />
+              </div>
             </div>
-          </div>
-          <div className="bx--row custom__row">
-            <div className="bx--col">
-              <TextInput
-                onChange={(event) => onInputChange(event, "batch", "grossWeight")}
-                {...inputProps("KG Bruto")}
-                value={ grossWeight ? grossWeight : chuteWeight }
-                min={ chuteWeight ? chuteWeight : 0 }
-              />
+            <div className="bx--row custom__row">
+              <div className="bx--col">
+                <TextInput
+                  onChange={(event) =>
+                    onInputChange(event, "batch", "deliveryNumber")
+                  }
+                  {...inputProps("Nro. Remito")}
+                  value={deliveryNumber}
+                />
+              </div>
+              <div className="bx--col">
+                <TextInput
+                  onChange={(event) =>
+                    onInputChange(event, "batch", "receiptNumber")
+                  }
+                  {...inputProps("Nro. Recibo")}
+                  value={receiptNumber}
+                />
+              </div>
             </div>
-            <div className="bx--col">
-              <TextInput
-                disabled={true}
-                value={ grossWeight - chuteWeight > 0 ? grossWeight - chuteWeight : 0 }
-                {...inputProps("KG Neto")}
-              />
-            </div>
-          </div>
-          <div className="bx--row custom__row">
-           <div className="bx--col">
-             <TextInput
-               onChange={(event) =>
-                 onInputChange(event, "batch", "deliveryNumber")
-               }
-               {...inputProps("Nro. Remito")}
-               value={deliveryNumber}
-             />
-           </div>
-           <div className="bx--col">
-             <TextInput
-               onChange={(event) =>
-                 onInputChange(event, "batch", "receiptNumber")
-               }
-               {...inputProps("Nro. Recibo")}
-               value={receiptNumber}
-             />
-           </div>
-         </div>
-        </>
+          </>
         }
       </div>
+      
       <Validated
         mode={supervisor}
         screen={"batch"}
         onCheckChange={onCheckChange}
         validated={validated}
       />
+
       <Buttons
         screen="batch"
         left="Cancelar"
-        right={supervisor ? "Validar":"Ingresar"}
+        right={supervisor ? "Validar" : "Ingresar"}
         onSubmit={submit}
         onStep={step}
         disabled={validateStep2(payload)}

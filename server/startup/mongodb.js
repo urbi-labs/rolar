@@ -32,7 +32,7 @@ module.exports = async (env) => {
 
   const uri = !local
     ? `mongodb://${dbUser}:${dbPass}@${dbHost}/${dbName}?authSource=admin&replicaSet=replset`
-    : `mongodb://${dbHost}/${local}`;
+    : `mongodb://${dbHost}/${local}`; 
 
   if (!local) {
     options.ssl = true;
@@ -40,7 +40,7 @@ module.exports = async (env) => {
   }
 
   try {
-    await mongoose.connect(uri, options);
+    await mongoose.connect(uri, options); 
     log(
       `connected to ${dbName} on ${env} env at ${local ? "local" : "remote"}...`
     );

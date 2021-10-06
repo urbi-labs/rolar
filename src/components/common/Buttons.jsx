@@ -6,7 +6,7 @@ const Buttons = ({ left, right, onStep, onSubmit, screen, disabled }) => {
   return (
     <div className="bx--grid bx--grid--full-width buttons">
       <div className="bx--row">
-        <div className="center-btn bx--col bx--no-gutter">
+        <div className="center-btn bx--col bx--no-gutter padding_top">
           <Button
             kind="tertiary"
             size="small"
@@ -15,7 +15,7 @@ const Buttons = ({ left, right, onStep, onSubmit, screen, disabled }) => {
             {left}
           </Button>
         </div>
-        <div className="center-btn bx--col bx--no-gutter">
+        <div className="center-btn bx--col bx--no-gutter padding_top">
           <Button
             disabled={disabled}
             kind="tertiary"

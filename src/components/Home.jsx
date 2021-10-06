@@ -323,7 +323,8 @@ class Home extends Component {
       ? await this.getBatchesArray(["cent", "storage"])
       : await this.getBatchesArray("mill");
 
-    const tanks = await this.getTanks();
+    const tanks = await this.getTanks(); 
+    console.log('TANKS',tanks);
 
     return { batches, prodLine, tanks };
   };
@@ -345,9 +346,10 @@ class Home extends Component {
 
   getTanks = async () => {
     const { data: tanksDB } = await getTanks();
+    console.log('DOC TANKSss',tanksDB)
 
     const tanks = [];
-    tanksDB.forEach((doc, ind) => {
+    tanksDB.forEach((doc, ind) => { 
       const { _id, name } = doc;
       tanks.push({
         id: ind + "",

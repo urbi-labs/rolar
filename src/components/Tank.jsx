@@ -89,40 +89,40 @@ const Tank = ({
         </div>
       </div>
 
-      { !validateStep1(payload) &&
-        <>
-          <div className="bx--row custom__row">
-            <div className="bx--col">Lote</div>
-            <div className="bx--col">Fecha</div>
-            <div className="bx--col">Hora</div>
-          </div>
-          {batchArray.map((batch, ind) => {
-            const { _batch, timestamp } = batch;
-            return (
-              <div className="bx--row custom__row" key={ind}>
-                <div className="bx--col time">{_batch.slice(-5)}</div>
-                <div className="bx--col time">{fecha(timestamp)}</div>
-                <div className="bx--col time">{hora(timestamp)}</div>
-              </div>
-            );
-          })}
-          <div className="bx--row custom__row">
-            <div className="bx--col">
-              <TextInput
-                disabled={true}
-                value={calcTotalLitres(batchArray)}
-                {...inputProps2("Litros totales")}
-              />
+        {!validateStep1(payload) &&
+          <>
+            <div className="bx--row custom__row">
+              <div className="bx--col">Lote</div>
+              <div className="bx--col">Fecha</div>
+              <div className="bx--col">Hora</div>
             </div>
-          </div>
-          <Validated
-            mode={supervisor}
-            screen={screen}
-            onCheckChange={onCheckChange}
-            validated={validated}
-          />
-        </>
-      }
+            {batchArray.map((batch, ind) => {
+              const { _batch, timestamp } = batch;
+              return (
+                <div className="bx--row custom__row" key={ind}>
+                  <div className="bx--col time">{_batch.slice(-5)}</div>
+                  <div className="bx--col time">{fecha(timestamp)}</div>
+                  <div className="bx--col time">{hora(timestamp)}</div>
+                </div>
+              );
+            })}
+            <div className="bx--row custom__row">
+              <div className="bx--col">
+                <TextInput
+                  disabled={true}
+                  value={calcTotalLitres(batchArray)}
+                  {...inputProps2("Litros totales")}
+                />
+              </div>
+            </div>
+            <Validated
+              mode={supervisor}
+              screen={screen}
+              onCheckChange={onCheckChange}
+              validated={validated}
+            />
+          </>
+        }
     </div>
     <Buttons
       screen={screen}
