@@ -56,7 +56,7 @@ export function getMills(data) {
 
 // centrifuge calls
 
-export function submitCent(data) {
+export function submitCent(data) { console.log(' SUBMIT CENT',data);
   return http.post(`/api/cent`, data);
 }
 

@@ -324,7 +324,6 @@ class Home extends Component {
       : await this.getBatchesArray("mill");
 
     const tanks = await this.getTanks(); 
-    console.log('TANKS',tanks);
 
     return { batches, prodLine, tanks };
   };
@@ -346,7 +345,6 @@ class Home extends Component {
 
   getTanks = async () => {
     const { data: tanksDB } = await getTanks();
-    console.log('DOC TANKSss',tanksDB)
 
     const tanks = [];
     tanksDB.forEach((doc, ind) => { 
@@ -514,6 +512,10 @@ class Home extends Component {
 
     const { payload } = newState[screen];
     payload._user = currentUser._id;
+
+    const { finalTemp, initialTemp } = payload;
+    payload.initialTemp = (initialTemp == '') ? 20 : initialTemp;
+    payload.finalTemp = (finalTemp == '') ? 40 : finalTemp;
 
     const { submit: labels } = feedbackLabels;
 
