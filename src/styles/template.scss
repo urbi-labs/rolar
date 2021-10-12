@@ -26,8 +26,24 @@
   }
 }
 
-.padding_top{
+.padding-top{
   padding-top: 25px;
+  //margin-left: 80px;
+  
+}
+
+.inline-buttons{
+  padding-top: 30px;
+  display: grid;
+  grid-template-columns: 20% 20%;
+  justify-content: center;
+  
+}
+
+.space{
+  div:nth-child(2) { 
+    margin-right: 70px; 
+  }
 }
 
 @media screen and (min-width: 600px) {

@@ -52,6 +52,7 @@ const Storage = ({
   onInputChange,
   handleToggle,
   onCheckChange,
+  globalSupervisor
 }) => {
   const { payload, supervisor } = data;
 
@@ -69,19 +70,36 @@ const Storage = ({
   } = data.payload;
 
   const tankIndex = _tank ? tanks.findIndex((i) => i.value === _tank) : 0;
-
+  const [enabledInputs, setEnabledInputs] = useState(false);
+  const [textEdit, setTextEdit] = useState('Editar');
   const [batch, setBatch] = useState({});
+
   useEffect(() => {
+
+    const enabled = globalSupervisor ? true : false;
+    setEnabledInputs(enabled);
+
     async function initBatch(id) {
       const batch_obj = await getBatchById(id);
-      console.log("batch_obj  ",batch_obj);
+      console.log("batch_obj  ", batch_obj);
       const { data } = batch_obj;
       setBatch(data);
     }
-    if (_batch){
+    if (_batch) {
       initBatch(_batch);
     }
   }, [_batch]);
+
+  const onEdit = (boolean) => {
+    setEnabledInputs(boolean);
+    setTextEdit('Guardar');
+  }
+
+  const onSubmit = (screen, feedback) => {
+    setEnabledInputs(true);
+    setTextEdit('Editar');
+    submit(screen, feedback);
+  }
 
   const { tot_cm, tot_lt, oilWeight, perf } = calcs(
     initialMeasure,
@@ -108,7 +126,7 @@ const Storage = ({
         </div>
       </div>
 
-      { !validateStep1(payload) &&
+      {!validateStep1(payload) &&
         <>
           <div className="bx--row custom__row">
             <div className="bx--col-sm-3">
@@ -192,9 +210,13 @@ const Storage = ({
     <Buttons
       screen={"storage"}
       left="Cancelar"
-      right={supervisor ? "Validar":"Registrar"}
+      right={supervisor ? "Validar" : "Registrar"}
       onStep={step}
       disabled={validateStep2(payload)}
+      rightEdit={textEdit}
+      onEdit={onEdit}
+      enabledInputs={enabledInputs}
+      supervisor={globalSupervisor}
     />
   </>);
 };

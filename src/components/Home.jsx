@@ -164,6 +164,7 @@ class Home extends Component {
       },
       feedback: { label: "", number: "" },
       screen: "",
+      renderScreen: true
     };
     this.setState(newState);
   };
@@ -196,6 +197,7 @@ class Home extends Component {
           onComboChange={this.handleComboChange}
           onCheckChange={this.handleCheckChange}
           handleToggle={this.handleToggle}
+          globalSupervisor={supervisor}
         />
       ),
       mill: (
@@ -219,6 +221,7 @@ class Home extends Component {
           onComboChange={this.handleComboChange}
           onCheckChange={this.handleCheckChange}
           handleCentSlider={this.handleCentSlider}
+          globalSupervisor={supervisor}
         />
       ),
       storage: (
@@ -230,6 +233,7 @@ class Home extends Component {
           onComboChange={this.handleComboChange}
           onCheckChange={this.handleCheckChange}
           handleToggle={this.handleToggle}
+          globalSupervisor={supervisor}
         />
       // <pre>{JSON.stringify(storage)}</pre>
       ),
@@ -323,6 +327,7 @@ class Home extends Component {
       ? await this.getBatchesArray(["cent", "storage"])
       : await this.getBatchesArray("mill");
 
+    console.log('BATCHES =? ',batches);
     const tanks = await this.getTanks(); 
 
     return { batches, prodLine, tanks };
@@ -373,6 +378,8 @@ class Home extends Component {
         value: _id,
       });
     });
+
+    console.log('ITEMS -> ',items)
     return items;
   };
 
@@ -395,7 +402,7 @@ class Home extends Component {
     const { supervisor } = this.state;
     const { selectedItem } = event;
     const data = newState[screen];
-    data.payload[field] = selectedItem ? selectedItem.value : "";
+    data.payload[field] = selectedItem ? selectedItem.value : ""; 
     if (supervisor) data.supervisor = true;
 
     if (field === "chuteName") {
@@ -440,7 +447,7 @@ class Home extends Component {
 
   handleInputChange = (event, screen, field, max) => {
     const newState = { ...this.state };
-    const value = event.target.value || "";
+    const value = event.target.value || ""; 
     newState[screen].payload[field] = max
       ? value > max
         ? newState[screen].payload[field]
@@ -505,7 +512,7 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-  handleSubmit = async (screen) => {
+  handleSubmit = async (screen, feedback = true) => {
     console.log("handleSubmit triggered... ", screen);
     const { currentUser } = this.state;
     const newState = { ...this.state };
@@ -543,14 +550,13 @@ class Home extends Component {
     }
   };
 
-  handleUpdate = async (screen) => {
+  handleUpdate = async (screen, feedback = true) => { 
     console.log("handleUpdate triggered... ", screen);
     const { currentUser } = this.state;
     const newState = { ...this.state };
 
     const { payload } = newState[screen];
     payload._supervisor = currentUser._id;
-
     const { update: labels } = feedbackLabels;
 
     const updateDB = {
@@ -567,7 +573,10 @@ class Home extends Component {
       const { data } = response;
       newState[screen].payload = data;
       newState.feedback = { label: labels[screen], number: formatID(data) };
-      newState.screen = "feedback";
+      const screenToRender = (!feedback) ? screen : "feedback";
+      newState.screen = screenToRender; 
+      
+      console.log('new state => ',feedback, newState, currentUser)
       this.setState(newState, () => console.log(this.state));
     } catch (error) {
       const { general } = errorMessages;
@@ -578,7 +587,7 @@ class Home extends Component {
 
   render() {
     const { screen, supervisor } = this.state;
-    if (screen) return this.renderScreen(screen);
+    if (screen) return this.renderScreen(screen); 
 
     return (
       <div className="home__container">

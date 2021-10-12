@@ -5,8 +5,8 @@ const Validated = ({ mode, screen, validated, onCheckChange }) => {
   if (!mode) return "";
   console.log({ screen });
   return (
-    <div className="bx--row custom__row">
-      <div className="bx--col">
+    <div className="bx--row custom__row ">
+      <div className="bx--col validated">
         <Checkbox
           id="validated"
           checked={validated}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Buttons from "./common/Buttons.jsx";
 import StepTitles from "./common/StepTitles.jsx";
 import { ComboBox, TextInput } from "carbon-components-react";
@@ -66,7 +66,26 @@ const Batch = ({
   onCheckChange,
   supervisor,
 }) => {
+
   const { payload } = data;
+  const [enabledInputs, setEnabledInputs] = useState(false);
+  const [textEdit, setTextEdit] = useState('Editar');
+
+  useEffect(() => { 
+    const enabled = supervisor ? true : false;
+    setEnabledInputs(enabled);
+  }, []);
+  
+  const onEdit = (boolean) => { 
+    setEnabledInputs(boolean);
+    setTextEdit('Guardar');
+  }
+
+  const onSubmit = (screen, feedback) => {
+    setEnabledInputs(true);
+    setTextEdit('Editar');
+    submit(screen, feedback);
+  }
 
   if (!data) return "Cargando...";
   console.log("batch data: ", data);
@@ -127,6 +146,7 @@ const Batch = ({
               itemToString={(item) => (item ? item.text : "")}
               onChange={(event) => onComboChange(event, "batch", "client")}
               {...comboProps1("Cliente")}
+              disabled={enabledInputs}
             />
           </div>
         </div>
@@ -140,6 +160,7 @@ const Batch = ({
               selectedItem={
                 parcels[parcels.findIndex((i) => i.value === parcel)]
               }
+              disabled={enabledInputs}
             />
           </div>
         </div>
@@ -153,6 +174,7 @@ const Batch = ({
               selectedItem={
                 oliveTypes[oliveTypes.findIndex((i) => i.value === oliveType)]
               }
+              disabled={enabledInputs}
             />
           </div>
         </div>
@@ -171,12 +193,14 @@ const Batch = ({
                     selectedItem={
                       items[items.findIndex((i) => i.text === chuteName)]
                     }
+                    disabled={enabledInputs}
                   />
                 ) : (
                     <TextInput
                       onChange={(event) => onInputChange(event, "batch", "chuteName")}
                       {...inputProps("Nro. Tolva")}
                       value={chuteName}
+                      disabled={enabledInputs}
                     />
                   )}
               </div>
@@ -196,6 +220,7 @@ const Batch = ({
                   {...inputProps("KG Bruto")}
                   value={grossWeight ? grossWeight : chuteWeight}
                   min={chuteWeight ? chuteWeight : 0}
+                  disabled={enabledInputs}
                 />
               </div>
               <div className="bx--col">
@@ -214,6 +239,7 @@ const Batch = ({
                   }
                   {...inputProps("Nro. Remito")}
                   value={deliveryNumber}
+                  disabled={enabledInputs}
                 />
               </div>
               <div className="bx--col">
@@ -223,6 +249,7 @@ const Batch = ({
                   }
                   {...inputProps("Nro. Recibo")}
                   value={receiptNumber}
+                  disabled={enabledInputs}
                 />
               </div>
             </div>
@@ -241,9 +268,13 @@ const Batch = ({
         screen="batch"
         left="Cancelar"
         right={supervisor ? "Validar" : "Ingresar"}
-        onSubmit={submit}
+        onSubmit={onSubmit}
         onStep={step}
         disabled={validateStep2(payload)}
+        rightEdit={textEdit}
+        onEdit={onEdit}
+        enabledInputs={enabledInputs}
+        supervisor={supervisor}
       />
     </section>
   );

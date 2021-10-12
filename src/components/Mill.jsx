@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ComboBox, TextInput } from "carbon-components-react";
 import Buttons from "./common/Buttons.jsx";
 import StepTitles from "./common/StepTitles.jsx";
@@ -59,11 +59,30 @@ const Mill = ({
   handleMillSlider,
   supervisor
 }) => {
-  if (!data) return "Cargando...";
+  
+  const [enabledInputs, setEnabledInputs] = useState(false);
+  const [textEdit, setTextEdit] = useState('Editar');
+
+  useEffect(() => {
+    const enabled = supervisor ? true : false;
+    setEnabledInputs(enabled);
+  }, []);
+
+  if (!data) { return "Cargando..." };
   const { payload } = data;
   const { batches, prodLine } = data.init;
   const { productionLine, sieve, microtalcum, enzymes, validated } = payload;
 
+  const onEdit = (boolean) => {
+    setEnabledInputs(boolean);
+    setTextEdit('Guardar');
+  }
+
+  const onSubmit = (screen, feedback) => {
+    setEnabledInputs(true);
+    setTextEdit('Editar');
+    submit(screen, feedback);
+  }
 
   return (<>
     <div className="bx--grid--full-width">
@@ -94,6 +113,7 @@ const Mill = ({
             selectedItem={
               prodLine[prodLine.findIndex((i) => i.text === productionLine)]
             }
+            disabled={enabledInputs}
           />
         </div>
       </div>
@@ -108,6 +128,7 @@ const Mill = ({
             onChange={(event) => onComboChange(event, screen, "sieve")}
             {...comboProps2("Criba")}
             selectedItem={sieve ? sieves[sieve - 1] : ""}
+            disabled={enabledInputs}
           />
         </div>
         <div className="bx--col-sm-1">
@@ -115,6 +136,7 @@ const Mill = ({
             value={microtalcum}
             onChange={(event) => onInputChange(event, screen, "microtalcum", 1)}
             {...inputProps("Microtalco (kg/ton)")}
+            disabled={enabledInputs}
           />
         </div>
       </div>
@@ -132,6 +154,7 @@ const Mill = ({
               onChange={(event, value) =>
                 handleMillSlider(event, value, screen, "enzymes")
               }
+              disabled={enabledInputs}
             />
           </div>
           <Validated
@@ -154,10 +177,15 @@ const Mill = ({
           if (validateStep2(payload)) {
             console.log('disabled')
           } else {
-            submit(e)
+            //submit(e)
+            onSubmit(e)
           }
         }
       }
+      rightEdit={textEdit}
+      onEdit={onEdit}
+      enabledInputs={enabledInputs}
+      supervisor={supervisor}
     />
   </>);
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Buttons from "./common/Buttons.jsx";
 import StepTitles from "./common/StepTitles.jsx";
 import Validated from "./common/Validated.jsx";
@@ -13,7 +13,7 @@ function validateStep1(payload) {
 }
 
 function validateStep2(payload) {
-  const { _tank, initialTemp, finalTemp, kneadingTime, pumpSpeed } = payload; 
+  const { _tank, initialTemp, finalTemp, kneadingTime, pumpSpeed } = payload;
   return !(_tank && kneadingTime && pumpSpeed);
 }
 
@@ -60,11 +60,32 @@ const Cent = ({
   onInputChange,
   onCheckChange,
   handleCentSlider,
+  globalSupervisor
 }) => {
+
+  const [enabledInputs, setEnabledInputs] = useState(false);
+  const [textEdit, setTextEdit] = useState('Editar');
+  const { supervisor, init, payload } = data;
+
+  useEffect(() => {
+    const enabled = globalSupervisor ? true : false;
+    setEnabledInputs(enabled);
+  }, []);
+
+  const onEdit = (boolean) => {
+    setEnabledInputs(boolean);
+    setTextEdit('Guardar');
+  }
+
+  const onSubmit = (screen, feedback) => {
+    setEnabledInputs(true);
+    setTextEdit('Editar');
+    submit(screen, feedback);
+  }
 
   if (!data) return "Cargando...";
 
-  const { batches, prodLine } = data.init;
+  const { batches, prodLine } = data.init; console.log('BATCHES =>',data)
 
   const {
     _tank,
@@ -76,11 +97,10 @@ const Cent = ({
     productionLine
   } = data.payload;
 
-  const { supervisor, init, payload } = data;
   const { tanks } = init;
   const tankIndex = _tank ? tanks.findIndex((i) => i.value === _tank) : 0;
 
-  console.log("payload: ",payload);
+  console.log("payload: ", payload);
 
   return (<>
     <div className="bx--grid bx--grid--full-width">
@@ -111,11 +131,12 @@ const Cent = ({
             selectedItem={
               prodLine[prodLine.findIndex((i) => i.text === productionLine)]
             }
+            disabled={enabledInputs}
           />
         </div>
       </div>
 
-      { !validateStep1(payload) &&
+      {!validateStep1(payload) &&
         <>
           <div className="bx--row custom__row">
             <div className="bx--col">
@@ -127,6 +148,7 @@ const Cent = ({
                 onChange={(event, value) => handleCentSlider(event, value)}
                 min={20}
                 max={40}
+                disabled={enabledInputs}
               />
             </div>
           </div>
@@ -140,6 +162,7 @@ const Cent = ({
                 selectedItem={
                   items[items.findIndex((i) => i.text === kneadingTime + "")]
                 }
+                disabled={enabledInputs}
               />
             </div>
           </div>
@@ -151,6 +174,7 @@ const Cent = ({
                 onChange={(event) => onComboChange(event, screen, "_tank")}
                 {...comboProps2("Tanque destino")}
                 // selectedItem={tanks[tankIndex]}
+                disabled={enabledInputs}
               />
             </div>
           </div>
@@ -162,6 +186,7 @@ const Cent = ({
                 }
                 {...inputProps2("Bombeo (kg/h)")}
                 value={pumpSpeed}
+                disabled={enabledInputs}
               />
             </div>
             <div className="bx--col">
@@ -175,14 +200,19 @@ const Cent = ({
           </div>
         </>
       }
-      
+
       <Buttons
         screen="cent"
         left="Cancelar"
-        right={supervisor ? "Validar":"Ingresar"}
+        right={supervisor ? "Validar" : "Ingresar"}
         onStep={step}
         disabled={validateStep2(payload)}
-        onSubmit={submit}
+        // onSubmit={submit}
+        onSubmit={onSubmit}
+        rightEdit={textEdit}
+        onEdit={onEdit}
+        enabledInputs={enabledInputs}
+        supervisor={globalSupervisor}
       />
     </div>
   </>);

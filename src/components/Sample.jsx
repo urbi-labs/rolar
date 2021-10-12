@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ComboBox } from "carbon-components-react";
 import StepTitles from "./common/StepTitles";
 import Buttons from "./common/Buttons.jsx";
@@ -74,8 +74,28 @@ const Sample = ({
   onInputChange,
   onCheckChange,
   handleToggle,
+  globalSupervisor
 }) => {
   const { payload } = data;
+  const [enabledInputs, setEnabledInputs] = useState(false);
+  const [textEdit, setTextEdit] = useState('Editar');
+
+  useEffect(() => { 
+    const enabled = globalSupervisor ? true : false; 
+    setEnabledInputs(enabled);
+  }, []);
+
+  const onEdit = (boolean) => { 
+    setEnabledInputs(boolean);
+    setTextEdit('Guardar');
+  }
+
+  const onSubmit = (screen, feedback) => {
+    setEnabledInputs(true);
+    setTextEdit('Editar');
+    submit(screen, feedback);
+  }
+
   // const section = [
   //   <Sample1
   //     step={step}
@@ -156,6 +176,7 @@ const Sample = ({
                 onChange={(event) => onInputChange(event, "samples", "frost", 100)}
                 {...inputProps2("Helada (%)")}
                 value={frost < 101 ? frost : frost}
+                disabled={enabledInputs}
               />
             </div>
             <div className="bx--col">
@@ -168,6 +189,7 @@ const Sample = ({
                 labelB={"Sí"}
                 onToggle={(event) => handleToggle(event, "samples", "hidraulicOil")}
                 toggled={hidraulicOil}
+                disabled={enabledInputs}
               />
             </div>
           </div>
@@ -177,6 +199,7 @@ const Sample = ({
                 onChange={(event) => onInputChange(event, "samples", "mummified", 100)}
                 {...inputProps2("Momificada (%)")}
                 value={mummified}
+                disabled={enabledInputs}
               />
             </div>
             <div className="bx--col">
@@ -184,6 +207,7 @@ const Sample = ({
                 onChange={(event) => onInputChange(event, "samples", "dehydrated", 100)}
                 {...inputProps2("Deshidratada (%)")}
                 value={dehydrated}
+                disabled={enabledInputs}
               />
             </div>
           </div>
@@ -193,6 +217,7 @@ const Sample = ({
                 onChange={(event) => onInputChange(event, "samples", "beaten", 100)}
                 {...inputProps2("Golpeada (%)")}
                 value={beaten}
+                disabled={enabledInputs}
               />
             </div>
             <div className="bx--col">
@@ -200,6 +225,7 @@ const Sample = ({
                 onChange={(event) => onInputChange(event, "samples", "waterExcess", 100)}
                 {...inputProps2("Exceso de Agua (%)")}
                 value={waterExcess}
+                disabled={enabledInputs}
               />
             </div>
           </div>
@@ -209,6 +235,7 @@ const Sample = ({
                 onChange={(event) => onInputChange(event, "samples", "branchExcess", 100)}
                 {...inputProps2("Exceso de ramas (%)")}
                 value={branchExcess}
+                disabled={enabledInputs}
               />
             </div>
             <div className="bx--col">
@@ -216,6 +243,7 @@ const Sample = ({
                 onChange={(event) => onInputChange(event, "samples", "leafExcess", 100)}
                 {...inputProps2("Exceso de Hojas (%)")}
                 value={leafExcess}
+                disabled={enabledInputs}
               />
             </div>
           </div>
@@ -236,6 +264,7 @@ const Sample = ({
                 }
                 {...inputProps2("Indice de Madurez")}
                 value={maturityIndex}
+                disabled={enabledInputs}
               />
             </div>
             <div className="bx--col">
@@ -243,6 +272,7 @@ const Sample = ({
                 onChange={(event) => onInputChange(event, "samples", "moisturePase", 100)}
                 {...inputProps2("Humedad Pasta (%)")}
                 value={moisturePase}
+                disabled={enabledInputs}
               />
             </div>
           </div>
@@ -252,6 +282,7 @@ const Sample = ({
                 onChange={(event) => onInputChange(event, "samples", "taurusPomace", 100)}
                 {...inputProps2("Orujo Taurus (%)")}
                 value={taurusPomace}
+                disabled={enabledInputs}
               />
             </div>
             <div className="bx--col">
@@ -259,6 +290,7 @@ const Sample = ({
                 onChange={(event) => onInputChange(event, "samples", "rexPomace", 100)}
                 {...inputProps2("Orujo Rex (%)")}
                 value={rexPomace}
+                disabled={enabledInputs}
               />
             </div>
           </div>
@@ -268,6 +300,7 @@ const Sample = ({
                 onChange={(event) => onInputChange(event, "samples", "wetFat", 100)}
                 {...inputProps2("Materia Grasa TC/Humedo (%)")}
                 value={wetFat}
+                disabled={enabledInputs}
               />
             </div>
           </div>
@@ -277,6 +310,7 @@ const Sample = ({
                 onChange={(event) => onInputChange(event, "samples", "dryFat", 100)}
                 {...inputProps2("Materia Grasa TC/Seco (%)")}
                 value={dryFat}
+                disabled={enabledInputs}
               />
             </div>
           </div>
@@ -293,9 +327,13 @@ const Sample = ({
         screen="samples"
         left="Anterior"
         right={supervisor ? "Validar" : "Ingresar"}
-        onSubmit={submit}
+        onSubmit={onSubmit}
         onStep={step}
         disabled={validateStep2(payload)}
+        rightEdit={textEdit}
+        onEdit={onEdit}
+        enabledInputs={enabledInputs}
+        supervisor={supervisor}
       />
     </>
   );
