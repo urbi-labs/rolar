@@ -556,8 +556,7 @@ class Home extends Component {
     const { currentUser } = this.state;
     const newState = { ...this.state };
 
-    const { payload } = newState[screen]; console.log('PAYLOADD =? ',payload) 
-    // return false;
+    const { payload } = newState[screen];
     payload._supervisor = currentUser._id;
     payload._user = currentUser._id;
     const { update: labels } = feedbackLabels;

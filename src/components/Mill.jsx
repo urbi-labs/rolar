@@ -78,7 +78,7 @@ const Mill = ({
     setTextEdit('Guardar');
   }
 
-  const onSubmit = (screen, feedback) => {
+  const onSubmit = (screen, feedback) => { 
     setEnabledInputs(true);
     setTextEdit('Editar');
     submit(screen, feedback);
@@ -172,13 +172,13 @@ const Mill = ({
       right={supervisor ? "Validar" : "Registrar"}
       onStep={step}
       onSubmit={
-        (e) => {
+        (e, feedBack) => { 
           // If button is disabled then show confirmation message before submitting
           if (validateStep2(payload)) {
             console.log('disabled')
           } else {
             //submit(e)
-            onSubmit(e)
+            onSubmit(e, feedBack)
           }
         }
       }
