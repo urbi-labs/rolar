@@ -59,7 +59,7 @@ const Tank = ({
   // const { batchArray } = data.payload;
 
   const [batchArray, setBatches] = useState([]);
-  useEffect(() => {
+  useEffect(() => { 
     async function initBatches(_tank) {
       const { data } = await getStoragesByTank(_tank);
       setBatches(data);

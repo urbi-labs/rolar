@@ -101,7 +101,7 @@ export function submitTank(data) {
   return http.post(`/api/closures`, data);
 }
 
-export function updateTank(data) {
+export function updateTank(data) { console.log('DATA CLOUSURES =? ',data)
   return http.put(`/api/closures`, data);
 }
 

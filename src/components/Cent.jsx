@@ -14,6 +14,7 @@ function validateStep1(payload) {
 
 function validateStep2(payload) {
   const { _tank, initialTemp, finalTemp, kneadingTime, pumpSpeed } = payload;
+  console.log('EVAL => ', _tank);
   return !(_tank && kneadingTime && pumpSpeed);
 }
 
@@ -207,7 +208,6 @@ const Cent = ({
         right={supervisor ? "Validar" : "Ingresar"}
         onStep={step}
         disabled={validateStep2(payload)}
-        // onSubmit={submit}
         onSubmit={onSubmit}
         rightEdit={textEdit}
         onEdit={onEdit}

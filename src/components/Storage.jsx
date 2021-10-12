@@ -136,6 +136,7 @@ const Storage = ({
                 onChange={(event) => onComboChange(event, "storage", "_tank")}
                 {...comboProps2("Tanque")}
                 selectedItem={tanks[tankIndex]}
+                disabled={enabledInputs}
               />
             </div>
             <div className="bx--col-sm-1">
@@ -158,6 +159,7 @@ const Storage = ({
                   onInputChange(event, "storage", "initialMeasure")
                 }
                 {...inputProps2("Inicio regla nivel (en cm)")}
+                disabled={enabledInputs}
               />
             </div>
             <div className="bx--col">
@@ -165,6 +167,7 @@ const Storage = ({
                 value={finalMeasure}
                 onChange={(event) => onInputChange(event, "storage", "finalMeasure")}
                 {...inputProps2("Fin regla nivel (en cm)")}
+                disabled={enabledInputs}
               />
             </div>
           </div>
@@ -174,6 +177,7 @@ const Storage = ({
                 disabled
                 value={totalCm || tot_cm}
                 {...inputProps2("Total en cm")}
+                disabled={enabledInputs}
               />
             </div>
             <div className="bx--col">
@@ -193,7 +197,11 @@ const Storage = ({
               />
             </div>
             <div className="bx--col">
-              <TextInput disabled value={perf} {...inputProps2("Rendimiento")} />
+              <TextInput
+                disabled
+                value={perf} {...inputProps2("Rendimiento")}
+              />
+
             </div>
           </div>
           <Validated
@@ -212,6 +220,7 @@ const Storage = ({
       left="Cancelar"
       right={supervisor ? "Validar" : "Registrar"}
       onStep={step}
+      onSubmit={onSubmit}
       disabled={validateStep2(payload)}
       rightEdit={textEdit}
       onEdit={onEdit}

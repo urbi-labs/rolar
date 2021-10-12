@@ -245,6 +245,7 @@ class Home extends Component {
           onInputChange={this.handleInputChange}
           onComboChange={this.handleComboChange}
           onCheckChange={this.handleCheckChange}
+          globalSupervisor={supervisor}
         />
       ),
 
@@ -555,8 +556,10 @@ class Home extends Component {
     const { currentUser } = this.state;
     const newState = { ...this.state };
 
-    const { payload } = newState[screen];
+    const { payload } = newState[screen]; console.log('PAYLOADD =? ',payload) 
+    // return false;
     payload._supervisor = currentUser._id;
+    payload._user = currentUser._id;
     const { update: labels } = feedbackLabels;
 
     const updateDB = {
