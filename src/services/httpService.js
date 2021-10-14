@@ -13,7 +13,7 @@ console.log("baseURL", axios.defaults.baseURL);
 
 axios.defaults.headers.common["Cache-Control"] = "no-cache";
 
-axios.interceptors.response.use(null, (error) => {
+axios.interceptors.response.use(null, (error) => { 
   const expectedError =
     error.response &&
     error.response.status >= 400 &&

@@ -91,6 +91,7 @@ router.put("/", auth, async (req, res) => {
     // date_sellby: new Date().toISOString(),
     // date_best: new Date().toISOString(),
   };
+  
   const FT = await submitToFoodtrust("aggregation", ftBody);
   closure.FT = FT;
   return res.status(200).send(closure);

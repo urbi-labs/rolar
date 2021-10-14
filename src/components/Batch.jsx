@@ -82,6 +82,11 @@ const Batch = ({
   }
 
   const onSubmit = (screen, feedback) => {
+    if((supervisor) && (typeof feedback == "undefined") && !validated) { 
+      alert('Para validar debe hacer check en el campo validado'); 
+      return false; 
+    }
+    
     setEnabledInputs(true);
     setTextEdit('Editar');
     submit(screen, feedback);

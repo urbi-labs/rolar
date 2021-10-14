@@ -547,7 +547,6 @@ class Home extends Component {
     } catch (error) {
       const { general } = errorMessages;
       alert(general);
-      console.log(error);
     }
   };
 
@@ -571,16 +570,16 @@ class Home extends Component {
     };
 
     try {
-      const response = await updateDB[screen](payload);
+      const response = await updateDB[screen](payload); 
       const { data } = response;
-      newState[screen].payload = data;
+      newState[screen].payload = data; 
       newState.feedback = { label: labels[screen], number: formatID(data) };
       const screenToRender = (!feedback) ? screen : "feedback";
       newState.screen = screenToRender; 
       
       console.log('new state => ',feedback, newState, currentUser)
       this.setState(newState, () => console.log(this.state));
-    } catch (error) {
+    } catch (error) { 
       const { general } = errorMessages;
       alert(general);
       console.log(error);

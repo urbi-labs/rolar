@@ -69,6 +69,15 @@ const Tank = ({
     }
   }, [_tank]);
 
+  const onSubmit = (screen, feedback) => {
+    if((supervisor) && (typeof feedback == "undefined") && !validated) { 
+      alert('Debe hacer check en el campo validado'); 
+      return false; 
+    }
+
+    submit(screen, feedback);
+  }
+
   return (<>
     <div className="bx--grid bx--grid--full-width">
       <StepTitles
@@ -129,7 +138,7 @@ const Tank = ({
       left="Anterior"
       right="Siguiente"
       onStep={step}
-      onSubmit={submit}
+      onSubmit={onSubmit}
       disabled={validateStep1(payload)}
     />
   </>);

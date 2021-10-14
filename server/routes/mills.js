@@ -65,6 +65,7 @@ router.put("/", auth, async (req, res) => {
     biz_loc,
     eventTime,
   };
+
   const FT = await submitToFoodtrust("transformation", ftBody);
   mill.FT = FT;
   return res.status(200).send(mill);

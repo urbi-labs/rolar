@@ -6,7 +6,7 @@ export function submitBatch(data) {
   return http.post(`/api/batch`, data);
 }
 
-export function updateBatch(data) {
+export function updateBatch(data) { console.log('BATCH => ',data)
   return http.put(`/api/batch`, data);
 }
 
@@ -101,7 +101,7 @@ export function submitTank(data) {
   return http.post(`/api/closures`, data);
 }
 
-export function updateTank(data) { console.log('DATA CLOUSURES =? ',data)
+export function updateTank(data) {
   return http.put(`/api/closures`, data);
 }
 
