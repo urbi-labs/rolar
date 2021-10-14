@@ -235,7 +235,7 @@ class Home extends Component {
           handleToggle={this.handleToggle}
           globalSupervisor={supervisor}
         />
-      // <pre>{JSON.stringify(storage)}</pre>
+        // <pre>{JSON.stringify(storage)}</pre>
       ),
       tank: (
         <Tank
@@ -328,8 +328,7 @@ class Home extends Component {
       ? await this.getBatchesArray(["cent", "storage"])
       : await this.getBatchesArray("mill");
 
-    console.log('BATCHES =? ',batches);
-    const tanks = await this.getTanks(); 
+    const tanks = await this.getTanks();
 
     return { batches, prodLine, tanks };
   };
@@ -353,7 +352,7 @@ class Home extends Component {
     const { data: tanksDB } = await getTanks();
 
     const tanks = [];
-    tanksDB.forEach((doc, ind) => { 
+    tanksDB.forEach((doc, ind) => {
       const { _id, name } = doc;
       tanks.push({
         id: ind + "",
@@ -380,7 +379,6 @@ class Home extends Component {
       });
     });
 
-    console.log('ITEMS -> ',items)
     return items;
   };
 
@@ -403,7 +401,7 @@ class Home extends Component {
     const { supervisor } = this.state;
     const { selectedItem } = event;
     const data = newState[screen];
-    data.payload[field] = selectedItem ? selectedItem.value : ""; 
+    data.payload[field] = selectedItem ? selectedItem.value : "";
     if (supervisor) data.supervisor = true;
 
     if (field === "chuteName") {
@@ -441,6 +439,13 @@ class Home extends Component {
       if (doc) data.payload._tank = doc._tank;
     }
 
+    // fix _tank seleccionado para update si es supervisor. 
+    if ((supervisor) && screen === 'cent') {
+      const { payload: { _tank } = 0, init: { tanks } = [] } = data;
+      const selectedItem = _tank ? tanks.find((i) => i.value === _tank) : 0;
+      data.payload['_tank'] = selectedItem ? selectedItem.value : "";
+    }
+
     newState[screen] = data;
 
     this.setState(newState, () => console.log(this.state));
@@ -448,7 +453,7 @@ class Home extends Component {
 
   handleInputChange = (event, screen, field, max) => {
     const newState = { ...this.state };
-    const value = event.target.value || ""; 
+    const value = event.target.value || "";
     newState[screen].payload[field] = max
       ? value > max
         ? newState[screen].payload[field]
@@ -550,7 +555,7 @@ class Home extends Component {
     }
   };
 
-  handleUpdate = async (screen, feedback = true) => { 
+  handleUpdate = async (screen, feedback = true) => {
     console.log("handleUpdate triggered... ", screen);
     const { currentUser } = this.state;
     const newState = { ...this.state };
@@ -570,16 +575,16 @@ class Home extends Component {
     };
 
     try {
-      const response = await updateDB[screen](payload); 
+      const response = await updateDB[screen](payload);
       const { data } = response;
-      newState[screen].payload = data; 
+      newState[screen].payload = data;
       newState.feedback = { label: labels[screen], number: formatID(data) };
       const screenToRender = (!feedback) ? screen : "feedback";
-      newState.screen = screenToRender; 
-      
-      console.log('new state => ',feedback, newState, currentUser)
+      newState.screen = screenToRender;
+
+      console.log('new state => ', feedback, newState, currentUser)
       this.setState(newState, () => console.log(this.state));
-    } catch (error) { 
+    } catch (error) {
       const { general } = errorMessages;
       alert(general);
       console.log(error);
@@ -588,7 +593,7 @@ class Home extends Component {
 
   render() {
     const { screen, supervisor } = this.state;
-    if (screen) return this.renderScreen(screen); 
+    if (screen) return this.renderScreen(screen);
 
     return (
       <div className="home__container">

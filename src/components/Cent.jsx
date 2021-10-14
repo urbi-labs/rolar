@@ -66,7 +66,7 @@ const Cent = ({
 
   const [enabledInputs, setEnabledInputs] = useState(false);
   const [textEdit, setTextEdit] = useState('Editar');
-  const { supervisor, init, payload } = data;
+  const { supervisor, init, payload } = data; 
 
   useEffect(() => {
     const enabled = globalSupervisor ? true : false;
@@ -179,7 +179,7 @@ const Cent = ({
                 itemToString={(item) => (item ? item.text : "")}
                 onChange={(event) => onComboChange(event, screen, "_tank")}
                 {...comboProps2("Tanque destino")}
-                // selectedItem={tanks[tankIndex]}
+                selectedItem={tanks[tankIndex]}
                 disabled={enabledInputs}
               />
             </div>
