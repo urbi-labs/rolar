@@ -14,10 +14,9 @@ function validateStep1(payload) {
 
 function validateStep2(payload) {
   const { _tank, initialTemp, finalTemp, kneadingTime, pumpSpeed } = payload;
-  console.log('EVAL => ', _tank);
+  console.log('EVAL => ',payload);
   return !(_tank && kneadingTime && pumpSpeed);
 }
-
 
 const comboProps1 = (titleText) => ({
   id: titleText,
@@ -104,7 +103,7 @@ const Cent = ({
   } = data.payload;
 
   const { tanks } = init;
-  const tankIndex = _tank ? tanks.findIndex((i) => i.value === _tank) : 0;
+  const tankIndex = _tank ? tanks.findIndex((i) => i.value === _tank) : '';
 
   console.log("payload: ", payload);
 

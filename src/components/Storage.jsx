@@ -81,7 +81,7 @@ const Storage = ({
 
     async function initBatch(id) {
       const batch_obj = await getBatchById(id);
-      console.log("batch_obj  ", batch_obj);
+      console.log("batch_obj  ", batch_obj); 
       const { data } = batch_obj;
       setBatch(data);
     }

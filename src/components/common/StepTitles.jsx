@@ -10,14 +10,14 @@ const StepTitles = ({ title, helper, step, showSteps }) => {
       <div className="bx--row custom__row">
         <div className="bx--col subtitle">{title}</div>
       </div>
-      {showSteps != false ? 
+      {/* {showSteps != false ? 
       <div className="bx--row custom__row">
         <div className="bx--col subtitle">
           <img src={!step ? paso1 : paso2} alt="step" />
         </div>
       </div>
       : 
-      "" }
+      "" } */}
       {/* {step && (
         <div className="bx--row custom__row">
           <div className="bx--col">

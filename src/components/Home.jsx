@@ -170,7 +170,7 @@ class Home extends Component {
   };
 
   renderScreen = (screen) => {
-    const { batch, samples, tank, mill, cent, storage, feedback } = this.state;
+    const { batch, samples, tank, mill, cent, storage, feedback } = this.state; console.log('STORAGE ->',storage)
     const { supervisor } = this.state;
     const { label, number } = feedback;
 
@@ -328,7 +328,7 @@ class Home extends Component {
       ? await this.getBatchesArray(["cent", "storage"])
       : await this.getBatchesArray("mill");
 
-    const tanks = await this.getTanks();
+    const tanks = await this.getTanks(); 
 
     return { batches, prodLine, tanks };
   };
