@@ -25,7 +25,8 @@ router.get("/active", auth, async (req, res) => {
 router.get("/", auth, async (req, res) => {
   const tanks = await Tank.find().sort({
     timestamp: "asc",
-  });
+  }); 
+  console.log('TANKS FROM DB',tanks)
   res.send(tanks);
 });
 

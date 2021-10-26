@@ -18,9 +18,9 @@ const Tank = mongoose.model("Tank", tankSchema);
 function validateTankSchema(tank) {
   const schema = Joi.object({
     name: Joi.string().required(),
-    cone: Joi.number().required(),
-    capacity: Joi.number().required(),
-    radius: Joi.number().required(),
+    cone: Joi.number().required(), // capacidad del fondo.
+    capacity: Joi.number().required(), // capacidad cilindro
+    radius: Joi.number().required(), 
     active: Joi.boolean(),
   });
 

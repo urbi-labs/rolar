@@ -5,7 +5,7 @@ import { ComboBox, TextInput, Toggle } from "carbon-components-react";
 import Validated from "./common/Validated.jsx";
 
 // services and utility functions
-import { calcs } from "./../util/helpers";
+import { calcs, calcs2 } from "./../util/helpers";
 import { getBatchById } from "./../services/apiService";
 
 function validateStep1(payload) {
@@ -13,9 +13,10 @@ function validateStep1(payload) {
   return !!!_batch;
 }
 
-function validateStep2(payload) {
-  const { _tank, initialMeasure, finalMeasure } = payload;
-  return !(_tank && initialMeasure && finalMeasure);
+function validateStep2(payload, tot_lt) {
+  const { _tank, initialMeasure, finalMeasure, cone } = payload;
+  const valid = (cone) ? (_tank && initialMeasure && finalMeasure) : (_tank && tot_lt);
+  return !(valid);
 }
 
 const comboProps1 = (titleText) => ({
@@ -52,12 +53,13 @@ const Storage = ({
   onInputChange,
   handleToggle,
   onCheckChange,
+  onInputValueChange,
   globalSupervisor
 }) => {
   const { payload, supervisor } = data;
 
   const { batches, tanks } = data.init;
-
+  console.log('TANKSS ',tanks)
   const {
     _tank,
     _batch,
@@ -71,8 +73,14 @@ const Storage = ({
 
   const tankIndex = _tank ? tanks.findIndex((i) => i.value === _tank) : 0;
   const [enabledInputs, setEnabledInputs] = useState(false);
+  const [showField, setShowField] = useState(false);
   const [textEdit, setTextEdit] = useState('Editar');
   const [batch, setBatch] = useState({});
+
+  const [tot_cm, setTot_cm] = useState(0);
+  const [tot_lt, setTot_lt] = useState(0);
+  const [oilWeight, setOilWeight] = useState(0);
+  const [perf, setPerf] = useState(0);
 
   useEffect(() => {
 
@@ -81,13 +89,19 @@ const Storage = ({
 
     async function initBatch(id) {
       const batch_obj = await getBatchById(id);
-      console.log("batch_obj  ", batch_obj); 
+      console.log("batch_obj  ", batch_obj);
       const { data } = batch_obj;
       setBatch(data);
     }
     if (_batch) {
       initBatch(_batch);
     }
+
+    if (totalCm) {
+      setTot_cm(totalCm);
+      setTot_lt(totalLitres);
+    }
+
   }, [_batch]);
 
   const onEdit = (boolean) => {
@@ -96,23 +110,67 @@ const Storage = ({
   }
 
   const onSubmit = (screen, feedback) => {
-    if((supervisor) && (typeof feedback == "undefined") && !validated) { 
-      alert('Para validar debe hacer check en el campo validado'); 
-      return false; 
+    if ((supervisor) && (typeof feedback == "undefined") && !validated) {
+      alert('Para validar debe hacer check en el campo validado');
+      return false;
     }
-    
+
     setEnabledInputs(true);
     setTextEdit('Editar');
     submit(screen, feedback);
   }
 
-  const { tot_cm, tot_lt, oilWeight, perf } = calcs(
-    initialMeasure,
-    finalMeasure,
-    cone,
-    tanks[tankIndex],
-    batch.netWeight
-  );
+  const onHandleToggle = (event, screen, field) => {
+    setShowField(event);
+
+    setOilWeight(0);
+    setPerf(0);
+    setTot_lt(0);
+    setTot_cm(0);
+
+    onInputValueChange(0, screen, 'initialMeasure');
+    onInputValueChange(0, screen, 'finalMeasure');
+
+    handleToggle(event, screen, field);
+  }
+
+  const onInputTotalLitresChange = (event, screen, field) => {
+    let { oilWeight, perf } = calcs2(event, batch.netWeight);
+
+    setOilWeight(oilWeight);
+    setPerf(perf);
+    setTot_lt(event.target.value);
+
+    onInputChange(event, screen, field);
+  }
+
+  const onLocalInputChange = (event, screen, field) => {
+
+    let { tot_cm, tot_lt, oilWeight, perf } = calcs(
+      initialMeasure,
+      finalMeasure,
+      cone,
+      tanks[tankIndex],
+      batch.netWeight
+    );
+
+    console.log('RESULT CALC',tot_cm, tot_lt, oilWeight, perf)
+
+    setTot_cm(tot_cm);
+    setTot_lt(tot_lt);
+    setOilWeight(oilWeight);
+    setPerf(perf);
+
+    onInputChange(event, screen, field);
+  }
+
+  // let { tot_cm, tot_lt, oilWeight, perf } = calcs(
+  //   initialMeasure,
+  //   finalMeasure,
+  //   cone,
+  //   tanks[tankIndex],
+  //   batch.netWeight
+  // );
 
   return (<>
     <div className="bx--grid bx--grid--full-width">
@@ -152,44 +210,53 @@ const Storage = ({
                 labelText="¿Cono lleno?"
                 labelA={"No"}
                 labelB={"Sí"}
-                onToggle={(event) => handleToggle(event, "storage", "cone")}
+                onToggle={(event) => onHandleToggle(event, "storage", "cone")}
               />
             </div>
           </div>
+          {showField &&
+            <div className="bx--row custom__row">
+              <div className="bx--col">
+                <TextInput
+                  value={initialMeasure}
+                  onChange={(event) =>
+                    onLocalInputChange(event, "storage", "initialMeasure")
+                  }
+                  {...inputProps2("Inicio regla nivel (en cm)")}
+                  disabled={enabledInputs}
+                />
+              </div>
+              <div className="bx--col">
+                <TextInput
+                  value={finalMeasure}
+                  onChange={(event) => onLocalInputChange(event, "storage", "finalMeasure")}
+                  {...inputProps2("Fin regla nivel (en cm)")}
+                  disabled={enabledInputs}
+                />
+              </div>
+            </div>
+          }
+
           <div className="bx--row custom__row">
+            {showField &&
+              <div className="bx--col">
+                <TextInput
+                  disabled
+                  // value={totalCm || tot_cm}
+                  value={tot_cm}
+                  {...inputProps2("Total en cm")}
+                  disabled={enabledInputs}
+                />
+              </div>
+            }
             <div className="bx--col">
               <TextInput
-                value={initialMeasure}
-                onChange={(event) =>
-                  onInputChange(event, "storage", "initialMeasure")
-                }
-                {...inputProps2("Inicio regla nivel (en cm)")}
-                disabled={enabledInputs}
-              />
-            </div>
-            <div className="bx--col">
-              <TextInput
-                value={finalMeasure}
-                onChange={(event) => onInputChange(event, "storage", "finalMeasure")}
-                {...inputProps2("Fin regla nivel (en cm)")}
-                disabled={enabledInputs}
-              />
-            </div>
-          </div>
-          <div className="bx--row custom__row">
-            <div className="bx--col">
-              <TextInput
-                disabled
-                value={totalCm || tot_cm}
-                {...inputProps2("Total en cm")}
-                disabled={enabledInputs}
-              />
-            </div>
-            <div className="bx--col">
-              <TextInput
-                disabled
-                value={totalLitres || tot_lt}
+                disabled={showField}
+                // value={totalLitres || tot_lt}
+                value={tot_lt}
+                onChange={(event) => onInputTotalLitresChange(event, "storage", "totalLitres")}
                 {...inputProps2("Total en litros")}
+
               />
             </div>
           </div>
@@ -197,6 +264,7 @@ const Storage = ({
             <div className="bx--col">
               <TextInput
                 disabled
+                // value={oilWeight || oilWeightCalc}
                 value={oilWeight}
                 {...inputProps2("Kg aceite")}
               />
@@ -204,7 +272,9 @@ const Storage = ({
             <div className="bx--col">
               <TextInput
                 disabled
-                value={perf} {...inputProps2("Rendimiento")}
+                // value={perf || perfCalc} 
+                value={perf}
+                {...inputProps2("Rendimiento")}
               />
 
             </div>
@@ -226,7 +296,7 @@ const Storage = ({
       right={supervisor ? "Validar" : "Registrar"}
       onStep={step}
       onSubmit={onSubmit}
-      disabled={validateStep2(payload)}
+      disabled={validateStep2(payload, tot_lt)}
       rightEdit={textEdit}
       onEdit={onEdit}
       enabledInputs={enabledInputs}

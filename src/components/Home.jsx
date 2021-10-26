@@ -146,8 +146,8 @@ class Home extends Component {
           _batch: "",
           _user: "",
           _tank: "",
-          initialMeasure: "",
-          finalMeasure: "",
+          initialMeasure: 0,
+          finalMeasure: 0,
           cone: false,
         },
         init: {},
@@ -170,7 +170,7 @@ class Home extends Component {
   };
 
   renderScreen = (screen) => {
-    const { batch, samples, tank, mill, cent, storage, feedback } = this.state; console.log('STORAGE ->',storage)
+    const { batch, samples, tank, mill, cent, storage, feedback } = this.state; 
     const { supervisor } = this.state;
     const { label, number } = feedback;
 
@@ -232,6 +232,7 @@ class Home extends Component {
           onInputChange={this.handleInputChange}
           onComboChange={this.handleComboChange}
           onCheckChange={this.handleCheckChange}
+          onInputValueChange={this.handleInputValueChange}
           handleToggle={this.handleToggle}
           globalSupervisor={supervisor}
         />
@@ -341,7 +342,7 @@ class Home extends Component {
       : await this.getBatchesArray("cent");
 
     const tanks = await this.getTanks();
-
+    console.log('TANKSSS ',tanks)
     return {
       batches,
       tanks,
@@ -352,7 +353,7 @@ class Home extends Component {
     const { data: tanksDB } = await getTanks();
 
     const tanks = [];
-    tanksDB.forEach((doc, ind) => {
+    tanksDB.forEach((doc, ind) => { console.log('DOC ->',doc)
       const { _id, name } = doc;
       tanks.push({
         id: ind + "",
@@ -463,6 +464,17 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
+  handleInputValueChange = (value, screen, field, max) => {
+    const newState = { ...this.state };
+    newState[screen].payload[field] = max
+      ? value > max
+        ? newState[screen].payload[field]
+        : value
+      : value;
+
+    this.setState(newState, () => console.log(this.state));
+  };
+
   handleCheckChange = (event, screen, field) => {
     const newState = { ...this.state };
     newState[screen].payload[field] = event;
@@ -482,7 +494,7 @@ class Home extends Component {
     this.setState(newState, () => console.log(this.state));
   };
 
-  handleToggle = (event, screen, field) => {
+  handleToggle = (event, screen, field) => { console.log('handle toggle ',event, screen, field)
     const newState = { ...this.state };
     newState[screen].payload[field] = event;
     this.setState(newState, () => console.log(this.state));
