@@ -5,14 +5,17 @@ export function calcs(
   tank,
   netWeight
 ) {
+ 
   const { doc } = tank;
   const { radius, cone: coneCapacity } = doc;
-  console.log('TANK',tank)
+
 
   const conevalue = cone ? coneCapacity : 0;
   const tot_cm = finalMeasure - initialMeasure;
   const tot_lt = conevalue + Math.PI * ((Math.pow(radius, 2) * (tot_cm/100))) * 1000;
   const oilWeight = tot_lt * 0.918; 
+
+  console.log('CONSOLE TANK',tot_cm, finalMeasure, initialMeasure)
 
   const perf = oilWeight / netWeight;
 
@@ -30,7 +33,7 @@ export function calcs2(
 ) { 
   const { value: tot_lt } = event.target; 
   const oilWeight = tot_lt * 0.918;
-  const perf = oilWeight / netWeight; console.log('NET WEIGHT',netWeight)
+  const perf = oilWeight / netWeight;
 
   return {
     oilWeight,

@@ -59,7 +59,7 @@ const Storage = ({
   const { payload, supervisor } = data;
 
   const { batches, tanks } = data.init;
-  console.log('TANKSS ',tanks)
+  console.log('TANKSS ', tanks)
   const {
     _tank,
     _batch,
@@ -77,6 +77,8 @@ const Storage = ({
   const [textEdit, setTextEdit] = useState('Editar');
   const [batch, setBatch] = useState({});
 
+  const [measure, setMeasure] = useState({ 'initialMeasure': 0, 'finalMeasure': 0 });
+  // const [finalMeasureA, setFinalMeasure] = useState(0);
   const [tot_cm, setTot_cm] = useState(0);
   const [tot_lt, setTot_lt] = useState(0);
   const [oilWeight, setOilWeight] = useState(0);
@@ -98,11 +100,22 @@ const Storage = ({
     }
 
     if (totalCm) {
+      
+      setMeasure(prevState => ({
+        ...prevState,
+        initialMeasure: initialMeasure,    
+        finalMeasure: finalMeasure, 
+      }));
+
       setTot_cm(totalCm);
       setTot_lt(totalLitres);
     }
 
-  }, [_batch]);
+    if(measure){ 
+      onCalc( measure.initialMeasure, measure.finalMeasure, cone, tanks[tankIndex], batch.netWeight)
+    }
+
+  }, [_batch, measure]);
 
   const onEdit = (boolean) => {
     setEnabledInputs(boolean);
@@ -127,6 +140,11 @@ const Storage = ({
     setPerf(0);
     setTot_lt(0);
     setTot_cm(0);
+    setMeasure(prevState => ({
+      ...prevState,
+      initialMeasure: 0,    
+      finalMeasure: 0, 
+    }));
 
     onInputValueChange(0, screen, 'initialMeasure');
     onInputValueChange(0, screen, 'finalMeasure');
@@ -144,24 +162,31 @@ const Storage = ({
     onInputChange(event, screen, field);
   }
 
-  const onLocalInputChange = (event, screen, field) => {
+  const onLocalInputChange = (event, screen, field) => { 
+    const { value } = event.target;
+    setMeasure(prevState => ({
+      ...prevState,
+      [field]: value  
+    }));
 
+    onInputChange(event, screen, field);
+  }
+
+  const onCalc = () => {
+    
     let { tot_cm, tot_lt, oilWeight, perf } = calcs(
-      initialMeasure,
-      finalMeasure,
+      measure.initialMeasure,
+      measure.finalMeasure,
       cone,
       tanks[tankIndex],
       batch.netWeight
     );
-
-    console.log('RESULT CALC',tot_cm, tot_lt, oilWeight, perf)
 
     setTot_cm(tot_cm);
     setTot_lt(tot_lt);
     setOilWeight(oilWeight);
     setPerf(perf);
 
-    onInputChange(event, screen, field);
   }
 
   // let { tot_cm, tot_lt, oilWeight, perf } = calcs(
@@ -218,7 +243,7 @@ const Storage = ({
             <div className="bx--row custom__row">
               <div className="bx--col">
                 <TextInput
-                  value={initialMeasure}
+                  value={measure.initialMeasure}
                   onChange={(event) =>
                     onLocalInputChange(event, "storage", "initialMeasure")
                   }
@@ -228,7 +253,7 @@ const Storage = ({
               </div>
               <div className="bx--col">
                 <TextInput
-                  value={finalMeasure}
+                  value={measure.finalMeasure}
                   onChange={(event) => onLocalInputChange(event, "storage", "finalMeasure")}
                   {...inputProps2("Fin regla nivel (en cm)")}
                   disabled={enabledInputs}
