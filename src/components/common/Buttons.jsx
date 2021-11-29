@@ -30,17 +30,10 @@ const Buttons = ({ left, right, onStep, onSubmit, screen, disabled, rightEdit, o
             disabled={disabled}
             kind="tertiary"
             size="small"
-            data-tip="Revisar los valores seleccionados"
             onClick={() => (onSubmit ? onSubmit(screen) : onStep(screen))}
           >
             {right}
           </Button>
-          <ReactTooltip
-            effect="solid"
-            place="top"
-            html={true}
-            clickable={true}
-          />
         </div>
       </div>
     </div>
