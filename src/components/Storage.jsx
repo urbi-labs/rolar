@@ -298,8 +298,8 @@ const Storage = ({
               <TextInput
                 disabled
                 // value={perf || perfCalc} 
-                value={perf}
-                {...inputProps2("Rendimiento")}
+                value={`${perf}`}
+                {...inputProps2("Rendimiento (%)")}
               />
 
             </div>

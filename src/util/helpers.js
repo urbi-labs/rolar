@@ -33,7 +33,7 @@ export function calcs2(
 ) { 
   const { value: tot_lt } = event.target; 
   const oilWeight = tot_lt * 0.918;
-  const perf = oilWeight / netWeight;
+  const perf = (oilWeight / netWeight * 100).toFixed(2);
 
   return {
     oilWeight,
