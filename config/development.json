@@ -1,8 +1,10 @@
 {
-  "dbHost": "127.0.0.1",
+  "dbHost": "cluster0.vxkll.mongodb.net",
+  "dbUser": "adminul",
+  "dbPass": "pachulo-01",
   "DB_PROD": "rolar",
   "DB_DEV": "rolar",
   "DB_CERT": "",
   "IAM_APIKEY": "",
-  "requiresAuth": false
+  "requiresAuth": true
 }

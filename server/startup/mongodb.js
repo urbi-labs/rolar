@@ -27,12 +27,12 @@ module.exports = async (env) => {
   const dbName = config.get(`DB_PROD`);
 
   const dbHost = !local ? config.get("DB_HOST") : config.get("dbHost");
-  const dbUser = !local ? config.get("DB_USER") : "";
-  const dbPass = !local ? config.get("DB_PASS") : "";
+  const dbUser = !local ? config.get("DB_USER") : config.get("dbUser");
+  const dbPass = !local ? config.get("DB_PASS") : config.get("dbPass");
 
-  const uri = !local
-    ? `mongodb://${dbUser}:${dbPass}@${dbHost}/${dbName}?authSource=admin&replicaSet=replset`
-    : `mongodb://${dbHost}/${local}`; 
+  const uri = local
+    ? `mongodb+srv://${dbUser}:${dbPass}@${dbHost}/${dbName}?authSource=admin&replicaSet=replset&retryWrites=true&w=majority`
+    : `mongodb://${dbHost}/${dbName}`;
 
   if (!local) {
     options.ssl = true;

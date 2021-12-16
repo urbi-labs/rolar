@@ -15,20 +15,20 @@ module.exports = function (app) {
   app.use(compression());
   app.enable("trust proxy");
 
-  // app.use(
-  //   expressCspHeader({
-  //     directives: {
-  //       "default-src": [SELF, "https://rolar-foodtrust.mybluemix.net"],
-  //       "script-src": [SELF, INLINE, "https://rolar-foodtrust.mybluemix.net"],
-  //       "font-src": [SELF, "https://fonts.gstatic.com/s/ibmplexmono/**"],
-  //       "connect-src": [SELF, "https://rolar-foodtrust.mybluemix.net/api/auth"],
-  //       "style-src": [SELF, "https://rolar-foodtrust.mybluemix.net"],
-  //       "img-src": ["data:", "https://rolar-foodtrust.mybluemix.net"],
-  //       "worker-src": [NONE],
-  //       "block-all-mixed-content": false,
-  //     },
-  //   })
-  // );
+  app.use(
+    expressCspHeader({
+      directives: {
+        "default-src": [SELF, "https://rolar-foodtrust.mybluemix.net"],
+        "script-src": [SELF, INLINE, "https://rolar-foodtrust.mybluemix.net"],
+        "font-src": [SELF, "https://fonts.gstatic.com/s/ibmplexmono/**"],
+        "connect-src": [SELF, "https://rolar-foodtrust.mybluemix.net/api/auth"],
+        "style-src": [SELF, "https://rolar-foodtrust.mybluemix.net"],
+        "img-src": ["data:", "https://rolar-foodtrust.mybluemix.net"],
+        "worker-src": [NONE],
+        "block-all-mixed-content": false,
+      },
+    })
+  );
 
   log("P R O D U C T I O N mode");
   log("serving static content: ", path.join(cwd, "build"));
