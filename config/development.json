@@ -6,5 +6,5 @@
   "DB_DEV": "rolar",
   "DB_CERT": "",
   "IAM_APIKEY": "",
-  "requiresAuth": true
+  "requiresAuth": false
 }
